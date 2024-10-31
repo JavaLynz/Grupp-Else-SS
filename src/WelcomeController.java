@@ -35,6 +35,7 @@ public class WelcomeController {
         try{
             switchToGame();
             server.StartServer();
+            Platform.exit();
 
         } catch(IOException e) {
             e.printStackTrace();
@@ -53,6 +54,7 @@ public class WelcomeController {
         try{
             switchToGame();
             client.startClientConnection();
+            Platform.exit();
         } catch(IOException e) {
             e.printStackTrace();
         }
