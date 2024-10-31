@@ -14,9 +14,6 @@ import java.io.IOException;
 
 public class WelcomeController {
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
     public void switchToGame() throws IOException {
 
