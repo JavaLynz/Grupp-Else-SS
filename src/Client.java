@@ -4,22 +4,16 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Client {
-    public static void main(String[] args) {
+    public void startClientConnection () {
 
         try {
-            System.out.println("Client started, connecting...");
+
+            System.out.println("Client started, trying to connect...");
             Socket socket = new Socket("localhost", 6667);
             System.out.println("Connected to server!");
-            PrintWriter write = new PrintWriter(socket.getOutputStream(), true);
-            while(true) {
-                System.out.println("Guess the number");
-                Scanner scanner = new Scanner(System.in);
-
-            }
-
 
         }catch (IOException e){
-
+            System.out.println("Server not found!");
         }
     }
 }
