@@ -46,6 +46,7 @@ public class GameFX extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+
         AnchorPane allOfItPane = new AnchorPane();
         allOfItPane.setPrefSize(750,500);
         allOfItPane.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,null,null)));
