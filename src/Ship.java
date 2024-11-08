@@ -11,8 +11,6 @@ import java.util.Random;
 //Y = A-J
 //X = 0-9
 
-//BEHÖVER LÄGGA TILL SÅ ATT SKEPP INTE PLACERAS PÅ VARANDRA
-
 public class Ship {
 
     Random random = new Random();
@@ -21,7 +19,11 @@ public class Ship {
     private int size;
     private boolean isAlive;
     private int[][] position;
-    boolean isVertical;
+    private boolean isVertical;
+    private int startRow;
+    private int startCol;
+    private int hits;
+
 
 
     // Konstruktor
@@ -72,24 +74,56 @@ public class Ship {
         this.position = position;
     }
 
+    public int getStartRow() {
+        return startRow;
+    }
+
+    public int getStartCol() {
+        return startCol;
+    }
+
+    public Random getRandom() {
+        return random;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
+    }
+
+    public boolean isVertical() {
+        return isVertical;
+    }
+
+    public void setVertical(boolean vertical) {
+        isVertical = vertical;
+    }
+
+    public void setStartRow(int startRow) {
+        this.startRow = startRow;
+    }
+
+    public void setStartCol(int startCol) {
+        this.startCol = startCol;
+    }
 
     // Metoder
 
     public int[] getRandomPosition() {
-        return new int[]{random.nextInt(10), random.nextInt(10)};
+        System.out.println("Size: " + size);
+        return new int[]{random.nextInt(10-size), random.nextInt(10-size)};
+
     }
+
+
 
     public void setRandomPosition() {
         int[] randomStartPosition = getRandomPosition();
-        int startRow = randomStartPosition[0]; // slumpad rad
-        int startCol = randomStartPosition[1]; // slumpad kolumn
+        startRow = randomStartPosition[0]; // Spara startpositionen direkt i instansvariablerna
+        startCol = randomStartPosition[1]; // Spara startpositionen direkt i instansvariablerna
 
-
-        //BEHÖVER LÄGGA TILL SÅ ATT SKEPP INTE PLACERAS PÅ VARANDRA
-
-        // Kolla om båten får plats på kartan
+        // Placera båten antingen vertikalt eller horisontellt
         if (isVertical) {
-            // Kontrollera Y
+            // Kontrollera Y och justera om båten inte får plats
             if (startRow + size > 10) {
                 startRow = 10 - size;
             }
@@ -100,7 +134,7 @@ public class Ship {
                 position[1][i] = startCol;
             }
         } else {
-            // Kontrollera X
+            // Kontrollera X och justera om båten inte får plats
             if (startCol + size > 10) {
                 startCol = 10 - size;
             }
@@ -113,7 +147,8 @@ public class Ship {
         }
     }
 
-        public void printPositions(){
+
+    public void printPositions(){
             for (int i = 0; i < size; i++) {
                 System.out.println("Rad: " + position[0][i] + ", Kolumn: " + position[1][i]);
             }
@@ -132,6 +167,8 @@ public class Ship {
             default: this.name = "Okänt fartyg";
         }
     }
+
+
 
         // toString
         @Override
