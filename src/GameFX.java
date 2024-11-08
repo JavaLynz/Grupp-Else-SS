@@ -47,6 +47,7 @@ public class GameFX extends Application {
 
 
 
+
         AnchorPane allOfItPane = new AnchorPane();
         allOfItPane.setPrefSize(750,500);
         allOfItPane.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,null,null)));
