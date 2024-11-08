@@ -54,6 +54,7 @@ public class GameFX extends Application {
 
 
 
+
         Label label1 = new Label("⪻BATTLESHIP⪼");
         Label label2 = new Label("YOUR SCORE: ");
         Label label3 = new Label("ENEMY SCORE: ");
