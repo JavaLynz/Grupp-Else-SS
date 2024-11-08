@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class GameFX extends Application {
     public static void main(String[] args) {
         launch(args);
