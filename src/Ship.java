@@ -32,6 +32,7 @@ public class Ship {
         this.size = size;
         giveNameAfterSize();
         this.isAlive = true;
+        this.hits = 0;
         this.isVertical = random.nextBoolean();
         this.position = new int[2][size];
         setRandomPosition();
@@ -152,6 +153,18 @@ public class Ship {
             for (int i = 0; i < size; i++) {
                 System.out.println("Rad: " + position[0][i] + ", Kolumn: " + position[1][i]);
             }
+        }
+
+        public void hitShip() {
+        hits++;
+            System.out.println(name + " was hit!");
+        }
+
+        public void sinkShip(){
+        if(hits == size) {
+            isAlive = false;
+            System.out.println(name + " sank!");
+        }
         }
 
         public void giveNameAfterSize(){
