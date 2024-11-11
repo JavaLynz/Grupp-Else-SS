@@ -24,7 +24,7 @@ public class Server {
     
 
 
-    public void StartServer() throws IOException {
+    public void startServer() throws IOException {
 
         Random random = new Random();
         secretNumber = random.nextInt(10);

@@ -1,15 +1,26 @@
+import java.io.IOException;
+
 public class Player {
 
+    private String name;
     private boolean isClient;
     private boolean isServer;
     private boolean gameOn;
+    private Server server = new Server();
+    private Client client = new Client();
 
     //Om det inte är en client så är det en server
-    public Player (boolean isClient) {
+    public Player (String name, boolean isClient) {
         this.isClient = isClient;
         this.isServer = !isClient;
     }
+    public void setName (String name) {
+        this.name = name;
+    }
 
+    public String getName () {
+        return name;
+    }
 
     public boolean isClient() {
         return isClient;
@@ -35,10 +46,12 @@ public class Player {
 
 
 
-    public void startGame () {
-        //Avgör is clien/server
-        //
-        //
+    public void startGame (boolean isServer) throws IOException {
+        if (isServer) {
+            server.startServer();
+        } else {
+            client.startClientConnection();
+        }
 
         System.out.println("Starting game...");
         Board playerBoard = new Board();
@@ -67,7 +80,7 @@ public class Player {
 
 
 
-        GameLoop();
+        GameLoop(this.isClient);
     }
 
     public void GameLoop(boolean isClient){
@@ -103,11 +116,12 @@ public class Player {
     }
 
 
-    public AssessGuess(){
+    public String AssessGuess(){
         //is it a hit / miss / sink
-        if (hit)
+        //if ("hit")
         CheckShipStatus();
-        else return "miss";
+        //else return "miss";
+        return "hit or miss";
     }
 
     public void CheckShipStatus(){
@@ -120,5 +134,7 @@ public class Player {
         // gameOn = false
         // EndGame();
     }
+
+
 
 }
