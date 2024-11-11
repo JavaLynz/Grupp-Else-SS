@@ -16,6 +16,10 @@ import javafx.stage.Stage;
 public class BattleshipApp extends Application {
 
     private static Stage window;
+    private Player serverPlayer;
+    private Player clientPlayer;
+    private Board playerBoard;
+    private Board enemyBoard;
 
     public static  Stage getStage() {
         return window;
@@ -26,17 +30,19 @@ public class BattleshipApp extends Application {
 
         Scene scene, scene1;
         window = primaryStage;
-        window.setTitle("Grupp Else Battleship");
-
-
+        window.setTitle("Welcome to Grupp Else's Battleship");
 
         Button button = new Button("Start a game");
         button.setStyle("-fx-background-color: #ffa500");
         button.setFont(new Font("Arial", 30));
         button.setOnAction(e->{
             button.setStyle("-fx-background-color: #fff");
-            System.out.println("Player 1 has joined the game!");
+            //get player's name and port;
             PlayerOneInputWindow.display();
+            serverPlayer = new Player(PlayerOneInputWindow.getPlayerOneName(),false);
+            serverPlayer.startGame(true);
+
+
 
 
         });

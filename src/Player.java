@@ -8,15 +8,18 @@ public class Player {
     private boolean gameOn;
     private Server server = new Server();
     private Client client = new Client();
+    private Board playerBoard;
+    private Board enemyBoard;
 
     //Om det inte är en client så är det en server
-    public Player (String name, boolean isClient) {
+    public Player (String name, Board playerBoard, Board enemyBoard, boolean isClient) {
+        this.name = name;
         this.isClient = isClient;
         this.isServer = !isClient;
+        this.playerBoard = playerBoard;
+        this.enemyBoard = enemyBoard;
     }
-    public void setName (String name) {
-        this.name = name;
-    }
+
 
     public String getName () {
         return name;
@@ -38,6 +41,25 @@ public class Player {
         isServer = server;
     }
 
+    public void setPlayerBoard(Board board) {
+        this.playerBoard = playerBoard;
+    }
+
+    public Board getPlayerBoard() {
+        return playerBoard;
+    }
+
+    public void setEnemyBoard(Board board){
+        this.enemyBoard = enemyBoard;
+    }
+
+    public Board getEnemyBoard(){
+        return enemyBoard;
+    }
+
+
+
+
     public void takeTurns() {
         System.out.println(isClient? "Clients " : "Servers " + " turn.");
     }
@@ -49,13 +71,17 @@ public class Player {
     public void startGame (boolean isServer) throws IOException {
         if (isServer) {
             server.startServer();
+            System.out.println("Starting game...");
+            Board playerBoard = new Board();
+            Board enemyBoard = new Board();
         } else {
             client.startClientConnection();
+            System.out.println("Starting game...");
+            Board playerBoard = new Board();
+            Board enemyBoard = new Board();
         }
 
-        System.out.println("Starting game...");
-        Board playerBoard = new Board();
-        Board enemyBoard = new Board();
+
 
         // starta ny tråd och kör metod för att placera skepp
 /*
@@ -135,6 +161,9 @@ public class Player {
         // EndGame();
     }
 
-
+@Override
+    public String toString() {
+        return "Player name: " + name + "Is server: " + isServer;
+}
 
 }
