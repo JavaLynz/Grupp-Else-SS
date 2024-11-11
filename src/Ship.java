@@ -154,6 +154,14 @@ public class Ship {
             }
         }
 
+        public void sinkShip(){
+        if(hits == size) {
+            isAlive = false;
+            System.out.println(name + " sank!");
+
+        }
+        }
+
         public void giveNameAfterSize(){
         switch (size) {
             case 2: this.name = "Ubåt";
@@ -173,11 +181,14 @@ public class Ship {
         // toString
         @Override
         public String toString () {
-            return "Ship{" +
-                    "name='" + name + '\'' +
-                    ", size=" + size +
-                    ", isAlive=" + isAlive +
-                    ", position=" + position +
-                    '}';
+            StringBuilder positionString = new StringBuilder();
+            for (int i = 0; i < position.length; i++) {
+                positionString.append("[").append(position[i][0]).append(", ").append(position[i][1]).append("]");
+                if (i < position.length -1) {
+                    positionString.append(", ");
+                }
+                }
+            return "Ship{name='" + name + "'size=" + size + ", isAlive=" + isAlive + ", position=" + positionString.toString() + "}";
+
+            }
         }
-    }

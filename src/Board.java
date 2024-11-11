@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /*
@@ -17,10 +20,16 @@ public class Board {
 
     private int[][] map;
     private Random random = new Random();
+    private List<Ship> fleet;
 
     // Konstruktor
     public Board() {
         this.map = new int[10][10];
+        this.fleet = new ArrayList<>();
+        createShips();
+        placeAllShips();
+        printMap();
+
     }
 
 
@@ -31,6 +40,14 @@ public class Board {
 
     public void setMap(int[][] map) {
         this.map = map;
+    }
+
+    public List<Ship> getFleet() {
+        return fleet;
+    }
+
+    public void setFleet(List<Ship> fleet) {
+        this.fleet = fleet;
     }
 
 
@@ -99,6 +116,40 @@ public class Board {
         return row >= 0 && row < map.length && col >= 0 && col < map[0].length;
     }
 
+    public void placeAllShips(){
+        for(Ship s : fleet){
+            placeShip(s);
+        }
+    }
+
+    public int checkNumberOfShipsLeft(){
+        System.out.println("Antal skepp kvar i listan: " + checkNumberOfShipsLeft());
+        return fleet.size();
+    }
+
+    public void createShips(){
+
+        fleet.add(new Ship(5));
+        fleet.add(new Ship(4));
+        fleet.add(new Ship(4));
+        fleet.add(new Ship(3));
+        fleet.add(new Ship(3));
+        fleet.add(new Ship(3));
+        fleet.add(new Ship(2));
+        fleet.add(new Ship(2));
+        fleet.add(new Ship(2));
+        fleet.add(new Ship(2));
+
+        System.out.println("Skepp har skapats");
+    }
+
+//    public List<Ship> getShipList() {
+//        System.out.println("List size " + ships.size());
+//        return ships;
+//    }
+
+
+
     // Skriv ut kartan
     public void printMap() {
         System.out.println("test printMap");
@@ -119,5 +170,15 @@ public class Board {
             }
             System.out.println();
         }
+    }
+
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "map=" + Arrays.toString(map) +
+                ", random=" + random +
+                ", ships=" + fleet +
+                '}';
     }
 }

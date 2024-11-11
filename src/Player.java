@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
 
     private boolean isClient;
@@ -8,6 +11,8 @@ public class Player {
     public Player (boolean isClient) {
         this.isClient = isClient;
         this.isServer = !isClient;
+
+
     }
 
 
@@ -30,6 +35,8 @@ public class Player {
     public void takeTurns() {
         System.out.println(isClient? "Clients " : "Servers " + " turn.");
     }
+
+
 
 
 
@@ -67,7 +74,7 @@ public class Player {
 
 
 
-        GameLoop();
+//        GameLoop();
     }
 
     public void GameLoop(boolean isClient){
@@ -103,17 +110,20 @@ public class Player {
     }
 
 
-    public AssessGuess(){
-        //is it a hit / miss / sink
-        if (hit)
-        CheckShipStatus();
-        else return "miss";
-    }
+//    public AssessGuess(){
+//        //is it a hit / miss / sink
+//        if (hit)
+//        CheckShipStatus();
+//        else return "miss";
+//    }
 
     public void CheckShipStatus(){
         // check if all ships are Alive
         // if all ships are sunk
         System.out.println("checking status of all ships..");
+
+
+
         //if ( > 1 ship for each player isAlive) {
         // do nothing?
         //}else {
