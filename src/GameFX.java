@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,44 +14,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameFX extends Application {
+    int[][] annasPlayerBoardArray = new int[][]{
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,1,1,1,0,0,0,0,0,0},
+            {0,0,3,0,0,0,0,0,0,0},
+            {0,0,0,1,1,1,0,0,0,0},
+            {0,0,0,0,3,0,0,0,0,0},
+            {0,0,0,0,0,2,2,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0}
+    };
+
+    int[][] annasEnnemyBoardArray = new int[][]{
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,3,0,0,0,0,0,0,0},
+            {0,0,0,3,0,0,0,0,0,0},
+            {0,0,0,0,2,0,0,0,0,0},
+            {0,0,0,0,0,2,0,0,0,0},
+            {0,3,3,0,0,0,2,0,0,0},
+            {0,0,2,2,0,0,0,3,0,0},
+            {0,0,0,0,0,0,0,0,3,0},
+            {0,0,0,0,0,0,0,0,0,2}
+    };
+
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        int[][] annasPlayerBoardArray = new int[][]{
-                {0,0,0,0,0,0,0,0,0,0},
-                {0,1,1,1,0,0,0,0,0,0},
-                {0,0,3,0,0,0,0,0,0,0},
-                {0,0,0,1,1,1,0,0,0,0},
-                {0,0,0,0,3,0,0,0,0,0},
-                {0,0,0,0,0,2,2,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0}
-        };
-
-        int[][] annasEnnemyBoardArray = new int[][]{
-                {0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,0,0},
-                {0,0,3,0,0,0,0,0,0,0},
-                {0,0,0,3,0,0,0,0,0,0},
-                {0,0,0,0,2,0,0,0,0,0},
-                {0,0,0,0,0,2,0,0,0,0},
-                {0,3,3,0,0,0,2,0,0,0},
-                {0,0,2,2,0,0,0,3,0,0},
-                {0,0,0,0,0,0,0,0,3,0},
-                {0,0,0,0,0,0,0,0,0,2}
-        };
-
-
 
         AnchorPane allOfItPane = new AnchorPane();
         allOfItPane.setPrefSize(750,500);
         allOfItPane.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,null,null)));
-
 
 
         Label label1 = new Label("⪻BATTLESHIP⪼");
@@ -75,15 +74,12 @@ public class GameFX extends Application {
         label5.setLayoutX(400);
 
 
-
-
         AnchorPane playerBoard = new AnchorPane();
         playerBoard.setBackground(new Background(new BackgroundFill(Color.GREY,null,null)));
-        playerBoard.setPrefWidth(400);
+
 
         AnchorPane enemyBoard = new AnchorPane();
         enemyBoard.setBackground(new Background(new BackgroundFill(Color.DARKCYAN,null,null)));
-        enemyBoard.setPrefWidth(400);
 
         AnchorPane yourScore = new AnchorPane();
         List<Circle> playerScoreList = new ArrayList<>();
@@ -113,29 +109,44 @@ public class GameFX extends Application {
         enemyScore.setLayoutX(655);
         enemyScore.setLayoutY(30);
 
-        Label labelA = new Label("A");
-        Label labelB = new Label("B");
-        Label labelC = new Label("C");
-        Label labelD = new Label("D");
-        Label labelE = new Label("E");
-        Label labelF = new Label("F");
-        Label labelG = new Label("G");
-        Label labelH = new Label("H");
-        Label labelI = new Label("I");
-        Label labelJ = new Label("J");
+        Label labelA = new Label("  A   ");
+        Label labelB = new Label("  B   ");
+        Label labelC = new Label("  C   ");
+        Label labelD = new Label("  D   ");
+        Label labelE = new Label("  E   ");
+        Label labelF = new Label("  F   ");
+        Label labelG = new Label("  G   ");
+        Label labelH = new Label("  H   ");
+        Label labelI = new Label("  I    ");
+        Label labelJ = new Label("  J    ");
 
-        labelA.setBackground(new Background(new BackgroundFill(Color.PALEVIOLETRED,null,null)));
+        labelA.setBackground(new Background(new BackgroundFill(Color.DARKSEAGREEN,null,null)));
         labelA.prefWidth(65);
         labelA.prefHeight(25);
 
 
         GridPane lettersGrid = new GridPane();
+        lettersGrid.setGridLinesVisible(true);
         lettersGrid.add(labelA, 0,0);
-        lettersGrid.add(labelC, 1,0);
-        //(labelA, labelB, labelC,labelD,labelE,labelF,labelG,labelH,labelI, labelJ);
+        lettersGrid.add(labelB, 1,0);
+        lettersGrid.add(labelC, 2,0);
+        lettersGrid.add(labelD, 3,0);
+        lettersGrid.add(labelE, 4,0);
+        lettersGrid.add(labelF, 5,0);
+        lettersGrid.add(labelG, 6,0);
+        lettersGrid.add(labelH, 7,0);
+        lettersGrid.add(labelI, 8,0);
+        lettersGrid.add(labelJ, 9,0);
 
-        //  lettersGrid.setHgap(15);
         lettersGrid.setBackground(new Background(new BackgroundFill(Color.BURLYWOOD,null,null)));
+        lettersGrid.setHgap(5);
+        lettersGrid.setCenterShape(true);
+
+        lettersGrid.setLayoutX(100);
+        lettersGrid.setLayoutY(100);
+
+
+
 
         List<Rectangle> playerBoardList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -175,10 +186,6 @@ public class GameFX extends Application {
 
             }
         }
-        playerBoard.getChildren().addAll(playerBoardList);
-        playerBoard.setPrefWidth(255);
-        playerBoard.setPrefHeight(255);
-
 
         List<Rectangle> enemyList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -192,11 +199,21 @@ public class GameFX extends Application {
                 enemyList.add(rectangle);
             }
         }
-        enemyBoard.getChildren().addAll(enemyList);
 
+        playerBoard.getChildren().addAll(playerBoardList);
+        playerBoard.setPrefWidth(255);
+        playerBoard.setPrefHeight(255);
+        playerBoard.setLayoutX(100);
+        playerBoard.setLayoutY(125);
+
+        enemyBoard.getChildren().addAll(enemyList);
+        enemyBoard.setPrefWidth(255);
+        enemyBoard.setPrefHeight(255);
+        enemyBoard.setLayoutX(365);
+        enemyBoard.setLayoutY(125);
 
         Button speed = new Button("Change delay speed");
-        Button giveUp = new Button("Surrender the game and quit");
+        Button giveUp = new Button("Give up the game and quit");
 
         speed.setStyle("-fx-font: 10 arial; -fx-base: #b6e7c9;");
         giveUp.setStyle("-fx-font: 10 arial; -fx-base: RED;");
@@ -207,17 +224,17 @@ public class GameFX extends Application {
         textArea.setLayoutX(300);
 
         AnchorPane boardNames = new AnchorPane(label4, label5);
-        VBox sideNumbers = new VBox();
-        sideNumbers.getChildren().addAll(labelA, labelB);
+        boardNames.setLayoutX(75);
+        boardNames.setLayoutY(75);
+        GridPane sideNumbers = new GridPane();
+      // sideNumbers.getChildren().addAll(labelA, labelB);
 
-        HBox theBoards = new HBox(sideNumbers,playerBoard, enemyBoard);
-        theBoards.setLayoutY(100);
 
-        VBox left = new VBox(boardNames, lettersGrid, theBoards);
 
-        left.setLayoutY(100);
-
-        allOfItPane.getChildren().addAll(label1,label2, yourScore, label3, enemyScore, left);
+        allOfItPane.getChildren().addAll(label1,label2, yourScore, label3, enemyScore,
+                boardNames,lettersGrid,
+                sideNumbers,playerBoard, enemyBoard);
+      //          ,speed,textArea,giveUp
 
 
         Scene scene = new Scene(allOfItPane);
