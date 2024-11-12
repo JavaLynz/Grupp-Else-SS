@@ -22,6 +22,7 @@ public class Translate {
         if (recived.charAt(0)=='i');
             enemyState = 0;
         if (recived.charAt(0)=='h');
+
            enemyState = 0;
         if (recived.charAt(0)=='m');
             enemyState = 0;
