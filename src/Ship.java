@@ -18,11 +18,12 @@ public class Ship {
     private String name;
     private int size;
     private boolean isAlive;
-    private int[][] position;
+    private List<int[]> positions;
     private boolean isVertical;
+    private int hits;
     private int startRow;
     private int startCol;
-    private int hits;
+
 
 
 
@@ -31,10 +32,10 @@ public class Ship {
 
         this.size = size;
         giveNameAfterSize();
+        this.positions = new ArrayList<>();
         this.isAlive = true;
         this.isVertical = random.nextBoolean();
-        this.position = new int[2][size];
-        setRandomPosition();
+        this.hits = 0;
 
         System.out.println(name + " skapad med storlek " + size + " på position ");
         printPositions();
@@ -66,22 +67,6 @@ public class Ship {
         isAlive = alive;
     }
 
-    public int[][] getPosition() {
-        return position;
-    }
-
-    public void setPosition(int[][] position) {
-        this.position = position;
-    }
-
-    public int getStartRow() {
-        return startRow;
-    }
-
-    public int getStartCol() {
-        return startCol;
-    }
-
     public Random getRandom() {
         return random;
     }
@@ -98,8 +83,32 @@ public class Ship {
         isVertical = vertical;
     }
 
+    public List<int[]> getPositions() {
+        return positions;
+    }
+
+    public void setPositions(List<int[]> positions) {
+        this.positions = positions;
+    }
+
+    public int getHits() {
+        return hits;
+    }
+
+    public void setHits(int hits) {
+        this.hits = hits;
+    }
+
+    public int getStartRow() {
+        return startRow;
+    }
+
     public void setStartRow(int startRow) {
         this.startRow = startRow;
+    }
+
+    public int getStartCol() {
+        return startCol;
     }
 
     public void setStartCol(int startCol) {
@@ -108,51 +117,48 @@ public class Ship {
 
     // Metoder
 
+    public void setOrientation(boolean isVertical){
+        this.isVertical = isVertical;
+    }
+
+    public void setStartPosition(int startRow, int startCol){
+        this.startRow = startRow;
+        this.startCol = startCol;
+    }
+
+
     public int[] getRandomPosition() {
         System.out.println("Size: " + size);
         return new int[]{random.nextInt(10-size), random.nextInt(10-size)};
 
     }
 
+    // Metoder
 
-
-    public void setRandomPosition() {
-        int[] randomStartPosition = getRandomPosition();
-        startRow = randomStartPosition[0]; // Spara startpositionen direkt i instansvariablerna
-        startCol = randomStartPosition[1]; // Spara startpositionen direkt i instansvariablerna
-
-        // Placera båten antingen vertikalt eller horisontellt
-        if (isVertical) {
-            // Kontrollera Y och justera om båten inte får plats
-            if (startRow + size > 10) {
-                startRow = 10 - size;
+    public void setPosition() {
+        if(isVertical) {
+            for (int i = 0; i < size ; i++) {
+                positions.add(new int[]{startRow + i, startCol});
             }
-
-            // Placera båt vertikalt
+        }
+        else {
             for (int i = 0; i < size; i++) {
-                position[0][i] = startRow + i;
-                position[1][i] = startCol;
-            }
-        } else {
-            // Kontrollera X och justera om båten inte får plats
-            if (startCol + size > 10) {
-                startCol = 10 - size;
-            }
-
-            // Placera båt horisontellt
-            for (int i = 0; i < size; i++) {
-                position[0][i] = startRow;
-                position[1][i] = startCol + i;
+                positions.add(new int[]{startRow, startCol + i});
             }
         }
     }
 
-
-    public void printPositions(){
-            for (int i = 0; i < size; i++) {
-                System.out.println("Rad: " + position[0][i] + ", Kolumn: " + position[1][i]);
-            }
+public void printPositions() {
+    System.out.println("POSITIONER");
+        for(int[] pos : positions) {
+            System.out.println("Rad: " + pos[0] + " Kolumn: " + pos[1]);
         }
+}
+
+    public void addPosition(int row, int col) {
+        positions.add(new int[]{row,col});
+    }
+
 
         public void sinkShip(){
         if(hits == size) {
@@ -177,18 +183,16 @@ public class Ship {
     }
 
 
-
-        // toString
-        @Override
-        public String toString () {
-            StringBuilder positionString = new StringBuilder();
-            for (int i = 0; i < position.length; i++) {
-                positionString.append("[").append(position[i][0]).append(", ").append(position[i][1]).append("]");
-                if (i < position.length -1) {
-                    positionString.append(", ");
-                }
-                }
-            return "Ship{name='" + name + "'size=" + size + ", isAlive=" + isAlive + ", position=" + positionString.toString() + "}";
-
-            }
-        }
+    @Override
+    public String toString() {
+        return "Ship{" +
+                "random=" + random +
+                ", name='" + name + '\'' +
+                ", size=" + size +
+                ", isAlive=" + isAlive +
+                ", positions=" + positions +
+                ", isVertical=" + isVertical +
+                ", hits=" + hits +
+                '}';
+    }
+}

@@ -6,6 +6,5 @@ public class BattleshipMain {
         Player player = new Player(true);
         Board board = new Board();
 
-
     }
 }

@@ -58,26 +58,51 @@ public class Board {
         int size = ship.getSize();
         boolean placed = false;
 
-        while (!placed) {
+        while(!placed) {
             int startRow = random.nextInt(10);
             int startCol = random.nextInt(10);
             boolean isVertical = random.nextBoolean();
 
-            // Kolla om skeppet får plats
             if (canPlaceShip(startRow, startCol, size, isVertical)) {
-                if (isVertical) {
-                    for (int i = 0; i < size; i++) {
-                        map[startRow + i][startCol] = size; // Vertikal = adderar rader
-                    }
-                } else {
-                    for (int i = 0; i < size; i++) {
-                        map[startRow][startCol + i] = size;  // Horisontell = adderar kolumner
-                    }
+                ship.setOrientation(isVertical);
+                ship.setStartPosition(startRow, startCol);
+                ship.setPosition();
+
+                for (int[] pos : ship.getPositions()) {
+                    map[pos[0]][pos[1]] = size;
                 }
                 placed = true;
+                ship.printPositions();
             }
         }
     }
+
+
+
+//    public void placeShip(Ship ship) {
+//        int size = ship.getSize();
+//        boolean placed = false;
+//
+//        while (!placed) {
+//            int startRow = random.nextInt(10);
+//            int startCol = random.nextInt(10);
+//            boolean isVertical = random.nextBoolean();
+//
+//            // Kolla om skeppet får plats
+//            if (canPlaceShip(startRow, startCol, size, isVertical)) {
+//                if (isVertical) {
+//                    for (int i = 0; i < size; i++) {
+//                        map[startRow + i][startCol] = size; // Vertikal = adderar rader
+//                    }
+//                } else {
+//                    for (int i = 0; i < size; i++) {
+//                        map[startRow][startCol + i] = size;  // Horisontell = adderar kolumner
+//                    }
+//                }
+//                placed = true;
+//            }
+//        }
+//    }
 
     // Kolla om skeppet inte placeras för nära andra skepp
     private boolean canPlaceShip(int startRow, int startCol, int size, boolean isVertical) {
