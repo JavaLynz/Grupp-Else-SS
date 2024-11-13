@@ -74,11 +74,13 @@ public class Player {
             System.out.println("Starting game...");
             Board playerBoard = new Board();
             Board enemyBoard = new Board();
+            //playerBoard.placeShip();
         } else {
             client.startClientConnection();
             System.out.println("Starting game...");
             Board playerBoard = new Board();
             Board enemyBoard = new Board();
+            //playerBoard.placeShip();
         }
 
 
@@ -88,7 +90,7 @@ public class Player {
 • ett hangarfartyg (5x1 ruta)
 • två slagskepp (4x1 ruta)
 • tre kryssare (3x1 ruta)
-• fyra ubåtar (2x1 ruta*/
+• fyra ubåtar (2x1 ruta
         Ship ship5 = new Ship(5);
         Ship ship4a = new Ship(4);
         Ship ship4b = new Ship(4);
@@ -98,15 +100,10 @@ public class Player {
         Ship ship2a = new Ship(2);
         Ship ship2b = new Ship(2);
         Ship ship2c = new Ship(2);
-        Ship ship2d = new Ship(2);
-
-        playerBoard.placeShip(ship5);
+        Ship ship2d = new Ship(2);*/
 
         //Byter scen till GameFX och skickar med playerBoard.getMap(), enemyBoard.getMap();
 
-
-
-        GameLoop(this.isClient);
     }
 
     public void GameLoop(boolean isClient){
@@ -133,16 +130,16 @@ public class Player {
         }
     }
 
-    public void GuessRandom(){
+    public void guessRandom(){
 
     }
 
-    public void GuessLogik(){
+    public void guessLogic(){
 
     }
 
 
-    public String AssessGuess(){
+    public String assessGuess(){
         //is it a hit / miss / sink
         //if ("hit")
         CheckShipStatus();

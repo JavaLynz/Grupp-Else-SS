@@ -13,6 +13,7 @@ public class PlayerOneInputWindow {
     protected static String playerOneName;
     protected static boolean isServer = true;
     protected static boolean isClient = false;
+    protected static  int port;
 
     public static String display() {
         Stage window = new Stage();
@@ -26,19 +27,28 @@ public class PlayerOneInputWindow {
 
         TextField name = new TextField("Player One");
 
+        Label portInputLabel = new Label();
+        portInputLabel.setAlignment(Pos.CENTER);
+        portInputLabel.setText("Port: ");
+        portInputLabel.setFont(new Font("Arial",30));
+
+        TextField portInput = new TextField("6667");
 
         Button done = new Button("Done");
         done.setDefaultButton(true);
         done.setOnAction(e -> {
             System.out.println("Player One Name: " + name.getText());
             playerOneName = name.getText();
+            port = Integer.parseInt(portInput.getText());
             window.close();
             GameFXa.display(playerOneName);
         });
 
 
+
+
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, name, done);
+        layout.getChildren().addAll(label, name, portInputLabel , portInput ,done);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);

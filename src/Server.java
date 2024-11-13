@@ -10,7 +10,7 @@ import java.util.Random;
 public class Server {
 
     private int secretNumber;
-    private int port = 6667;
+    private int port = PlayerOneInputWindow.port;
     private String message;
     private boolean gameOver;
 

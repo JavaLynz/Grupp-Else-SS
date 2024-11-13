@@ -13,6 +13,7 @@ public class PlayerTwoInputWindow {
     protected static String playerTwoName;
     protected static boolean isClient = true;
     protected static boolean isServer = false;
+    protected static String ipAddress;
 
     public static void display() {
         Stage window = new Stage();
@@ -26,19 +27,26 @@ public class PlayerTwoInputWindow {
 
         TextField name = new TextField("Player Two");
 
+        Label ipAddressLabel = new Label();
+        label.setText("Please enter the server IP address: ");
+        label.setAlignment(Pos.CENTER);
+        label.setFont(new Font("Arial",30));
+
+        TextField ipAddressInput = new TextField("localhost");
 
         Button done = new Button("Done");
         done.setDefaultButton(true);
         done.setOnAction(e -> {
             System.out.println("Player Two Name: " + name.getText());
             String playerTwoName = name.getText();
+            String ipAddress = ipAddressInput.getText();
             window.close();
             GameFXa.display(playerTwoName);
         });
 
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, name, done);
+        layout.getChildren().addAll(label, name, ipAddressLabel, ipAddressInput, done);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);

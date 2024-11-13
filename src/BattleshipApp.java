@@ -13,6 +13,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class BattleshipApp extends Application {
 
     private static Stage window;
@@ -23,6 +25,14 @@ public class BattleshipApp extends Application {
 
     public static  Stage getStage() {
         return window;
+    }
+
+    public Player getClientPlayer() {
+        return clientPlayer;
+    }
+
+    public Player getServerPlayer() {
+        return serverPlayer;
     }
 
     @Override
@@ -39,10 +49,12 @@ public class BattleshipApp extends Application {
             button.setStyle("-fx-background-color: #fff");
             //get player's name and port;
             PlayerOneInputWindow.display();
-            serverPlayer = new Player(PlayerOneInputWindow.getPlayerOneName(),false);
-            serverPlayer.startGame(true);
-
-
+            serverPlayer = new Player(PlayerOneInputWindow.getPlayerOneName(),playerBoard,enemyBoard,false);
+            try {
+                serverPlayer.startGame(true);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
 
 
         });
@@ -52,8 +64,13 @@ public class BattleshipApp extends Application {
         button1.setFont(new Font("Arial", 30));
         button1.setOnAction(e->{
             button1.setStyle("-fx-background-color: #fff");
-            System.out.println("Player 2 has joined the game!");
             PlayerTwoInputWindow.display();
+            Player clientPlayer = new Player(PlayerTwoInputWindow.getPlayerTwoName(),playerBoard, enemyBoard, true);
+            try {
+                clientPlayer.startGame(false);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
 
 
         });
