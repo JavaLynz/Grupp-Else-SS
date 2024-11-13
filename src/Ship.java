@@ -149,7 +149,7 @@ public class Ship {
     }
 
 public void printPositions() {
-    System.out.println("POSITIONER");
+    System.out.println(name);
         for(int[] pos : positions) {
             System.out.println("Rad: " + pos[0] + " Kolumn: " + pos[1]);
         }
@@ -168,6 +168,10 @@ public void printPositions() {
         }
         }
 
+        public void addHit(){
+        hits++;
+        }
+
         public void giveNameAfterSize(){
         switch (size) {
             case 2: this.name = "Ubåt";
@@ -181,6 +185,8 @@ public void printPositions() {
             default: this.name = "Okänt fartyg";
         }
     }
+
+
 
 
     @Override

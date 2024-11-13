@@ -1,16 +1,19 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Player {
 
     private boolean isClient;
     private boolean isServer;
     private boolean gameOn;
+    private Board playerboard;
 
     //Om det inte är en client så är det en server
     public Player (boolean isClient) {
         this.isClient = isClient;
         this.isServer = !isClient;
+        this.playerboard = new Board();
 
 
     }
@@ -101,8 +104,23 @@ public class Player {
         }
     }
 
+
+//      Niklas metod för att testa om kartan fungerar
+
     public void GuessRandom(){
 
+        Random random =  new Random();
+        int row = random.nextInt(10);
+        int col = random.nextInt(10);
+
+        System.out.println("Skjöt på position " + "Rad: " + row + " Kolumn: " + col);
+        if (playerboard.hit(row, col)) {
+            System.out.println("Träff!");
+        }
+        else {
+            System.out.println("Miss!");
+        }
+        playerboard.printMap();
     }
 
     public void GuessLogik(){

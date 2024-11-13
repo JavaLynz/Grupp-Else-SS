@@ -25,6 +25,11 @@ public class Board {
     // Konstruktor
     public Board() {
         this.map = new int[10][10];
+        for (int i = 0; i < 10 ; i++) {
+            for (int j = 0; j < 10; j++) {
+                map[i][j] = 0;
+            }
+        }
         this.fleet = new ArrayList<>();
         createShips();
         placeAllShips();
@@ -173,9 +178,35 @@ public class Board {
 //        return ships;
 //    }
 
+    public boolean hit(int row, int col) {
+        for(Ship s : fleet) {
+            for(int[] pos : s.getPositions()) {
+                if(pos[0] == row && pos[1] == col) {
+                    s.addHit();
+                    map[row][col] = 9;
+                    System.out.println("Träff!" + s.getName() + "på position " + row + col);
+                    return true;
+                }
+            }
+        }
+        map[row][col] = 9;
+        return false;
 
+    }
+
+
+    public void printBoard() {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                System.out.print(map[i][j] + " ");
+            }
+            System.out.println();
+
+        }
+    }
 
     // Skriv ut kartan
+
     public void printMap() {
         System.out.println("test printMap");
         System.out.print("  ");
@@ -185,7 +216,7 @@ public class Board {
         System.out.println();
 
         for (int row = 0; row < map.length; row++) {
-            System.out.print((char) ('A' + row) + " ");
+            System.out.print(row + " ");
             for (int col = 0; col < map[row].length; col++) {
                 if (map[row][col] == 0) {
                     System.out.print("~ ");
@@ -196,6 +227,26 @@ public class Board {
             System.out.println();
         }
     }
+//    public void printMap() {
+//        System.out.println("test printMap");
+//        System.out.print("  ");
+//        for (int col = 0; col < map[0].length; col++) {
+//            System.out.print(col + " ");
+//        }
+//        System.out.println();
+//
+//        for (int row = 0; row < map.length; row++) {
+//            System.out.print((char) ('A' + row) + " ");
+//            for (int col = 0; col < map[row].length; col++) {
+//                if (map[row][col] == 0) {
+//                    System.out.print("~ ");
+//                } else {
+//                    System.out.print(map[row][col] + " ");
+//                }
+//            }
+//            System.out.println();
+//        }
+//    }
 
 
     @Override
