@@ -13,7 +13,5 @@ public class BattleshipMain {
 //            sc.nextLine();
 //            player.GuessRandom();
 //        }
-
-
     }
 }
