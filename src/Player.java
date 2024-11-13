@@ -105,23 +105,23 @@ public class Player {
     }
 
 
-//      Niklas metod för att testa om kartan fungerar
+//      Niklas gissa-metod för att testa om kartan fungerar
 
-    public void GuessRandom(){
-
-        Random random =  new Random();
-        int row = random.nextInt(10);
-        int col = random.nextInt(10);
-
-        System.out.println("Skjöt på position " + "Rad: " + row + " Kolumn: " + col);
-        if (playerboard.hit(row, col)) {
-            System.out.println("Träff!");
-        }
-        else {
-            System.out.println("Miss!");
-        }
-        playerboard.printMap();
-    }
+//    public void GuessRandom(){
+//
+//        Random random =  new Random();
+//        int row = random.nextInt(10);
+//        int col = random.nextInt(10);
+//
+//        System.out.println("Skjöt på position " + "Rad: " + row + " Kolumn: " + col);
+//        if (playerboard.hit(row, col)) {
+//            System.out.println("Träff!");
+//        }
+//        else {
+//            System.out.println("Miss!");
+//        }
+//        playerboard.printMap();
+//    }
 
     public void GuessLogik(){
 
