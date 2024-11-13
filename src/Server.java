@@ -10,12 +10,14 @@ import java.util.Random;
 public class Server {
 
     private int secretNumber;
-    private int port = 6667;
+    private int port;
     private String message;
     private boolean gameOver;
+    private String host = "localhost";
+    public boolean connected = false;
 
     public Server(int port) {
-        this.port = port;
+        this.port = Integer.parseInt(PlayerOneInputWindow.getPort());
     }
 
     public Server(){
@@ -29,11 +31,12 @@ public class Server {
         Random random = new Random();
         secretNumber = random.nextInt(10);
 
+
+        System.out.println("Starting server...");
+
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server starting... waiting for connection...");
-            InetAddress ip = InetAddress.getLocalHost();
             serverSocket.setSoTimeout(30000);
-            System.out.println("Server opened at " + ip.getHostAddress() + "Port: " + port);
 
             Socket socket = serverSocket.accept();
             System.out.println("Connection established.");
@@ -46,7 +49,10 @@ public class Server {
     }
 
     public void handleClientCommunication(Socket socket) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream())); PrintWriter writer = new PrintWriter(socket.getOutputStream(), true)) {
+        try (
+                BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                PrintWriter writer = new PrintWriter(socket.getOutputStream(), true)
+        ) {
 
             gameOver = false;
 
@@ -83,6 +89,12 @@ public class Server {
         this.port = port;
     }
 
+    public String getHost(){
+        return host;
+    }
+    public void setHost(String host){
+        this.host = host;
+    }
     @Override
     public String toString() {
         return "Server: port: " + port;

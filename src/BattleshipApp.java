@@ -13,20 +13,47 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class BattleshipApp extends Application {
 
     private static Stage window;
     private Player serverPlayer;
     private Player clientPlayer;
-    private Board playerBoard;
-    private Board enemyBoard;
+    private Board serverPlayerBoard;
+    private Board clientPlayerBoard;
+    private Board serverEnemyBoard;
+    private Board clientEnemyBoard;
 
     public static  Stage getStage() {
         return window;
     }
 
+    public Player getServerPlayer() {
+        return serverPlayer;
+    }
+    public Player getClientPlayer() {
+        return clientPlayer;
+    }
+    public Board getServerPlayerBoard() {
+        return serverPlayerBoard;
+    }
+
+    public Board getServerEnemyBoard() {
+        return serverEnemyBoard;
+    }
+
+    public Board getClientPlayerBoard() {
+    return clientPlayerBoard;
+    }
+
+    public Board getCientEnemyBoard() {
+    return clientEnemyBoard;
+    }
+
+
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
 
         Scene scene, scene1;
         window = primaryStage;
@@ -39,10 +66,12 @@ public class BattleshipApp extends Application {
             button.setStyle("-fx-background-color: #fff");
             //get player's name and port;
             PlayerOneInputWindow.display();
-            serverPlayer = new Player(PlayerOneInputWindow.getPlayerOneName(),false);
-            serverPlayer.startGame(true);
-
-
+            serverPlayer = new Player(PlayerOneInputWindow.getPlayerOneName(),serverPlayerBoard, serverEnemyBoard, false);
+            try {
+                serverPlayer.startGame(true);
+            } catch (IOException exception) {
+                    throw new RuntimeException(exception);
+            }
 
 
         });
@@ -52,8 +81,13 @@ public class BattleshipApp extends Application {
         button1.setFont(new Font("Arial", 30));
         button1.setOnAction(e->{
             button1.setStyle("-fx-background-color: #fff");
-            System.out.println("Player 2 has joined the game!");
             PlayerTwoInputWindow.display();
+            clientPlayer = new Player(PlayerTwoInputWindow.getPlayerTwoName(),clientPlayerBoard, clientEnemyBoard, true);
+            try {
+                clientPlayer.startGame(false);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
 
 
         });
