@@ -37,9 +37,7 @@ public class Ship {
         this.isVertical = random.nextBoolean();
         this.hits = 0;
 
-        System.out.println(name + " skapad med storlek " + size + " på position ");
-        printPositions();
-        System.out.println("isVertical=" + isVertical);
+        System.out.println(name + " skapad med storlek " + size);
     }
 
     // Getters och Setters

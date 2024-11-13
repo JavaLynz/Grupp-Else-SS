@@ -170,7 +170,7 @@ public class Board {
         fleet.add(new Ship(2));
         fleet.add(new Ship(2));
 
-        System.out.println("Skepp har skapats");
+        System.out.println("\nAlla skepp har skapats och placerats i listan.\n");
     }
 
 //    public List<Ship> getShipList() {
@@ -184,7 +184,7 @@ public class Board {
                 if(pos[0] == row && pos[1] == col) {
                     s.addHit();
                     map[row][col] = 9;
-                    System.out.println("Träff!" + s.getName() + "på position " + row + col);
+                    System.out.println("Träff! " + s.getName() + " på position " + row + col);
                     return true;
                 }
             }
