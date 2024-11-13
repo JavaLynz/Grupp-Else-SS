@@ -1,5 +1,3 @@
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,30 +13,22 @@ public class PlayerOneInputWindow {
     protected static String playerOneName;
     protected static boolean isServer = true;
     protected static boolean isClient = false;
-    protected static String port;
 
-    public static void display() {
+    public static String display() {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Player One Info");
+        window.setTitle("Player One Name");
         window.setMinWidth(400);
-
-        Label nameLabel = new Label();
-        nameLabel.setText("Please enter your name: ");
-        nameLabel.setAlignment(Pos.TOP_CENTER);
-        nameLabel.setFont(new Font("Arial",20));
+        Label label = new Label();
+        label.setText("Please enter your name: ");
+        label.setAlignment(Pos.CENTER);
+        label.setFont(new Font("Arial",30));
 
         TextField name = new TextField("Player One");
 
-        Label portLabel = new Label();
-        portLabel.setText("Please enter the port: ");
-        portLabel.setAlignment(Pos.BOTTOM_CENTER);
-        portLabel.setFont(new Font("Arial",20));
-
-        TextField portInput = new TextField("6667");
-        port = portInput.getText();
 
         Button done = new Button("Done");
+        done.setDefaultButton(true);
         done.setOnAction(e -> {
             System.out.println("Player One Name: " + name.getText());
             playerOneName = name.getText();
@@ -48,13 +38,13 @@ public class PlayerOneInputWindow {
 
 
         VBox layout = new VBox(10);
-        layout.setPadding(new Insets(20,20,20,20));
-        layout.getChildren().addAll(nameLabel, name, portLabel, portInput, done);
+        layout.getChildren().addAll(label, name, done);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
+        return name.getText();
 
 
 
@@ -85,12 +75,6 @@ public class PlayerOneInputWindow {
         PlayerOneInputWindow.isClient = isClient;
     }
 
-    public static String getPort() {
-        return port;
-    }
 
-    public static void setPort(String port) {
-        PlayerOneInputWindow.port = port;
-    }
 
 }

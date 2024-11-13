@@ -7,38 +7,31 @@ import java.util.Scanner;
 
 public class Client {
 
-    private String host = "localhost";
+    private String host;
     Scanner scanner = new Scanner(System.in);
     private int guess;
-    private int port = 6667;
     private boolean gameOver;
     private String messageFromServer;
-    boolean connected = false;
 
     public Client(){
 
     }
 
 
-    public boolean startClientConnection () {
+    public void startClientConnection () {
 
         System.out.println("Client started, trying to connect to server...");
         System.out.println("Please enter the server IP address: ");
+        host = scanner.nextLine();
 
-        try (Socket socket = new Socket(host, port)){
+        try (Socket socket = new Socket(host, 6667)){
 
             System.out.println("Connected to server!");
-            connected = true;
-
             handleServerCommunication(socket);
-            return true;
 
         }catch (IOException e){
-
             System.out.println("Server not found!");
-            return false;
         }
-
     }
 
     public void handleServerCommunication(Socket socket) throws IOException {
