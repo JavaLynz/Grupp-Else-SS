@@ -1,38 +1,105 @@
 public class Translate {
-
-
-    String s1 = "i shot 5b" // init
-    String s2 = "h shot 7c" // hit + kordinat
-    String s3 = "m shot 6g" // miss + kordinat
-    String s4 = "game over" // game over
-    String s5 = "s shot 5b" // insänkt + kordinat
+/*
+    Skepsarraynyckel.
+    0:  Vatten
+    1-10: individuella båtar
+    11: hit
+    12: miss
+    13: cant be enemy ship*/
 
 
     public static void main(String[] args) {
-
-        String recived = "m shot 6g";
-        String i = "i";
-        String h = "h";
-        String  = "m";
-        String = "g";
-        String = "s";
-
-        int enemyState;
-
-        if (recived.charAt(0)=='i');
-            enemyState = 0;
-        if (recived.charAt(0)=='h');
-
-           enemyState = 0;
-        if (recived.charAt(0)=='m');
-            enemyState = 0;
-        if (recived.charAt(0)=='g');
-            enemyState = 0;
-        if (recived.charAt(0)=='s');
-            enemyState = 0;
-
-
-
+        //translateReceived();
+        translateToSend();
     }
 
+    public static void translateReceived() {
+
+        String s1 = "i shot 5b"; // init
+        String s2 = "h shot 7c"; // hit + kordinat
+        String s3 = "m shot 6g"; // miss + kordinat
+        String s4 = "game over"; // game over
+        String s5 = "s shot 5b"; // insänkt + kordinat
+        String recived = s4;
+        Boolean recivedGameStatus = true;
+        int enemyShipsDown = 0;
+        int enemyState = 33;
+        int cordAtoAccess = 0;
+        int cordBtoAccess = 0;
+
+        System.out.println(recived);
+
+        switch (recived.charAt(0)) {
+            case 'i':
+                enemyState = 0;
+                break;                      //måste man breaka?
+            case 'h':
+                enemyState = 11;
+                break;
+            case 'm':
+                enemyState = 12;
+                break;
+            case 'g':
+                enemyState = 11;
+                recivedGameStatus = false;
+                break;
+            case 's':
+                enemyState = 11;
+                enemyShipsDown = 1;
+                break;
+        }
+
+        if (recived.charAt(0) != 'g') {
+            cordAtoAccess = Integer.parseInt(recived.substring(7, 8));
+            cordBtoAccess = (recived.charAt(8) - 97);     //a=97
+        }
+
+/*        System.out.println("cordAtoAccess: " + cordAtoAccess);
+        System.out.println("cordBtoAccess: " + cordBtoAccess);
+        System.out.println("enemyState: " + enemyState);
+        System.out.println("enemyShipsDown: " + enemyShipsDown);
+        System.out.println("recivedGameStatus: " + recivedGameStatus);*/
+    }
+
+    public static void translateToSend() {
+
+        Boolean gameOverTrue = false;
+        Boolean shipDown = false;
+        Boolean firstShot = false;
+        Boolean hit = false;
+        Boolean miss = false;
+        int cordNum = 9; // borde kunna ta in direkt.
+        int cordLetter =9;
+        char letter;
+        int[] ourGuess;
+        String shot = " shot ";
+        String send = "";
+        int playerState = 11;
+
+        if (gameOverTrue) {
+            send = "game over";
+        } else {
+            switch (playerState) {
+                case 0:
+                    send = "i";
+                    break; //måste man breaka?
+                case 11:
+                    send = "h";
+                    break;
+                case 12:
+                    send = "m";
+                    break;
+                case 88:
+                    send = "s";
+                    break;
+            }
+
+            cordLetter=cordLetter+97;
+            char c=(char)cordLetter;
+            send = send + shot + c  + cordNum;
+
+            //System.out.println(send);
+        }
+
+    }
 }
