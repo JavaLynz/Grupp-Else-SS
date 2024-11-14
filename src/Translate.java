@@ -64,14 +64,13 @@ public class Translate {
     public static void translateToSend() {
 
         Boolean gameOverTrue = false;
-        Boolean shipDown = false;
+/*        Boolean shipDown = false;
         Boolean firstShot = false;
         Boolean hit = false;
-        Boolean miss = false;
+        Boolean miss = false;*/
         int cordNum = 9; // borde kunna ta in direkt.
         int cordLetter =9;
-        char letter;
-        int[] ourGuess;
+       // int[] ourGuess;
         String shot = " shot ";
         String send = "";
         int playerState = 11;
