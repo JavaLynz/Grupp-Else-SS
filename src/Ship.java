@@ -176,12 +176,6 @@ public void printPositions() {
             System.out.println(name + " was hit!");
         }
 
-        public void sinkShip(){
-        if(hits == size) {
-            isAlive = false;
-            System.out.println(name + " sank!");
-        }
-        }
 
         public void giveNameAfterSize(){
         switch (size) {
