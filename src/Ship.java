@@ -34,6 +34,7 @@ public class Ship {
         giveNameAfterSize();
         this.positions = new ArrayList<>();
         this.isAlive = true;
+        this.hits = 0;
         this.isVertical = random.nextBoolean();
         this.hits = 0;
 
@@ -168,6 +169,18 @@ public void printPositions() {
 
         public void addHit(){
         hits++;
+        }
+
+        public void hitShip() {
+        hits++;
+            System.out.println(name + " was hit!");
+        }
+
+        public void sinkShip(){
+        if(hits == size) {
+            isAlive = false;
+            System.out.println(name + " sank!");
+        }
         }
 
         public void giveNameAfterSize(){
