@@ -1,4 +1,10 @@
+import javafx.application.Platform;
+
 public class GameController {
+
+    private Player clientPlayer;
+    private Player serverPlayer;
+
 
     /*
     public void gameLoop(){
@@ -27,5 +33,14 @@ public class GameController {
 
 
      */
+
+    public static void endGameClose(){
+        boolean result = QuitConfirmBox.display();
+        if (result){
+            Platform.exit();
+        }
+
+
+    }
 
 }

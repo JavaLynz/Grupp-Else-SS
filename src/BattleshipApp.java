@@ -112,6 +112,11 @@ public class BattleshipApp extends Application {
         layout.setStyle("-fx-background-color: teal");
         layout.setAlignment(Pos.CENTER);
 
+        window.setOnCloseRequest(event -> {
+            event.consume();
+            GameController.endGameClose();
+
+        });
         window.setScene(scene);
         window.show();
 

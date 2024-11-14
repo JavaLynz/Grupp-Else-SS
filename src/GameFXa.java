@@ -7,7 +7,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -242,6 +241,10 @@ public class GameFXa {
 
         Scene scene = new Scene(allOfItPane);
 
+        BattleshipApp.getStage().setOnCloseRequest(e -> {
+                    e.consume();
+                    GameController.endGameClose();
+                });
         BattleshipApp.getStage().sizeToScene();
         BattleshipApp.getStage().setScene(scene);
         BattleshipApp.getStage().setTitle("Battleship The Game");
