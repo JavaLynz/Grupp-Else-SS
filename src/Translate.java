@@ -26,6 +26,7 @@ public class Translate {
         int enemyState = 33;
         int cordAtoAccess = 0;
         int cordBtoAccess = 0;
+        String toTextWindow = "";
 
         System.out.println(recived);
 
@@ -35,17 +36,21 @@ public class Translate {
                 break;                      //måste man breaka?
             case 'h':
                 enemyState = 11;
+                toTextWindow = "... it was a hit. /n";
                 break;
             case 'm':
                 enemyState = 12;
+                toTextWindow = "... it was a miss. /n";
                 break;
             case 'g':
                 enemyState = 11;
                 recivedGameStatus = false;
+                toTextWindow = "... it was a hit, and you sank the final ship!!!";
                 break;
             case 's':
                 enemyState = 11;
                 enemyShipsDown = 1;
+                toTextWindow = "... it was a hit, and you sank a ship. /n";
                 break;
         }
 
@@ -59,6 +64,16 @@ public class Translate {
         System.out.println("enemyState: " + enemyState);
         System.out.println("enemyShipsDown: " + enemyShipsDown);
         System.out.println("recivedGameStatus: " + recivedGameStatus);*/
+    }
+
+    public static void receivedToString() {
+
+
+    }
+
+    public static void SendToString() {
+
+
     }
 
     public static void translateToSend() {
