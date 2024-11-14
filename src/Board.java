@@ -183,7 +183,7 @@ public class Board {
             for(int[] pos : s.getPositions()) {
                 if(pos[0] == row && pos[1] == col) {
                     s.addHit();
-                    map[row][col] = 9;
+                    map[row][col] = 1;
                     System.out.println("Träff! " + s.getName() + " på position " + row + col);
                     return true;
                 }

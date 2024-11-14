@@ -4,14 +4,14 @@ import java.util.Scanner;
 public class BattleshipMain {
     public static void main(String[] args) {
 
-//        Player player = new Player(true);
-//          Board board = new Board();
+        Player player = new Player(true);
+          Board board = new Board();
 
-//        while(true) {
-//            System.out.println("Tryck på Enter för att skjuta");
-//            Scanner sc = new Scanner(System.in);
-//            sc.nextLine();
-//            player.GuessRandom();
-//        }
+        while(true) {
+            System.out.println("Tryck på Enter för att skjuta");
+            Scanner sc = new Scanner(System.in);
+            sc.nextLine();
+            player.GuessRandom();
+        }
     }
 }

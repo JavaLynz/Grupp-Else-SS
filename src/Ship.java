@@ -153,9 +153,9 @@ public void printPositions() {
         }
 }
 
-    public void addPosition(int row, int col) {
-        positions.add(new int[]{row,col});
-    }
+//    public void addPosition(int row, int col) {
+//        positions.add(new int[]{row,col});
+//    }
 
 
         public void sinkShip(){
