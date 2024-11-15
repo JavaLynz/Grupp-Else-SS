@@ -178,21 +178,28 @@ public class Board {
 //        return ships;
 //    }
 
-    public boolean hit(int row, int col) {
+    public Ship hit(int row, int col) {
         for(Ship s : fleet) {
             for(int[] pos : s.getPositions()) {
                 if(pos[0] == row && pos[1] == col) {
                     s.addHit();
                     map[row][col] = 1;
-                    System.out.println("Träff! " + s.getName() + " på position " + row + col);
-                    return true;
+                    System.out.println("Träff! " + s.getName() + " på position " + row + col + "(Ship.hit)");
+                    
+                    return s;
                 }
             }
         }
         map[row][col] = 9;
-        return false;
-
+        return null;
     }
+
+   public void sinkShip(Ship ship) {
+        if(ship.getHits() == ship.getSize()) {
+            fleet.remove(ship);
+            System.out.println(ship.getName() +  " sjönk och blev borttaget från flottan!");
+        }
+   }
 
 
     public void printBoard() {
@@ -208,7 +215,7 @@ public class Board {
     // Skriv ut kartan
 
     public void printMap() {
-        System.out.println("test printMap");
+        System.out.println("(Board.printMap)");
         System.out.print("  ");
         for (int col = 0; col < map[0].length; col++) {
             System.out.print(col + " ");

@@ -159,16 +159,21 @@ public void printPositions() {
 //    }
 
 
-        public void sinkShip(){
-        if(hits == size) {
-            isAlive = false;
-            System.out.println(name + " sank!");
-
-        }
-        }
+//        public void sinkShip(){
+//        if(hits == size) {
+//            isAlive = false;
+//            System.out.println(name + " sank!");
+//            // Ta bort skepp från listan fleet ( Flytta denna metod till board?)
+//
+//        }
+//        }
 
         public void addHit(){
+            System.out.println("hits++ på " + name + "(Ship.addHit)");
         hits++;
+        if(hits == size){
+            System.out.println("Sänkt! (Ship.addHit)");
+        }
         }
 
         public void hitShip() {

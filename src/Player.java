@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Player {
 
@@ -107,19 +108,38 @@ public class Player {
 
 //      Niklas gissa-metod för att testa om kartan fungerar
 
-    public void GuessRandom(){
+//    public void GuessRandom(){
+//
+//        Random random =  new Random();
+//        int row = random.nextInt(10);
+//        int col = random.nextInt(10);
+//
+//        System.out.println("Sköt på position " + "Rad: " + row + " Kolumn: " + col);
+//        if (playerboard.hit(row, col)) {
+//            System.out.println("Träff!");
+//        }
+//        else {
+//            System.out.println("Miss!");
+//        }
+//        playerboard.printMap();
+//    }
 
-        Random random =  new Random();
-        int row = random.nextInt(10);
-        int col = random.nextInt(10);
+    public void shootPos() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Välj en rad");
+        int targetRow = sc.nextInt();
+        System.out.println("Välj en kolumn");
+        int targetCol = sc.nextInt();
 
-        System.out.println("Skjöt på position " + "Rad: " + row + " Kolumn: " + col);
-        if (playerboard.hit(row, col)) {
-            System.out.println("Träff!");
+        Ship hitShip = playerboard.hit(targetRow, targetCol);
+
+        if(hitShip != null){
+            System.out.println("Träff! " + hitShip.getName() + "(Player.hitShip)");
         }
         else {
             System.out.println("Miss!");
         }
+
         playerboard.printMap();
     }
 
