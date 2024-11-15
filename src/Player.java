@@ -14,12 +14,12 @@ public class Player {
     private Board enemyBoard;
 
     //Om det inte är en client så är det en server
-    public Player (String name, Board playerBoard, Board enemyBoard, boolean isClient) {
+    public Player (String name, boolean isClient) {
         this.name = name;
         this.isClient = isClient;
         this.isServer = !isClient;
-        this.playerBoard = playerBoard;
-        this.enemyBoard = enemyBoard;
+        this.playerBoard = new Board();
+        this.enemyBoard = new Board();
     }
 
 
@@ -148,8 +148,8 @@ public class Player {
         int targetRow = sc.nextInt();
         System.out.println("Välj en kolumn");
         int targetCol = sc.nextInt();
-
-        Ship hitShip = playerBoard.hit(targetRow, targetCol);
+            Ship hitShip = playerBoard.hit(targetRow, targetCol);
+//        Ship hitShip = playerBoard.hit(targetRow, targetCol);
 
         if(hitShip != null){
             System.out.println("Träff! " + hitShip.getName() + "(Player.hitShip)");
@@ -158,7 +158,7 @@ public class Player {
             System.out.println("Miss!");
         }
 
-        playerBoard.printMap();
+        enemyBoard.printMap();
     }
 
     public void guessLogic(){

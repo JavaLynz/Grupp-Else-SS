@@ -9,11 +9,18 @@ public class BattleshipMain {
 
 //        Application.launch(BattleshipApp.class);
 
-        Board playerBoard = new Board();
-        Board enemyBoard = new Board();
+//        Board playerBoard = new Board();
+//        Board enemyBoard = new Board();
 
+        Board board = new Board();
+        Player player = new Player("player",true);
+        player.getPlayerBoard().placeAllShips();
+        player.getPlayerBoard().printMap();
+        player.getEnemyBoard().printMap();
 
-        Player player = new Player("player", playerBoard, enemyBoard, true);
+        player.getPlayerBoard().checkNumberOfShipsLeft();
+        player.getEnemyBoard().checkNumberOfShipsLeft();
+
 
         while (true) {
             System.out.println("Tryck på Enter för att skjuta");

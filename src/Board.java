@@ -153,7 +153,7 @@ public class Board {
     }
 
     public int checkNumberOfShipsLeft(){
-        System.out.println("Antal skepp kvar i listan: " + checkNumberOfShipsLeft());
+        System.out.println("Antal skepp kvar i listan: " + fleet.size());
         return fleet.size();
     }
 

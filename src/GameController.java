@@ -8,8 +8,8 @@ public class GameController {
     private Board enemyBoard = new Board();
     private Server server;
     private Client client;
-    private Player clientPlayer = new Player(PlayerOneInputWindow.getPlayerOneName(),playerBoard,enemyBoard,false);
-    private Player serverPlayer = new Player(PlayerTwoInputWindow.getPlayerTwoName(),playerBoard,enemyBoard,true);
+    private Player clientPlayer = new Player(PlayerOneInputWindow.getPlayerOneName(),false);
+    private Player serverPlayer = new Player(PlayerTwoInputWindow.getPlayerTwoName(),true);
     protected static boolean gameOn = true;
 
 
