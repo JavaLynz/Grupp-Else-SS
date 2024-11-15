@@ -7,7 +7,7 @@ public class GameController {
     private Board playerBoard = new Board();
     private Board enemyBoard = new Board();
     private Server server;
-    private Client client = new Client();
+    private Client client;
     private Player clientPlayer = new Player(PlayerOneInputWindow.getPlayerOneName(),playerBoard,enemyBoard,false);
     private Player serverPlayer = new Player(PlayerTwoInputWindow.getPlayerTwoName(),playerBoard,enemyBoard,true);
     protected static boolean gameOn = true;
@@ -23,6 +23,7 @@ public class GameController {
             Board enemyBoard = new Board();
             //playerBoard.placeShip();
         } else {
+            client = new Client();
             client.startClientConnection();
             System.out.println("Starting game...");
             Board playerBoard = new Board();

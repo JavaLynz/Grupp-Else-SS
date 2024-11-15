@@ -21,7 +21,7 @@ public class Client {
     public void startClientConnection () {
 
         System.out.println("Client started, trying to connect to server...");
-        host = "192.168.0.33";
+        host = PlayerTwoInputWindow.ipAddress;
         System.out.println(" IP address: " + host);
 
         try (Socket socket = new Socket(host, 6667)){
