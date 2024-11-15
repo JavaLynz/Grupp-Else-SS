@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameFX extends Application {
+    int speed;
+    String text = "Show latest moves";
+    int pShipsAlive = 2;
+    int eShipsAlive = 4;
     int[][] annasPlayerBoardArray = new int[][]{
             {0,0,0,0,0,0,0,0,0,0},
             {0,1,1,1,0,0,0,0,0,0},
@@ -67,22 +71,38 @@ public class GameFX extends Application {
         AnchorPane yourScore = new AnchorPane();
         List<Circle> playerScoreList = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
+            if (i<pShipsAlive) {
             Circle circle = new Circle();
             circle.setFill(Color.DARKRED);
             circle.setRadius(8);
             circle.setLayoutX((i*20));
             playerScoreList.add(circle);
+            } else {
+                Circle circle = new Circle();
+                circle.setFill(Color.BEIGE);
+                circle.setRadius(8);
+                circle.setLayoutX((i * 20));
+                playerScoreList.add(circle);
+            }
         }
         yourScore.getChildren().addAll(playerScoreList);
 
         AnchorPane enemyScore = new AnchorPane();
         List<Circle> enemyScoreList = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            Circle circle = new Circle();
-            circle.setFill(Color.GREEN);
-            circle.setRadius(8);
-            circle.setLayoutX((i*20));
-            enemyScoreList.add(circle);
+            if (i<eShipsAlive) {
+                Circle circle = new Circle();
+                circle.setFill(Color.GREEN);
+                circle.setRadius(8);
+                circle.setLayoutX((i * 20));
+                enemyScoreList.add(circle);
+            } else {
+                Circle circle = new Circle();
+                circle.setFill(Color.BEIGE);
+                circle.setRadius(8);
+                circle.setLayoutX((i * 20));
+                enemyScoreList.add(circle);
+            }
         }
         enemyScore.getChildren().addAll(enemyScoreList);
 
@@ -203,16 +223,33 @@ public class GameFX extends Application {
             }
         }
 
-        List<Rectangle> enemyList = new ArrayList<>();
+        List<Rectangle> enemyBoardList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                Rectangle rectangle = new Rectangle();
-                rectangle.setFill(Color.DARKCYAN);
-                rectangle.setWidth(15);
-                rectangle.setHeight(15);
-                rectangle.setLayoutX((j*20)+5);
-                rectangle.setLayoutY((i*20)+5);
-                enemyList.add(rectangle);
+                if (annasEnemyBoardArray[i][j]==0){                //Water
+                    Rectangle rectangle = new Rectangle();
+                    rectangle.setFill(Color.DEEPSKYBLUE);
+                    rectangle.setWidth(15);
+                    rectangle.setHeight(15);
+                    rectangle.setLayoutX((j*20)+5);
+                    rectangle.setLayoutY((i*20)+5);
+                    enemyBoardList.add(rectangle);
+                } else if (annasPlayerBoardArray[i][j]==2) {         //hit
+                    Rectangle rectangle = new Rectangle();
+                    rectangle.setFill(Color.DARKRED);
+                    rectangle.setWidth(15);
+                    rectangle.setHeight(15);
+                    rectangle.setLayoutX((j*20)+5);
+                    rectangle.setLayoutY((i*20)+5);
+                    enemyBoardList.add(rectangle);
+                } else {                                               //miss
+                    Rectangle rectangle = new Rectangle();
+                    rectangle.setFill(Color.WHITE);
+                    rectangle.setWidth(15);
+                    rectangle.setHeight(15);
+                    rectangle.setLayoutX((j*20)+5);
+                    rectangle.setLayoutY((i*20)+5);
+                    enemyBoardList.add(rectangle);}
             }
         }
 
@@ -220,7 +257,7 @@ public class GameFX extends Application {
         playerBoard.setPrefWidth(205);
         playerBoard.setPrefHeight(205);
 
-        enemyBoard.getChildren().addAll(enemyList);
+        enemyBoard.getChildren().addAll(enemyBoardList);
         enemyBoard.setPrefWidth(205);
         enemyBoard.setPrefHeight(205);
 
@@ -232,7 +269,7 @@ public class GameFX extends Application {
         giveUp.setStyle("-fx-font: 10 arial; -fx-base: RED;");
         giveUp.setOnAction((e)-> System.exit(0));
 
-        TextArea textArea = new TextArea("Show latest moves");
+        TextArea textArea = new TextArea(text);
         textArea.setMaxWidth(225);
         textArea.setMaxHeight(120);
 
