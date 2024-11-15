@@ -1,11 +1,33 @@
 import javafx.application.Platform;
 
+import java.io.IOException;
+
 public class GameController {
 
-    private Player clientPlayer;
-    private Player serverPlayer;
+    private Board playerBoard = new Board();
+    private Board enemyBoard = new Board();
+    private Server server = new Server();
+    private Client client = new Client();
+    private Player clientPlayer = new Player(PlayerOneInputWindow.getPlayerOneName(),playerBoard,enemyBoard,false);
+    private Player serverPlayer = new Player(PlayerTwoInputWindow.getPlayerTwoName(),playerBoard,enemyBoard,true);
+    protected static boolean gameOn = true;
 
 
+
+    public void setUpGame (boolean isServer) throws IOException {
+        if (isServer) {
+            server.startServer();
+            System.out.println("Starting game...");
+            Board playerBoard = new Board();
+            Board enemyBoard = new Board();
+            //playerBoard.placeShip();
+        } else {
+            client.startClientConnection();
+            System.out.println("Starting game...");
+            Board playerBoard = new Board();
+            Board enemyBoard = new Board();
+            //playerBoard.placeShip();
+        }
     /*
     public void gameLoop(){
 
@@ -31,9 +53,27 @@ public class GameController {
             switchPlayerTurn();
        }
 
+       public void GameLoop(boolean isClient){
+        gameOn = true;
+        System.out.println("Game loop started");
+    while (gameOn) {
+
+            if (isClient = true) {
+                Player.GuessRandom();
+            } else {
+                //wait for first strike from opponent
+                //translate string to guess
+                //AssessGuess;
+                // take next guess / strike
+                //if(
+            }
+
+            //update array
+            //update map
+
 
      */
-
+    }
     public static void endGameClose(){
         boolean result = QuitConfirmBox.display();
         if (result){

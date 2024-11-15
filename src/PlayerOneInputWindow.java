@@ -40,6 +40,7 @@ public class PlayerOneInputWindow {
             System.out.println("Player One Name: " + name.getText());
             playerOneName = name.getText();
             port = Integer.parseInt(portInput.getText());
+            System.out.println("Port: " + port);
             window.close();
             GameFXa.display(playerOneName);
         });

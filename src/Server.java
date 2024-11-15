@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Random;
@@ -33,7 +34,7 @@ public class Server {
             System.out.println("Server starting... waiting for connection...");
             InetAddress ip = InetAddress.getLocalHost();
             serverSocket.setSoTimeout(30000);
-            System.out.println("Server opened at " + ip.getHostAddress() + "Port: " + port);
+            System.out.println("Server opened at " + ip.getHostAddress() + "nominated port: " + port + "Port: " + serverSocket.getLocalPort());
 
             Socket socket = serverSocket.accept();
             System.out.println("Connection established.");
@@ -79,9 +80,6 @@ public class Server {
         return port;
     }
 
-    public void setPort(int port){
-        this.port = port;
-    }
 
     @Override
     public String toString() {

@@ -39,12 +39,8 @@ public class GameFXa {
 
 
     private BattleshipApp battleshipApp = new BattleshipApp();
+    private GameController gameController = new GameController();
 
-    public void startGame(){
-        battleshipApp.getClientPlayer().GameLoop(true);
-        battleshipApp.getServerPlayer().GameLoop(false);
-
-    }
 
     public static void display(String name){
 

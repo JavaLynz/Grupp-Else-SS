@@ -67,24 +67,6 @@ public class Player {
 
 
 
-
-    public void startGame (boolean isServer) throws IOException {
-        if (isServer) {
-            server.startServer();
-            System.out.println("Starting game...");
-            Board playerBoard = new Board();
-            Board enemyBoard = new Board();
-            //playerBoard.placeShip();
-        } else {
-            client.startClientConnection();
-            System.out.println("Starting game...");
-            Board playerBoard = new Board();
-            Board enemyBoard = new Board();
-            //playerBoard.placeShip();
-        }
-
-
-
         // starta ny tråd och kör metod för att placera skepp
 /*
 • ett hangarfartyg (5x1 ruta)
@@ -104,7 +86,6 @@ public class Player {
 
         //Byter scen till GameFX och skickar med playerBoard.getMap(), enemyBoard.getMap();
 
-    }
 
     public void GameLoop(boolean isClient){
         gameOn = true;

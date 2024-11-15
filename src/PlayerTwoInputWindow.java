@@ -22,7 +22,7 @@ public class PlayerTwoInputWindow {
         window.setMinWidth(400);
         Label label = new Label();
         label.setText("Please enter your name: ");
-        label.setAlignment(Pos.CENTER);
+        label.setAlignment(Pos.TOP_CENTER);
         label.setFont(new Font("Arial",30));
 
         TextField name = new TextField("Player Two");
@@ -32,7 +32,7 @@ public class PlayerTwoInputWindow {
         label.setAlignment(Pos.CENTER);
         label.setFont(new Font("Arial",30));
 
-        TextField ipAddressInput = new TextField("localhost");
+        TextField ipAddressInput = new TextField("");
 
         Button done = new Button("Done");
         done.setDefaultButton(true);
@@ -45,7 +45,7 @@ public class PlayerTwoInputWindow {
         });
 
 
-        VBox layout = new VBox(10);
+        VBox layout = new VBox(20);
         layout.getChildren().addAll(label, name, ipAddressLabel, ipAddressInput, done);
         layout.setAlignment(Pos.CENTER);
 

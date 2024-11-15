@@ -3,7 +3,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -18,21 +17,10 @@ import java.io.IOException;
 public class BattleshipApp extends Application {
 
     private static Stage window;
-    private Player serverPlayer;
-    private Player clientPlayer;
-    private Board playerBoard;
-    private Board enemyBoard;
+    private final GameController controller = new GameController();
 
     public static  Stage getStage() {
         return window;
-    }
-
-    public Player getClientPlayer() {
-        return clientPlayer;
-    }
-
-    public Player getServerPlayer() {
-        return serverPlayer;
     }
 
     @Override
@@ -49,9 +37,9 @@ public class BattleshipApp extends Application {
             button.setStyle("-fx-background-color: #fff");
             //get player's name and port;
             PlayerOneInputWindow.display();
-            serverPlayer = new Player(PlayerOneInputWindow.getPlayerOneName(),playerBoard,enemyBoard,false);
+
             try {
-                serverPlayer.startGame(true);
+                controller.setUpGame(true);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -65,9 +53,8 @@ public class BattleshipApp extends Application {
         button1.setOnAction(e->{
             button1.setStyle("-fx-background-color: #fff");
             PlayerTwoInputWindow.display();
-            Player clientPlayer = new Player(PlayerTwoInputWindow.getPlayerTwoName(),playerBoard, enemyBoard, true);
             try {
-                clientPlayer.startGame(false);
+                controller.setUpGame(false);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -78,10 +65,8 @@ public class BattleshipApp extends Application {
         Button closeButton = new Button("Quit");
         closeButton.setFont(new Font("Arial", 30));
         closeButton.setOnAction(e->{
-            window.close();
-            System.out.println("Goodbye, thank you for playing!");
-
-        });
+            QuitConfirmBox.display();
+            });
 
 
         Font fontBroadway = Font.loadFont("Broadway font.tff", 50);
