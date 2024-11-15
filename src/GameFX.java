@@ -43,12 +43,12 @@ public class GameFX extends Application {
             {0,0,0,0,0,0,0,0,0,2}
     };
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+
+    private BattleshipApp battleshipApp = new BattleshipApp();
+    private GameController gameController = new GameController();
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void diplay(Stage primaryStage) throws Exception {
 
         AnchorPane allOfItPane = new AnchorPane();
         allOfItPane.setPrefSize(570,550);
@@ -325,10 +325,14 @@ public class GameFX extends Application {
 
         Scene scene = new Scene(allOfItPane);
 
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Battleship the Game");
-        primaryStage.show();
-
+        BattleshipApp.getStage().setOnCloseRequest(e -> {
+            e.consume();
+            GameController.endGameClose();
+        });
+        BattleshipApp.getStage().sizeToScene();
+        BattleshipApp.getStage().setScene(scene);
+        BattleshipApp.getStage().setTitle("Battleship The Game");
+        BattleshipApp.getStage().show();
 
     }
 }
