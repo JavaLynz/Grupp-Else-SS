@@ -6,7 +6,7 @@ public class GameController {
 
     private Board playerBoard = new Board();
     private Board enemyBoard = new Board();
-    private Server server = new Server();
+    private Server server;
     private Client client = new Client();
     private Player clientPlayer = new Player(PlayerOneInputWindow.getPlayerOneName(),playerBoard,enemyBoard,false);
     private Player serverPlayer = new Player(PlayerTwoInputWindow.getPlayerTwoName(),playerBoard,enemyBoard,true);
@@ -16,6 +16,7 @@ public class GameController {
 
     public void setUpGame (boolean isServer) throws IOException {
         if (isServer) {
+            server = new Server();
             server.startServer();
             System.out.println("Starting game...");
             Board playerBoard = new Board();
