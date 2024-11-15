@@ -1,4 +1,7 @@
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 public class Player {
 
@@ -6,8 +9,7 @@ public class Player {
     private boolean isClient;
     private boolean isServer;
     private boolean gameOn;
-    private Server server = new Server();
-    private Client client = new Client();
+    private Board playerboard;
     private Board playerBoard;
     private Board enemyBoard;
 
@@ -67,6 +69,16 @@ public class Player {
 
 
 
+
+    public void startGame () {
+        //Avgör is clien/server
+        //
+        //
+
+        System.out.println("Starting game...");
+        Board playerBoard = new Board();
+        Board enemyBoard = new Board();
+
         // starta ny tråd och kör metod för att placera skepp
 /*
 • ett hangarfartyg (5x1 ruta)
@@ -113,6 +125,39 @@ public class Player {
 
     public void guessRandom(){
 
+//    public void GuessRandom(){
+//
+//        Random random =  new Random();
+//        int row = random.nextInt(10);
+//        int col = random.nextInt(10);
+//
+//        System.out.println("Sköt på position " + "Rad: " + row + " Kolumn: " + col);
+//        if (playerboard.hit(row, col)) {
+//            System.out.println("Träff!");
+//        }
+//        else {
+//            System.out.println("Miss!");
+//        }
+//        playerboard.printMap();
+//    }
+
+    public void shootPos() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Välj en rad");
+        int targetRow = sc.nextInt();
+        System.out.println("Välj en kolumn");
+        int targetCol = sc.nextInt();
+
+        Ship hitShip = playerboard.hit(targetRow, targetCol);
+
+        if(hitShip != null){
+            System.out.println("Träff! " + hitShip.getName() + "(Player.hitShip)");
+        }
+        else {
+            System.out.println("Miss!");
+        }
+
+        playerboard.printMap();
     }
 
     public void guessLogic(){
