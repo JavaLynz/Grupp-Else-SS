@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,7 +24,7 @@ public class QuitConfirmBox {
             Button no = new Button("No");
             yes.setOnAction(e -> {
                 answer = true;
-                window.close();
+                Platform.exit();
             });
             no.setOnAction(e -> {
                 answer = false;

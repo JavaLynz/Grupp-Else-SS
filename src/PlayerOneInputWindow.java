@@ -14,6 +14,7 @@ public class PlayerOneInputWindow {
     protected static boolean isServer = true;
     protected static boolean isClient = false;
     protected static  int port;
+    private GameFX game = new GameFX();
 
     public static String display() {
         Stage window = new Stage();
@@ -42,7 +43,11 @@ public class PlayerOneInputWindow {
             port = Integer.parseInt(portInput.getText());
             System.out.println("Port: " + port);
             window.close();
-            GameFXa.display(playerOneName);
+            try {
+                GameFX.display();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
 

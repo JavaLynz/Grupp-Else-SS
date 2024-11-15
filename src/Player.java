@@ -9,21 +9,20 @@ public class Player {
     private boolean isClient;
     private boolean isServer;
     private boolean gameOn;
-    private Board playerboard;
     private Board playerBoard;
     private Board enemyBoard;
 
     //Om det inte är en client så är det en server
-    public Player (String name, Board playerBoard, Board enemyBoard, boolean isClient) {
+    public Player(String name, boolean isClient) {
         this.name = name;
         this.isClient = isClient;
         this.isServer = !isClient;
-        this.playerBoard = playerBoard;
-        this.enemyBoard = enemyBoard;
+        this.playerBoard = new Board();
+        this.enemyBoard = new Board();
     }
 
 
-    public String getName () {
+    public String getName() {
         return name;
     }
 
@@ -51,26 +50,21 @@ public class Player {
         return playerBoard;
     }
 
-    public void setEnemyBoard(Board board){
+    public void setEnemyBoard(Board board) {
         this.enemyBoard = enemyBoard;
     }
 
-    public Board getEnemyBoard(){
+    public Board getEnemyBoard() {
         return enemyBoard;
     }
 
 
-
-
     public void takeTurns() {
-        System.out.println(isClient? "Clients " : "Servers " + " turn.");
+        System.out.println(isClient ? "Clients " : "Servers " + " turn.");
     }
 
 
-
-
-
-    public void startGame () {
+    public void startGame() {
         //Avgör is clien/server
         //
         //
@@ -99,10 +93,11 @@ public class Player {
         //Byter scen till GameFX och skickar med playerBoard.getMap(), enemyBoard.getMap();
 
     }
-    public void GameLoop(boolean isClient){
+
+    public void GameLoop(boolean isClient) {
         gameOn = true;
         System.out.println("Game loop started");
-    while (gameOn) {
+        while (gameOn) {
 
             if (isClient = true) {
                 //shoot first shot/ guess = GuessRandom;
@@ -118,14 +113,11 @@ public class Player {
             //update map
 
 
-
-
         }
     }
 
-    public void guessRandom(){
+    public static void guessRandom() {
 
-//    public void GuessRandom(){
 //
 //        Random random =  new Random();
 //        int row = random.nextInt(10);
@@ -140,7 +132,7 @@ public class Player {
 //        }
 //        playerboard.printMap();
 //    }
-        }
+    }
 
     public void shootPos() {
         Scanner sc = new Scanner(System.in);
@@ -149,45 +141,52 @@ public class Player {
         System.out.println("Välj en kolumn");
         int targetCol = sc.nextInt();
 
-        Ship hitShip = playerboard.hit(targetRow, targetCol);
+        Ship hitShip = playerBoard.hit(targetRow, targetCol);
 
-        if(hitShip != null){
+        if (hitShip != null) {
             System.out.println("Träff! " + hitShip.getName() + "(Player.hitShip)");
-        }
-        else {
+        } else {
             System.out.println("Miss!");
         }
 
-        playerboard.printMap();
+        playerBoard.printMap();
     }
 
-    public void guessLogic(){
+    public void guessLogic() {
 
     }
 
 
     //public String assessGuess(){
-        //is it a hit / miss / sink
-        //if ("hit")
-        //CheckShipStatus();
-        //else return "miss";
-        //return "hit or miss";
-    
+    //is it a hit / miss / sink
+    //if ("hit")
+    //CheckShipStatus();
+    //else return "miss";
+    //return "hit or miss";
+
 
     //public void CheckShipStatus(){
-        // check if all ships are Alive
-        // if all ships are sunk
-       // System.out.println("checking status of all ships..");
-        //if ( > 1 ship for each player isAlive) {
-        // do nothing?
-        //}else {
-        // gameOn = false
-        // EndGame();
+    // check if all ships are Alive
+    // if all ships are sunk
+    // System.out.println("checking status of all ships..");
+    //if ( > 1 ship for each player isAlive) {
+    // do nothing?
+    //}else {
+    // gameOn = false
+    // EndGame();
 
 
-@Override
+    @Override
     public String toString() {
-        return "Player name: " + name + "Is server: " + isServer;
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", isClient=" + isClient +
+                ", isServer=" + isServer +
+                ", gameOn=" + gameOn +
+                ", playerBoard=" + playerBoard +
+                ", enemyBoard=" + enemyBoard +
+                '}';
+    }
 }
 
-}
+

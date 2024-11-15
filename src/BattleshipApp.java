@@ -68,13 +68,11 @@ public class BattleshipApp extends Application {
             QuitConfirmBox.display();
             });
 
-
-        Font fontBroadway = Font.loadFont("Broadway font.tff", 50);
         Label label = new Label("Welcome to Battleship!");
-        label.setFont(fontBroadway);
+        label.setFont(new Font("Broadway", 50));
         label.setStyle("-fx-font-weight: bold");
 
-        Rectangle whiteRectangle = new Rectangle(200,200,550,600);
+        Rectangle whiteRectangle = new Rectangle(200,200,520,500);
         whiteRectangle.setFill(Paint.valueOf("white"));
         whiteRectangle.minWidth(450);
 
@@ -93,7 +91,7 @@ public class BattleshipApp extends Application {
         StackPane layout = new StackPane();
         layout.getChildren().addAll(whiteRectangle, vbox);
 
-        scene = new Scene(layout, 700, 800);
+        scene = new Scene(layout, 570, 550);
         layout.setStyle("-fx-background-color: teal");
         layout.setAlignment(Pos.CENTER);
 

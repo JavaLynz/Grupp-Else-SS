@@ -41,7 +41,11 @@ public class PlayerTwoInputWindow {
             String playerTwoName = name.getText();
             String ipAddress = ipAddressInput.getText();
             window.close();
-            GameFXa.display(playerTwoName);
+            try {
+                GameFX.display();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
 

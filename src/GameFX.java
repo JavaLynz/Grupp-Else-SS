@@ -12,8 +12,13 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameFX extends Application {
-    int speed;
+public class GameFX{
+
+    private BattleshipApp battleshipApp = new BattleshipApp();
+
+
+    public static void display() throws Exception {
+    int speedInt;
     String text = "Show latest moves";
     int pShipsAlive = 2;
     int eShipsAlive = 4;
@@ -43,12 +48,6 @@ public class GameFX extends Application {
             {0,0,0,0,0,0,0,0,0,2}
     };
 
-
-    private BattleshipApp battleshipApp = new BattleshipApp();
-    private GameController gameController = new GameController();
-
-    @Override
-    public void diplay(Stage primaryStage) throws Exception {
 
         AnchorPane allOfItPane = new AnchorPane();
         allOfItPane.setPrefSize(570,550);
