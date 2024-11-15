@@ -37,7 +37,7 @@ public class QuitConfirmBox {
 
             Scene scene = new Scene(layout);
             window.setScene(scene);
-            window.showAndWait();
+            window.show();
 
             return answer;
 
