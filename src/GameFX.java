@@ -47,7 +47,7 @@ public class GameFX extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         AnchorPane allOfItPane = new AnchorPane();
-        allOfItPane.setPrefSize(750,500);
+        allOfItPane.setPrefSize(570,550);
         allOfItPane.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY,null,null)));
 
 
@@ -61,7 +61,8 @@ public class GameFX extends Application {
         label1.setFont(new Font("Broadway", 30));
         label2.setFont(new Font("Arial bold", 12));
         label3.setFont(new Font("Arial bold", 12));
-
+        label4.setFont(new Font("Cambria bold", 12));
+        label5.setFont(new Font("Cambria bold", 12));
 
 
         AnchorPane playerBoard = new AnchorPane();
@@ -69,7 +70,7 @@ public class GameFX extends Application {
 
 
         AnchorPane enemyBoard = new AnchorPane();
-        enemyBoard.setBackground(new Background(new BackgroundFill(Color.DARKCYAN,null,null)));
+        enemyBoard.setBackground(new Background(new BackgroundFill(Color.GRAY,null,null)));
 
         AnchorPane yourScore = new AnchorPane();
         List<Circle> playerScoreList = new ArrayList<>();
@@ -95,6 +96,9 @@ public class GameFX extends Application {
         enemyScore.getChildren().addAll(enemyScoreList);
 
         AnchorPane pLetters = new AnchorPane();
+        pLetters.setBackground(new Background(new BackgroundFill(Color.GREY,null,null)));
+        pLetters.setPrefWidth(225);
+        pLetters.setPrefHeight(20);
         List<Label> pLettersList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             String string = " " +(char)(i+65);
@@ -103,12 +107,16 @@ public class GameFX extends Application {
             label.setFont(new Font("Arial bold", 12));
             label.setPrefWidth(15);
             label.setPrefHeight(15);
-            label.setLayoutX((i*20)+5);
+            label.setLayoutX((i*20)+25);
+            label.setLayoutY(5);
             pLettersList.add(label);
         }
         pLetters.getChildren().addAll(pLettersList);
 
         AnchorPane eLetters = new AnchorPane();
+        eLetters.setBackground(new Background(new BackgroundFill(Color.GREY,null,null)));
+        eLetters.setPrefWidth(225);
+        eLetters.setPrefHeight(20);
         List<Label> eLettersList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             String string = " " +(char)(i+65);
@@ -117,12 +125,16 @@ public class GameFX extends Application {
             label.setFont(new Font("Arial bold", 12));
             label.setPrefWidth(15);
             label.setPrefHeight(15);
-            label.setLayoutX((i*20)+5);
+            label.setLayoutX((i*20)+25);
+            label.setLayoutY(5);
             eLettersList.add(label);
         }
         eLetters.getChildren().addAll(eLettersList);
 
         AnchorPane pNumbers = new AnchorPane();
+        pNumbers.setBackground(new Background(new BackgroundFill(Color.GREY,null,null)));
+        pNumbers.setPrefHeight(205);
+        pNumbers.setPrefWidth(20);
         List<Label> pNumbersList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             String string = " " +i;
@@ -131,12 +143,16 @@ public class GameFX extends Application {
             label.setFont(new Font("Arial bold", 12));
             label.setPrefWidth(15);
             label.setPrefHeight(15);
+            label.setLayoutX(5);
             label.setLayoutY((i*20)+5);
             pNumbersList.add(label);
         }
         pNumbers.getChildren().addAll(pNumbersList);
 
         AnchorPane eNumbers = new AnchorPane();
+        eNumbers.setBackground(new Background(new BackgroundFill(Color.GREY,null,null)));
+        eNumbers.setPrefHeight(205);
+        eNumbers.setPrefWidth(20);
         List<Label> eNumbersList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             String string = " " +i;
@@ -145,6 +161,7 @@ public class GameFX extends Application {
             label.setFont(new Font("Arial bold", 12));
             label.setPrefWidth(15);
             label.setPrefHeight(15);
+            label.setLayoutX(5);
             label.setLayoutY((i*20)+5);
             eNumbersList.add(label);
         }
@@ -194,7 +211,7 @@ public class GameFX extends Application {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 Rectangle rectangle = new Rectangle();
-                rectangle.setFill(Color.FIREBRICK);
+                rectangle.setFill(Color.DARKCYAN);
                 rectangle.setWidth(15);
                 rectangle.setHeight(15);
                 rectangle.setLayoutX((j*20)+5);
@@ -222,53 +239,57 @@ public class GameFX extends Application {
         giveUp.setOnAction((e)-> System.exit(0));
 
         TextArea textArea = new TextArea("Show latest moves");
-        textArea.setMaxWidth(200);
-        textArea.setLayoutX(300);
+        textArea.setMaxWidth(225);
+        textArea.setMaxHeight(120);
 
 
-
-
-
-        label1.setLayoutX(50);
+        label1.setLayoutX(160);
         label1.setLayoutY(10);
-        label2.setLayoutX(10);
-        label2.setLayoutY(72);
-        label3.setLayoutX(250);
-        label3.setLayoutY(72);
 
-        label4.setLayoutX(100);
-        label4.setLayoutY(100);
-        label5.setLayoutX(325);
-        label5.setLayoutY(100);
+        label2.setLayoutX(40);
+        label2.setLayoutY(67);
+        yourScore.setLayoutX(140);
+        yourScore.setLayoutY(75);
 
-        enemyScore.setLayoutX(355);
-        enemyScore.setLayoutY(80);
+        label3.setLayoutX(305);
+        label3.setLayoutY(67);
+        enemyScore.setLayoutX(420);
+        enemyScore.setLayoutY(75);
 
+        label4.setLayoutX(95);
+        label4.setLayoutY(110);
 
-        yourScore.setLayoutX(110);
-        yourScore.setLayoutY(80);
+        label5.setLayoutX(360);
+        label5.setLayoutY(110);
 
-        playerBoard.setLayoutX(50);
+        playerBoard.setLayoutX(60);
         playerBoard.setLayoutY(150);
-
-        pLetters.setLayoutX(50);
+        pLetters.setLayoutX(40);
         pLetters.setLayoutY(130);
-
-        eLetters.setLayoutX(315);
-        eLetters.setLayoutY(130);
-
-        enemyBoard.setLayoutX(315);
-        enemyBoard.setLayoutY(150);
-        pNumbers.setLayoutX(30);
+        pNumbers.setLayoutX(40);
         pNumbers.setLayoutY(150);
 
-        eNumbers.setLayoutX(300);
+        enemyBoard.setLayoutX(325);
+        enemyBoard.setLayoutY(150);
+        eLetters.setLayoutX(305);
+        eLetters.setLayoutY(130);
+        eNumbers.setLayoutX(305);
         eNumbers.setLayoutY(150);
+
+        textArea.setLayoutX(40);
+        textArea.setLayoutY(380);
+
+        speed.setLayoutX(350);
+        speed.setLayoutY(380);
+
+        giveUp.setLayoutX(350);
+        giveUp.setLayoutY(420);
+
 
         allOfItPane.getChildren().addAll(label1,label2, yourScore, label3, enemyScore,
                 label4,label5,pLetters, eLetters, pNumbers, eNumbers,
-                playerBoard, enemyBoard);
-        //          ,speed,textArea,giveUp
+                playerBoard, enemyBoard,speed,textArea,giveUp);
+
 
 
         Scene scene = new Scene(allOfItPane);
