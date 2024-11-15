@@ -32,7 +32,7 @@ public class Board {
         }
         this.fleet = new ArrayList<>();
         createShips();
-        placeAllShips();
+        //placeAllShips();
         printMap();
 
     }

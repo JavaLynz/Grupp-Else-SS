@@ -149,7 +149,7 @@ public class Player {
         System.out.println("Välj en kolumn");
         int targetCol = sc.nextInt();
 
-        Ship hitShip = playerboard.hit(targetRow, targetCol);
+        Ship hitShip = playerBoard.hit(targetRow, targetCol);
 
         if(hitShip != null){
             System.out.println("Träff! " + hitShip.getName() + "(Player.hitShip)");
@@ -158,7 +158,7 @@ public class Player {
             System.out.println("Miss!");
         }
 
-        playerboard.printMap();
+        playerBoard.printMap();
     }
 
     public void guessLogic(){

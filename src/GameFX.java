@@ -12,43 +12,44 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameFX extends Application {
-    int speed;
-    String text = "Show latest moves";
-    int pShipsAlive = 2;
-    int eShipsAlive = 4;
-    int[][] annasPlayerBoardArray = new int[][]{
-            {0,0,0,0,0,0,0,0,0,0},
-            {0,1,1,1,0,0,0,0,0,0},
-            {0,0,3,0,0,0,0,0,0,0},
-            {0,0,0,1,1,1,0,0,0,0},
-            {0,0,0,0,3,0,0,0,0,0},
-            {0,0,0,0,0,2,2,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0}
-    };
-
-    int[][] annasEnemyBoardArray = new int[][]{
-            {0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0},
-            {0,0,3,0,0,0,0,0,0,0},
-            {0,0,0,3,0,0,0,0,0,0},
-            {0,0,0,0,2,0,0,0,0,0},
-            {0,0,0,0,0,2,0,0,0,0},
-            {0,3,3,0,0,0,2,0,0,0},
-            {0,0,2,2,0,0,0,3,0,0},
-            {0,0,0,0,0,0,0,0,3,0},
-            {0,0,0,0,0,0,0,0,0,2}
-    };
-
+public class GameFX{
 
     private BattleshipApp battleshipApp = new BattleshipApp();
     private GameController gameController = new GameController();
 
-    @Override
-    public void diplay(Stage primaryStage) throws Exception {
+
+
+    public static void display() throws Exception {
+        int speedInt;
+        String text = "Show latest moves";
+        int pShipsAlive = 2;
+        int eShipsAlive = 4;
+        int[][] annasPlayerBoardArray = new int[][]{
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,1,1,1,0,0,0,0,0,0},
+                {0,0,3,0,0,0,0,0,0,0},
+                {0,0,0,1,1,1,0,0,0,0},
+                {0,0,0,0,3,0,0,0,0,0},
+                {0,0,0,0,0,2,2,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0}
+        };
+
+        int[][] annasEnemyBoardArray = new int[][]{
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,3,0,0,0,0,0,0,0},
+                {0,0,0,3,0,0,0,0,0,0},
+                {0,0,0,0,2,0,0,0,0,0},
+                {0,0,0,0,0,2,0,0,0,0},
+                {0,3,3,0,0,0,2,0,0,0},
+                {0,0,2,2,0,0,0,3,0,0},
+                {0,0,0,0,0,0,0,0,3,0},
+                {0,0,0,0,0,0,0,0,0,2}
+        };
+
 
         AnchorPane allOfItPane = new AnchorPane();
         allOfItPane.setPrefSize(570,550);
@@ -72,11 +73,11 @@ public class GameFX extends Application {
         List<Circle> playerScoreList = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             if (i<pShipsAlive) {
-            Circle circle = new Circle();
-            circle.setFill(Color.DARKRED);
-            circle.setRadius(8);
-            circle.setLayoutX((i*20));
-            playerScoreList.add(circle);
+                Circle circle = new Circle();
+                circle.setFill(Color.DARKRED);
+                circle.setRadius(8);
+                circle.setLayoutX((i*20));
+                playerScoreList.add(circle);
             } else {
                 Circle circle = new Circle();
                 circle.setFill(Color.BEIGE);

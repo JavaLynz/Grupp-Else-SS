@@ -7,13 +7,19 @@ import javafx.application.Application;
 public class BattleshipMain {
     public static void main(String[] args) {
 
-        Application.launch(BattleshipApp.class);
+//        Application.launch(BattleshipApp.class);
 
-       // Player player = new Player(true);
+        Board playerBoard = new Board();
+        Board enemyBoard = new Board();
 
-        // while(true) {
-          //  System.out.println("Tryck på Enter för att skjuta");
-            //player.shootPos();
+
+        Player player = new Player("player", playerBoard, enemyBoard, true);
+
+        while (true) {
+            System.out.println("Tryck på Enter för att skjuta");
+            player.shootPos();
         }
     }
+
+}
 
