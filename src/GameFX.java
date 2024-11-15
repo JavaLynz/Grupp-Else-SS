@@ -64,14 +64,6 @@ public class GameFX extends Application {
         label4.setFont(new Font("Cambria bold", 12));
         label5.setFont(new Font("Cambria bold", 12));
 
-
-        AnchorPane playerBoard = new AnchorPane();
-        playerBoard.setBackground(new Background(new BackgroundFill(Color.GREY,null,null)));
-
-
-        AnchorPane enemyBoard = new AnchorPane();
-        enemyBoard.setBackground(new Background(new BackgroundFill(Color.GRAY,null,null)));
-
         AnchorPane yourScore = new AnchorPane();
         List<Circle> playerScoreList = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
@@ -81,7 +73,6 @@ public class GameFX extends Application {
             circle.setLayoutX((i*20));
             playerScoreList.add(circle);
         }
-
         yourScore.getChildren().addAll(playerScoreList);
 
         AnchorPane enemyScore = new AnchorPane();
@@ -168,6 +159,11 @@ public class GameFX extends Application {
         eNumbers.getChildren().addAll(eNumbersList);
 
 
+        AnchorPane playerBoard = new AnchorPane();
+        playerBoard.setBackground(new Background(new BackgroundFill(Color.GREY,null,null)));
+
+        AnchorPane enemyBoard = new AnchorPane();
+        enemyBoard.setBackground(new Background(new BackgroundFill(Color.GRAY,null,null)));
 
         List<Rectangle> playerBoardList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -224,11 +220,9 @@ public class GameFX extends Application {
         playerBoard.setPrefWidth(205);
         playerBoard.setPrefHeight(205);
 
-
         enemyBoard.getChildren().addAll(enemyList);
         enemyBoard.setPrefWidth(205);
         enemyBoard.setPrefHeight(205);
-
 
 
         Button speed = new Button("Change delay speed");
