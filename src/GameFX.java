@@ -231,7 +231,7 @@ public class GameFX{
         List<Rectangle> enemyBoardList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                if (annasEnemyBoardArray[i][j]==0){                //Water
+                if (controller.getPlayer().getEnemyBoard().getMap()[i][j]==0){                //Water
                     Rectangle rectangle = new Rectangle();
                     rectangle.setFill(new ImagePattern(water));
                     rectangle.setWidth(15);
@@ -239,7 +239,7 @@ public class GameFX{
                     rectangle.setLayoutX((j*20)+5);
                     rectangle.setLayoutY((i*20)+5);
                     enemyBoardList.add(rectangle);
-                } else if (annasPlayerBoardArray[i][j]==2) {         //hit
+                } else if (controller.getPlayer().getEnemyBoard().getMap()[i][j]==2) {         //hit
                     Rectangle rectangle = new Rectangle();
                     rectangle.setFill(new ImagePattern(hit));
                     rectangle.setWidth(15);

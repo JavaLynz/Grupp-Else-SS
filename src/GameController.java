@@ -10,26 +10,30 @@ public class GameController {
     protected static Board enemyBoard = new Board();
     private Server server;
     private Client client;
-    private Player Player;
+    private Player player;
     protected static boolean gameOn = true;
 
-
+    public GameController() {
+        this.server = server;
+        this.client = client;
+        player = new Player("q", false);
+    }
 
     public void setUpGame(boolean isServer) throws IOException {
         if (isServer) {
             server = new Server();
             server.startServer();
-            Player = new Player(PlayerTwoInputWindow.getPlayerTwoName(),true);
+            player = new Player(PlayerTwoInputWindow.getPlayerTwoName(),true);
             System.out.println("Starting game...");
             //Board playerBoard = new Board();
-            //Board enemyBoard = new Board();
+            Board enemyBoard = new Board();
             //playerBoard.placeShip();
 
         } else {
             client = new Client();
             client.startClientConnection();
             System.out.println("Starting game...");
-            Player = new Player(PlayerOneInputWindow.getPlayerOneName(),false);
+            player = new Player(PlayerOneInputWindow.getPlayerOneName(),false);
             //Board playerBoard = new Board();
             //Board enemyBoard = new Board();
             //playerBoard.placeShip();
@@ -106,5 +110,13 @@ public class GameController {
 
     public void setEnemyBoard(Board enemyBoard) {
         this.enemyBoard = enemyBoard;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        player = player;
     }
 }
