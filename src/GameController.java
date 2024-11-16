@@ -21,8 +21,8 @@ public class GameController {
             server.startServer();
             Player = new Player(PlayerTwoInputWindow.getPlayerTwoName(),true);
             System.out.println("Starting game...");
-            Board playerBoard = new Board();
-            Board enemyBoard = new Board();
+            //Board playerBoard = new Board();
+            //Board enemyBoard = new Board();
             //playerBoard.placeShip();
 
         } else {
@@ -30,8 +30,8 @@ public class GameController {
             client.startClientConnection();
             System.out.println("Starting game...");
             Player = new Player(PlayerOneInputWindow.getPlayerOneName(),false);
-            Board playerBoard = new Board();
-            Board enemyBoard = new Board();
+            //Board playerBoard = new Board();
+            //Board enemyBoard = new Board();
             //playerBoard.placeShip();
         }
     }
