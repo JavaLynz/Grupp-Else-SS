@@ -114,8 +114,6 @@ public class Ship {
         this.startCol = startCol;
     }
 
-    // Metoder
-
     public void setOrientation(boolean isVertical){
         this.isVertical = isVertical;
     }
@@ -131,6 +129,8 @@ public class Ship {
         return new int[]{random.nextInt(10-size), random.nextInt(10-size)};
 
     }
+
+
 
     // Metoder
 
