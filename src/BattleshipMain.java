@@ -7,12 +7,12 @@ import javafx.application.Application;
 public class BattleshipMain {
     public static void main(String[] args) {
 
-//        Application.launch(BattleshipApp.class);
+        Application.launch(BattleshipApp.class);
+
 
 //        Board playerBoard = new Board();
 //        Board enemyBoard = new Board();
 
-        Board board = new Board();
         Player player = new Player("player",true);
         player.getPlayerBoard().placeAllShips();
         player.getPlayerBoard().printMap();
