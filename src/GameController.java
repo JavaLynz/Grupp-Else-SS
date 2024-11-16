@@ -4,64 +4,48 @@ import java.io.IOException;
 
 public class GameController {
 
-    private Board playerBoard = new Board();
-    private Board enemyBoard = new Board();
+
+
+    protected static Board playerBoard = new Board();
+    protected static Board enemyBoard = new Board();
     private Server server;
     private Client client;
-    private Player clientPlayer = new Player(PlayerOneInputWindow.getPlayerOneName(),false);
-    private Player serverPlayer = new Player(PlayerTwoInputWindow.getPlayerTwoName(),true);
+    private Player clientPlayer;
+    private Player serverPlayer;
     protected static boolean gameOn = true;
 
 
 
-    public void setUpGame (boolean isServer) throws IOException {
+    public void setUpGame(boolean isServer) throws IOException {
         if (isServer) {
             server = new Server();
             server.startServer();
+            serverPlayer = new Player(PlayerTwoInputWindow.getPlayerTwoName(),true);
             System.out.println("Starting game...");
             Board playerBoard = new Board();
             Board enemyBoard = new Board();
             //playerBoard.placeShip();
+
         } else {
             client = new Client();
             client.startClientConnection();
             System.out.println("Starting game...");
+            clientPlayer = new Player(PlayerOneInputWindow.getPlayerOneName(),false);
             Board playerBoard = new Board();
             Board enemyBoard = new Board();
             //playerBoard.placeShip();
         }
-    /*
-    public void gameLoop(){
+    }
 
-    while(GameOn) {
-        if(isClientTurn) {
-            guessRandom(clientPlayer);  // first turn
-            guessLogic(clientPlayer);
-            receiveTranslateGuess(serverPlayer);
-            assessGuess(serverPlayer);
-            updateEnemyBoard(clientPlayer)      // thread 1?
-            updatePlayerBoard(serverPlayer)     // thread 2?
-            confirmGuess(serverPlayer);
-            switchPlayerTurn();
-        }else {
-            guessRandom(serverPlayer);  // first turn
-            guessLogic(serverPlayer);
-            receiveGuess(clientPlayer);
-            translateGuess(clientPlayer);
-            assessGuess(clientPlayer);
-            updateEnemyBoard(serverPlayer)      // thread 1?
-            updatePlayerBoard(clientPlayer)     // thread 2?
-            confirmGuess(clientPlayer);
-            switchPlayerTurn();
-       }
 
-       public void GameLoop(boolean isClient){
+
+    public void gameLoop(boolean isClient) {
         gameOn = true;
         System.out.println("Game loop started");
-    while (gameOn) {
+        while (gameOn) {
 
             if (isClient = true) {
-                Player.GuessRandom();
+                Player.guessRandom();
             } else {
                 //wait for first strike from opponent
                 //translate string to guess
@@ -73,9 +57,31 @@ public class GameController {
             //update array
             //update map
 
+        }
 
-     */
+
+//        if(isClientTurn) {
+//            guessRandom(clientPlayer);  // first turn
+//            guessLogic(clientPlayer);
+//            receiveTranslateGuess(serverPlayer);
+//            assessGuess(serverPlayer);
+//            updateEnemyBoard(clientPlayer)      // thread 1?
+//            updatePlayerBoard(serverPlayer)     // thread 2?
+//            confirmGuess(serverPlayer);
+//            switchPlayerTurn();
+//        }else {
+//            guessRandom(serverPlayer);  // first turn
+//            guessLogic(serverPlayer);
+//            receiveGuess(clientPlayer);
+//            translateGuess(clientPlayer);
+//            assessGuess(clientPlayer);
+//            updateEnemyBoard(serverPlayer)      // thread 1?
+//            updatePlayerBoard(clientPlayer)     // thread 2?
+//            confirmGuess(clientPlayer);
+//            switchPlayerTurn();
+//       }
     }
+
     public static void endGameClose(){
         boolean result = QuitConfirmBox.display();
         if (result){
@@ -84,5 +90,19 @@ public class GameController {
 
 
     }
+    public Board getPlayerBoard() {
+        return playerBoard;
+    }
 
+    public void setPlayerBoard(Board playerBoard) {
+        this.playerBoard = playerBoard;
+    }
+
+    public Board getEnemyBoard() {
+        return enemyBoard;
+    }
+
+    public void setEnemyBoard(Board enemyBoard) {
+        this.enemyBoard = enemyBoard;
+    }
 }

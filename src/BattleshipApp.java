@@ -32,7 +32,8 @@ public class BattleshipApp extends Application {
 
         Button button = new Button("Start a game");
         button.setStyle("-fx-background-color: #ffa500");
-        button.setFont(new Font("Arial", 30));
+        button.autosize();
+        button.setFont(new Font("Arial", 20));
         button.setOnAction(e->{
             button.setStyle("-fx-background-color: #fff");
             //get player's name and port;
@@ -49,7 +50,8 @@ public class BattleshipApp extends Application {
 
         Button button1 = new Button("Join a game");
         button1.setStyle("-fx-background-color: #ffa500");
-        button1.setFont(new Font("Arial", 30));
+        button1.setFont(new Font("Arial", 20));
+        button1.autosize();
         button1.setOnAction(e->{
             button1.setStyle("-fx-background-color: #fff");
             PlayerTwoInputWindow.display();
@@ -63,20 +65,19 @@ public class BattleshipApp extends Application {
         });
 
         Button closeButton = new Button("Quit");
-        closeButton.setFont(new Font("Arial", 30));
+        closeButton.setFont(new Font("Arial", 20));
+        closeButton.autosize();
         closeButton.setOnAction(e->{
             QuitConfirmBox.display();
             });
 
-
-        Font fontBroadway = Font.loadFont("Broadway font.tff", 50);
-        Label label = new Label("Welcome to Battleship!");
-        label.setFont(fontBroadway);
+        Label label = new Label("Battleship!");
+        label.setFont(new Font("Broadway", 40));
         label.setStyle("-fx-font-weight: bold");
 
-        Rectangle whiteRectangle = new Rectangle(200,200,550,600);
+        Rectangle whiteRectangle = new Rectangle(200,200,300,300);
         whiteRectangle.setFill(Paint.valueOf("white"));
-        whiteRectangle.minWidth(450);
+        whiteRectangle.minWidth(300);
 
         ImageView battleship = new ImageView("Battleship.png");
         battleship.fitHeightProperty().bind(whiteRectangle.widthProperty());
@@ -84,16 +85,16 @@ public class BattleshipApp extends Application {
 
         HBox hbox = new HBox(button, button1, closeButton);
         hbox.setAlignment(Pos.CENTER);
-        hbox.setSpacing(50);
+        hbox.setSpacing(30);
 
         VBox vbox = new VBox(label, battleship, hbox);
         vbox.setAlignment(Pos.CENTER);
-        vbox.setSpacing(50);
+        vbox.setSpacing(30);
 
         StackPane layout = new StackPane();
         layout.getChildren().addAll(whiteRectangle, vbox);
 
-        scene = new Scene(layout, 700, 800);
+        scene = new Scene(layout, 570, 550);
         layout.setStyle("-fx-background-color: teal");
         layout.setAlignment(Pos.CENTER);
 
