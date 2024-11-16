@@ -11,9 +11,6 @@ Skepsarraynyckel.
     12: miss
     13: cant be enemy ship
 
-
-
-
 */
 
 public class Board {
@@ -31,9 +28,9 @@ public class Board {
             }
         }
         this.fleet = new ArrayList<>();
-        createShips();
+//        createShips();
         //placeAllShips();
-        printMap();
+//        printMap();
 
     }
 
@@ -82,32 +79,6 @@ public class Board {
         }
     }
 
-
-
-//    public void placeShip(Ship ship) {
-//        int size = ship.getSize();
-//        boolean placed = false;
-//
-//        while (!placed) {
-//            int startRow = random.nextInt(10);
-//            int startCol = random.nextInt(10);
-//            boolean isVertical = random.nextBoolean();
-//
-//            // Kolla om skeppet får plats
-//            if (canPlaceShip(startRow, startCol, size, isVertical)) {
-//                if (isVertical) {
-//                    for (int i = 0; i < size; i++) {
-//                        map[startRow + i][startCol] = size; // Vertikal = adderar rader
-//                    }
-//                } else {
-//                    for (int i = 0; i < size; i++) {
-//                        map[startRow][startCol + i] = size;  // Horisontell = adderar kolumner
-//                    }
-//                }
-//                placed = true;
-//            }
-//        }
-//    }
 
     // Kolla om skeppet inte placeras för nära andra skepp
     private boolean canPlaceShip(int startRow, int startCol, int size, boolean isVertical) {
@@ -234,27 +205,6 @@ public class Board {
             System.out.println();
         }
     }
-//    public void printMap() {
-//        System.out.println("test printMap");
-//        System.out.print("  ");
-//        for (int col = 0; col < map[0].length; col++) {
-//            System.out.print(col + " ");
-//        }
-//        System.out.println();
-//
-//        for (int row = 0; row < map.length; row++) {
-//            System.out.print((char) ('A' + row) + " ");
-//            for (int col = 0; col < map[row].length; col++) {
-//                if (map[row][col] == 0) {
-//                    System.out.print("~ ");
-//                } else {
-//                    System.out.print(map[row][col] + " ");
-//                }
-//            }
-//            System.out.println();
-//        }
-//    }
-
 
     @Override
     public String toString() {

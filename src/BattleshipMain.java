@@ -7,19 +7,20 @@ import javafx.application.Application;
 public class BattleshipMain {
     public static void main(String[] args) {
 
-        Application.launch(BattleshipApp.class);
+//        Application.launch(BattleshipApp.class);
 
 
 //        Board playerBoard = new Board();
 //        Board enemyBoard = new Board();
 
         Player player = new Player("player",true);
+        player.getPlayerBoard().createShips();
         player.getPlayerBoard().placeAllShips();
         player.getPlayerBoard().printMap();
         player.getEnemyBoard().printMap();
 
-        player.getPlayerBoard().checkNumberOfShipsLeft();
         player.getEnemyBoard().checkNumberOfShipsLeft();
+        player.getPlayerBoard().checkNumberOfShipsLeft();
 
 
         while (true) {
