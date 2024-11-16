@@ -13,14 +13,14 @@ public class Translate {
         translateToSend();
     }
 
-    public static void translateReceived() {
+    public static void translateReceived(String recived) {
 
         String s1 = "i shot 5b"; // init
         String s2 = "h shot 7c"; // hit + kordinat
         String s3 = "m shot 6g"; // miss + kordinat
         String s4 = "game over"; // game over
         String s5 = "s shot 5b"; // insänkt + kordinat
-        String recived = s4;
+        //String recived = s4;
         Boolean recivedGameStatus = true;
         int enemyShipsDown = 0;
         int enemyState = 33;

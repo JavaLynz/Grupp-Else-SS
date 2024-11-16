@@ -1,6 +1,10 @@
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 
 import java.io.IOException;
+import java.util.List;
 
 public class GameController {
 
@@ -15,7 +19,7 @@ public class GameController {
 
     public GameController() {
         this.server = server;
-        this.client = client;
+        this.client = client;                       ///Borde inte behöva den här
         player = new Player("q", false);
     }
 
@@ -43,6 +47,33 @@ public class GameController {
     public void annasLoop (){
         System.out.println("nu kör vi!");
 
+        ListView<String> listView = new ListView<>();
+        ObservableList<String> data = FXCollections.observableArrayList();
+        listView.setItems(data);
+        data.add("String from translation");
+
+            //place ship
+            //update gameFX
+            if (player.isClient() == true) {
+                // get coordinates to guess
+                //translate coordinates to string
+                // update textwindow
+                //send string to server to send to client
+                //server/client communicate
+            }
+            while (gameOn){
+                //wait for communication from opponent
+                // send response to translation
+                        //Send to string and update textwindow
+                        //get result of shot and update map & save to return
+                        //update ships alive
+                        //update game status
+                            //if false end game else
+                //take a guess
+                // send result of shot and guess for translation
+                // update textwindow
+                // send string to server/client to sent to opponent
+        }
     }
 
     public void gameLoop(boolean isClient) {

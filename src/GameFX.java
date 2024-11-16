@@ -193,7 +193,7 @@ public class GameFX{
         List<Rectangle> playerBoardList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                if (annasPlayerBoardArray[i][j]==0){                //Water
+                if (controller.getPlayer().getPlayerBoard().getMap()[i][j]==0){                //Water
                     Rectangle rectangle = new Rectangle();
                     rectangle.setFill(new ImagePattern(water));
                     rectangle.setWidth(15);
@@ -201,7 +201,7 @@ public class GameFX{
                     rectangle.setLayoutX((j*20)+5);
                     rectangle.setLayoutY((i*20)+5);
                     playerBoardList.add(rectangle);
-                } else if (annasPlayerBoardArray[i][j]==1) {         //Boat
+                } else if (controller.getPlayer().getPlayerBoard().getMap()[i][j]==1) {         //Boat
                     Rectangle rectangle = new Rectangle();
                     rectangle.setFill(Color.DARKSLATEGREY);
                     rectangle.setWidth(15);
@@ -209,7 +209,7 @@ public class GameFX{
                     rectangle.setLayoutX((j*20)+5);
                     rectangle.setLayoutY((i*20)+5);
                     playerBoardList.add(rectangle);
-                } else if (annasPlayerBoardArray[i][j]==2) {         //hit
+                } else if (controller.getPlayer().getPlayerBoard().getMap()[i][j]==2) {         //hit
                     Rectangle rectangle = new Rectangle();
                     rectangle.setFill(new ImagePattern(hit));
                     rectangle.setWidth(15);
