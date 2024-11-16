@@ -36,7 +36,10 @@ public class GameController {
         }
     }
 
+    public void annasLoop (){
+        System.out.println("nu kör vi!");
 
+    }
 
     public void gameLoop(boolean isClient) {
         gameOn = true;

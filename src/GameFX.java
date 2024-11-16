@@ -3,8 +3,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -19,6 +21,7 @@ public class GameFX{
 
     public static void display() throws Exception {
     int speedInt;
+    GameController controller = new GameController();
     String text = "Show latest moves";
     int pShipsAlive = 2;
     int eShipsAlive = 4;
@@ -72,7 +75,7 @@ public class GameFX{
         for (int i = 0; i < 5; i++) {
             if (i<pShipsAlive) {
             Circle circle = new Circle();
-            circle.setFill(Color.DARKRED);
+            circle.setFill(Color.GREEN);
             circle.setRadius(8);
             circle.setLayoutX((i*20));
             playerScoreList.add(circle);
@@ -91,7 +94,7 @@ public class GameFX{
         for (int i = 0; i < 5; i++) {
             if (i<eShipsAlive) {
                 Circle circle = new Circle();
-                circle.setFill(Color.GREEN);
+                circle.setFill(Color.DARKRED);
                 circle.setRadius(8);
                 circle.setLayoutX((i * 20));
                 enemyScoreList.add(circle);
@@ -184,12 +187,15 @@ public class GameFX{
         AnchorPane enemyBoard = new AnchorPane();
         enemyBoard.setBackground(new Background(new BackgroundFill(Color.GRAY,null,null)));
 
+
+        Image water = new Image("vatten2.png");
+        Image hit = new Image("explode.png");
         List<Rectangle> playerBoardList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 if (annasPlayerBoardArray[i][j]==0){                //Water
                     Rectangle rectangle = new Rectangle();
-                    rectangle.setFill(Color.DEEPSKYBLUE);
+                    rectangle.setFill(new ImagePattern(water));
                     rectangle.setWidth(15);
                     rectangle.setHeight(15);
                     rectangle.setLayoutX((j*20)+5);
@@ -205,7 +211,7 @@ public class GameFX{
                     playerBoardList.add(rectangle);
                 } else if (annasPlayerBoardArray[i][j]==2) {         //hit
                     Rectangle rectangle = new Rectangle();
-                    rectangle.setFill(Color.DARKRED);
+                    rectangle.setFill(new ImagePattern(hit));
                     rectangle.setWidth(15);
                     rectangle.setHeight(15);
                     rectangle.setLayoutX((j*20)+5);
@@ -213,7 +219,7 @@ public class GameFX{
                     playerBoardList.add(rectangle);
                 } else {                                               //miss
                     Rectangle rectangle = new Rectangle();
-                    rectangle.setFill(Color.WHITE);
+                    rectangle.setFill(Color.LIGHTGRAY);
                     rectangle.setWidth(15);
                     rectangle.setHeight(15);
                     rectangle.setLayoutX((j*20)+5);
@@ -227,7 +233,7 @@ public class GameFX{
             for (int j = 0; j < 10; j++) {
                 if (annasEnemyBoardArray[i][j]==0){                //Water
                     Rectangle rectangle = new Rectangle();
-                    rectangle.setFill(Color.DEEPSKYBLUE);
+                    rectangle.setFill(new ImagePattern(water));
                     rectangle.setWidth(15);
                     rectangle.setHeight(15);
                     rectangle.setLayoutX((j*20)+5);
@@ -235,7 +241,7 @@ public class GameFX{
                     enemyBoardList.add(rectangle);
                 } else if (annasPlayerBoardArray[i][j]==2) {         //hit
                     Rectangle rectangle = new Rectangle();
-                    rectangle.setFill(Color.DARKRED);
+                    rectangle.setFill(new ImagePattern(hit));
                     rectangle.setWidth(15);
                     rectangle.setHeight(15);
                     rectangle.setLayoutX((j*20)+5);
@@ -243,7 +249,7 @@ public class GameFX{
                     enemyBoardList.add(rectangle);
                 } else {                                               //miss
                     Rectangle rectangle = new Rectangle();
-                    rectangle.setFill(Color.WHITE);
+                    rectangle.setFill(Color.LIGHTGRAY);
                     rectangle.setWidth(15);
                     rectangle.setHeight(15);
                     rectangle.setLayoutX((j*20)+5);
@@ -263,10 +269,13 @@ public class GameFX{
 
         Button speed = new Button("Change delay speed");
         Button giveUp = new Button("Give up the game and quit");
+        Button startGame = new Button("Start game and go to war");
 
         speed.setStyle("-fx-font: 10 arial; -fx-base: #b6e7c9;");
+        startGame.setStyle("-fx-font: 10 arial; -fx-base: #b6e7c9;");
         giveUp.setStyle("-fx-font: 10 arial; -fx-base: RED;");
         giveUp.setOnAction((e)-> System.exit(0));
+        startGame.setOnAction((e)-> controller.annasLoop());
 
         TextArea textArea = new TextArea(text);
         textArea.setMaxWidth(225);
@@ -310,15 +319,18 @@ public class GameFX{
         textArea.setLayoutY(380);
 
         speed.setLayoutX(350);
-        speed.setLayoutY(380);
+        speed.setLayoutY(430);
 
         giveUp.setLayoutX(350);
-        giveUp.setLayoutY(420);
+        giveUp.setLayoutY(480);
+
+        startGame.setLayoutX(350);
+        startGame.setLayoutY(380);
 
 
         allOfItPane.getChildren().addAll(label1,label2, yourScore, label3, enemyScore,
                 label4,label5,pLetters, eLetters, pNumbers, eNumbers,
-                playerBoard, enemyBoard,speed,textArea,giveUp);
+                playerBoard, enemyBoard,speed,textArea,giveUp,startGame);
 
 
 
