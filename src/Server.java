@@ -33,7 +33,7 @@ public class Server {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server starting... waiting for connection...");
             InetAddress ip = InetAddress.getLocalHost();
-            serverSocket.setSoTimeout(30000);
+            serverSocket.setSoTimeout(3);
             System.out.println("Server opened at " + ip.getHostAddress() + "nominated port: " + port + "Port: " + serverSocket.getLocalPort());
 
             Socket socket = serverSocket.accept();
