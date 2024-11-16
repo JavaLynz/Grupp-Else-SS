@@ -20,6 +20,7 @@ public class PlayerOneInputWindow {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Player One Name");
         window.setMinWidth(400);
+        window.setMinHeight(500);
         Label label = new Label();
         label.setText("Please enter your name: ");
         label.setAlignment(Pos.CENTER);
@@ -52,7 +53,7 @@ public class PlayerOneInputWindow {
 
 
 
-        VBox layout = new VBox(10);
+        VBox layout = new VBox(20);
         layout.getChildren().addAll(label, name, portInputLabel , portInput ,done);
         layout.setAlignment(Pos.CENTER);
 
