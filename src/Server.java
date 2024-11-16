@@ -36,7 +36,7 @@ public class Server {
             InetAddress ip = InetAddress.getLocalHost();
             ipAddress = ip.getHostAddress();
             serverSocket.setSoTimeout(30000);
-            //System.out.println("Server opened at " + ip.getHostAddress() + "nominated port: " + port + "Port: " + serverSocket.getLocalPort());
+            System.out.println("Server opened at " + ip.getHostAddress() + "nominated port: " + port + "Port: " + serverSocket.getLocalPort());
             ConfirmServer.display();
             Socket socket = serverSocket.accept();
             System.out.println("Connection established.");

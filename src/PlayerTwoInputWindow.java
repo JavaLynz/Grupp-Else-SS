@@ -10,27 +10,26 @@ import javafx.stage.Stage;
 
 public class PlayerTwoInputWindow {
 
-    protected static String playerTwoName;
-    protected static boolean isClient = true;
-    protected static boolean isServer = false;
-    protected static String ipAddress;
+    private static String playerTwoName;
+    private static String ipAddress;
 
     public static void display() {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Player Two Name");
         window.setMinWidth(400);
-        Label label = new Label();
-        label.setText("Please enter your name: ");
-        label.setAlignment(Pos.TOP_CENTER);
-        label.setFont(new Font("Arial",30));
+
+        Label nameLabel = new Label();
+        nameLabel.setText("Please enter your name: ");
+        nameLabel.setAlignment(Pos.TOP_CENTER);
+        nameLabel.setFont(new Font("Arial",30));
 
         TextField name = new TextField("Player Two");
 
         Label ipAddressLabel = new Label();
-        label.setText("Please enter the server IP address: ");
-        label.setAlignment(Pos.CENTER);
-        label.setFont(new Font("Arial",30));
+        ipAddressLabel.setText("Please enter the server IP address: ");
+        ipAddressLabel.setAlignment(Pos.CENTER);
+        ipAddressLabel.setFont(new Font("Arial",30));
 
         TextField ipAddressInput = new TextField("");
 
@@ -50,7 +49,7 @@ public class PlayerTwoInputWindow {
 
 
         VBox layout = new VBox(20);
-        layout.getChildren().addAll(label, name, ipAddressLabel, ipAddressInput, done);
+        layout.getChildren().addAll(nameLabel, name, ipAddressLabel, ipAddressInput, done);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
@@ -70,21 +69,9 @@ public class PlayerTwoInputWindow {
         PlayerTwoInputWindow.playerTwoName = playerTwoName;
     }
 
-    public static boolean isServer() {
-        return isServer;
-    }
 
-    public static void setIsServer(boolean isServer) {
-        PlayerTwoInputWindow.isServer = isServer;
-    }
-
-    public static boolean isClient() {
-        return isClient;
-    }
-
-    public static void setIsClient(boolean isClient) {
-        PlayerTwoInputWindow.isClient = isClient;
-
+    public static String getIpAddress() {
+        return ipAddress;
     }
 }
 
