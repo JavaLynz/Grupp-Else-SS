@@ -17,9 +17,9 @@ import java.io.IOException;
 public class BattleshipApp extends Application {
 
     private static Stage window;
-    private final GameController controller = new GameController();
+    private static final GameController controller = new GameController();
 
-    public static  Stage getStage() {
+    public static Stage getStage() {
         return window;
     }
 
@@ -34,7 +34,7 @@ public class BattleshipApp extends Application {
         button.setStyle("-fx-background-color: #ffa500");
         button.autosize();
         button.setFont(new Font("Arial", 20));
-        button.setOnAction(e->{
+        button.setOnAction(e -> {
             button.setStyle("-fx-background-color: #fff");
             //get player's name and port;
             PlayerOneInputWindow.display();
@@ -52,7 +52,7 @@ public class BattleshipApp extends Application {
         button1.setStyle("-fx-background-color: #ffa500");
         button1.setFont(new Font("Arial", 20));
         button1.autosize();
-        button1.setOnAction(e->{
+        button1.setOnAction(e -> {
             button1.setStyle("-fx-background-color: #fff");
             PlayerTwoInputWindow.display();
             try {
@@ -67,15 +67,15 @@ public class BattleshipApp extends Application {
         Button closeButton = new Button("Quit");
         closeButton.setFont(new Font("Arial", 20));
         closeButton.autosize();
-        closeButton.setOnAction(e->{
+        closeButton.setOnAction(e -> {
             QuitConfirmBox.display();
-            });
+        });
 
         Label label = new Label("Battleship!");
         label.setFont(new Font("Broadway", 40));
         label.setStyle("-fx-font-weight: bold");
 
-        Rectangle whiteRectangle = new Rectangle(200,200,300,300);
+        Rectangle whiteRectangle = new Rectangle(200, 200, 300, 300);
         whiteRectangle.setFill(Paint.valueOf("white"));
         whiteRectangle.minWidth(300);
 
@@ -106,8 +106,5 @@ public class BattleshipApp extends Application {
         window.setScene(scene);
         window.show();
 
-
     }
-
-
 }

@@ -14,9 +14,6 @@ import java.util.List;
 
 public class GameFX{
 
-    private BattleshipApp battleshipApp = new BattleshipApp();
-
-
     public static void display() throws Exception {
     int speedInt;
     String text = "Show latest moves";

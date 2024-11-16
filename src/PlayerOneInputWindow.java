@@ -14,9 +14,8 @@ public class PlayerOneInputWindow {
     protected static boolean isServer = true;
     protected static boolean isClient = false;
     protected static  int port;
-    private GameFX game = new GameFX();
 
-    public static String display() {
+    public static void display() {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Player One Name");
@@ -60,7 +59,6 @@ public class PlayerOneInputWindow {
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
-        return name.getText();
 
 
 
