@@ -21,7 +21,7 @@ public class GameFX{
 
     public static void display() throws Exception {
     int speedInt;
-    GameController controller = new GameController();
+    Player player = new Player("e", true);
     String text = "Show latest moves";
     int pShipsAlive = 2;
     int eShipsAlive = 4;
@@ -193,7 +193,7 @@ public class GameFX{
         List<Rectangle> playerBoardList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                if (controller.getPlayer().getPlayerBoard().getMap()[i][j]==0){                //Water
+                if (player.getPlayerBoard().getMap()[i][j]==0){                //Water
                     Rectangle rectangle = new Rectangle();
                     rectangle.setFill(new ImagePattern(water));
                     rectangle.setWidth(15);
@@ -201,15 +201,15 @@ public class GameFX{
                     rectangle.setLayoutX((j*20)+5);
                     rectangle.setLayoutY((i*20)+5);
                     playerBoardList.add(rectangle);
-                } else if (controller.getPlayer().getPlayerBoard().getMap()[i][j]==1) {         //Boat
+                } else if (player.getPlayerBoard().getMap()[i][j]==12) {         //miss
                     Rectangle rectangle = new Rectangle();
-                    rectangle.setFill(Color.DARKSLATEGREY);
+                    rectangle.setFill(Color.LIGHTGRAY);
                     rectangle.setWidth(15);
                     rectangle.setHeight(15);
                     rectangle.setLayoutX((j*20)+5);
                     rectangle.setLayoutY((i*20)+5);
                     playerBoardList.add(rectangle);
-                } else if (controller.getPlayer().getPlayerBoard().getMap()[i][j]==2) {         //hit
+                } else if (player.getPlayerBoard().getMap()[i][j]==11) {         //hit
                     Rectangle rectangle = new Rectangle();
                     rectangle.setFill(new ImagePattern(hit));
                     rectangle.setWidth(15);
@@ -217,9 +217,9 @@ public class GameFX{
                     rectangle.setLayoutX((j*20)+5);
                     rectangle.setLayoutY((i*20)+5);
                     playerBoardList.add(rectangle);
-                } else {                                               //miss
+                } else {                                               //Boat
                     Rectangle rectangle = new Rectangle();
-                    rectangle.setFill(Color.LIGHTGRAY);
+                    rectangle.setFill(Color.DARKSLATEGREY);
                     rectangle.setWidth(15);
                     rectangle.setHeight(15);
                     rectangle.setLayoutX((j*20)+5);
@@ -231,15 +231,15 @@ public class GameFX{
         List<Rectangle> enemyBoardList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                if (controller.getPlayer().getEnemyBoard().getMap()[i][j]==0){                //Water
+                if (player.getEnemyBoard().getMap()[i][j]==12){                 //miss
                     Rectangle rectangle = new Rectangle();
-                    rectangle.setFill(new ImagePattern(water));
+                    rectangle.setFill(Color.LIGHTGRAY);
                     rectangle.setWidth(15);
                     rectangle.setHeight(15);
                     rectangle.setLayoutX((j*20)+5);
                     rectangle.setLayoutY((i*20)+5);
                     enemyBoardList.add(rectangle);
-                } else if (controller.getPlayer().getEnemyBoard().getMap()[i][j]==2) {         //hit
+                } else if (player.getEnemyBoard().getMap()[i][j]==11) {         //hit
                     Rectangle rectangle = new Rectangle();
                     rectangle.setFill(new ImagePattern(hit));
                     rectangle.setWidth(15);
@@ -247,9 +247,9 @@ public class GameFX{
                     rectangle.setLayoutX((j*20)+5);
                     rectangle.setLayoutY((i*20)+5);
                     enemyBoardList.add(rectangle);
-                } else {                                               //miss
+                } else {                                               //Water
                     Rectangle rectangle = new Rectangle();
-                    rectangle.setFill(Color.LIGHTGRAY);
+                    rectangle.setFill(new ImagePattern(water));
                     rectangle.setWidth(15);
                     rectangle.setHeight(15);
                     rectangle.setLayoutX((j*20)+5);
@@ -275,7 +275,7 @@ public class GameFX{
         startGame.setStyle("-fx-font: 10 arial; -fx-base: #b6e7c9;");
         giveUp.setStyle("-fx-font: 10 arial; -fx-base: RED;");
         giveUp.setOnAction((e)-> System.exit(0));
-        startGame.setOnAction((e)-> controller.annasLoop());
+        //startGame.setOnAction((e)-> annasLoop());
 
         TextArea textArea = new TextArea(text);
         textArea.setMaxWidth(225);
