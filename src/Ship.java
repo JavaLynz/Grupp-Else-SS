@@ -168,18 +168,18 @@ public void printPositions() {
 //        }
 //        }
 
-        public void addHit(){
-            System.out.println("hits++ på " + name + "(Ship.addHit)");
-        hits++;
-        if(hits == size){
-            System.out.println("Sänkt! (Ship.addHit)");
-        }
-        }
-
-        public void hitShip() {
-        hits++;
-            System.out.println(name + " was hit!");
-        }
+//        public void addHit(){
+//            System.out.println("hits++ på " + name + "(Ship.addHit)");
+//        hits++;
+//        if(hits == size){
+//            System.out.println("Sänkt! (Ship.addHit)");
+//        }
+//        }
+//
+//        public void hitShip() {
+//        hits++;
+//            System.out.println(name + " was hit!");
+//        }
 
 
         public void giveNameAfterSize(){

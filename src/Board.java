@@ -153,22 +153,24 @@ public class Board {
         for(Ship s : fleet) {
             for(int[] pos : s.getPositions()) {
                 if(pos[0] == row && pos[1] == col) {
-                    s.addHit();
+                    s.setHits(s.getHits() + 1);
+                    sinkShip(s);
                     map[row][col] = 1;
-                    System.out.println("Träff! " + s.getName() + " på position " + row + col + "(Ship.hit)");
+                    System.out.println("Träff! " + s.getName() + " på position " + row + ","+ col + "(Board.hit)");
                     
                     return s;
                 }
             }
         }
         map[row][col] = 9;
+        System.out.println("Miss!");
         return null;
     }
 
    public void sinkShip(Ship ship) {
         if(ship.getHits() == ship.getSize()) {
             fleet.remove(ship);
-            System.out.println(ship.getName() +  " sjönk och blev borttaget från flottan!");
+            System.out.println(ship.getName() +  " sjönk och blev borttaget från flottan! (Board.sinkShip)");
         }
    }
 
