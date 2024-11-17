@@ -114,25 +114,18 @@ public class Ship {
         this.startCol = startCol;
     }
 
-    // Metoder
-
     public void setOrientation(boolean isVertical){
         this.isVertical = isVertical;
     }
+
+
+    // Metoder
 
     public void setStartPosition(int startRow, int startCol){
         this.startRow = startRow;
         this.startCol = startCol;
     }
 
-
-    public int[] getRandomPosition() {
-        System.out.println("Size: " + size);
-        return new int[]{random.nextInt(10-size), random.nextInt(10-size)};
-
-    }
-
-    // Metoder
 
     public void setPosition() {
         if(isVertical) {
@@ -146,6 +139,11 @@ public class Ship {
             }
         }
     }
+
+//        public int[] getRandomPosition() {
+//        System.out.println("Size: " + size);
+//        return new int[]{random.nextInt(10-size), random.nextInt(10-size)};
+//    }
 
 public void printPositions() {
     System.out.println(name);
@@ -168,18 +166,18 @@ public void printPositions() {
 //        }
 //        }
 
-        public void addHit(){
-            System.out.println("hits++ på " + name + "(Ship.addHit)");
-        hits++;
-        if(hits == size){
-            System.out.println("Sänkt! (Ship.addHit)");
-        }
-        }
-
-        public void hitShip() {
-        hits++;
-            System.out.println(name + " was hit!");
-        }
+//        public void addHit(){
+//            System.out.println("hits++ på " + name + "(Ship.addHit)");
+//        hits++;
+//        if(hits == size){
+//            System.out.println("Sänkt! (Ship.addHit)");
+//        }
+//        }
+//
+//        public void hitShip() {
+//        hits++;
+//            System.out.println(name + " was hit!");
+//        }
 
 
         public void giveNameAfterSize(){

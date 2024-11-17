@@ -140,11 +140,11 @@ public class Player {
 
         Ship hitShip = playerBoard.hit(targetRow, targetCol);
 
-        if (hitShip != null) {
-            System.out.println("Träff! " + hitShip.getName() + "(Player.hitShip)");
-        } else {
-            System.out.println("Miss!");
-        }
+//        if (hitShip != null) {
+////            System.out.println("Träff! " + hitShip.getName() + "(Player.shootPos)");
+//        } else {
+//            System.out.println("Miss!");
+//        }
 
         playerBoard.printMap();
     }

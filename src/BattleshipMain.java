@@ -7,11 +7,7 @@ public class BattleshipMain {
 
         Application.launch(BattleshipApp.class);
 
-       // Player player = new Player(true);
-
-        // while(true) {
-          //  System.out.println("Tryck på Enter för att skjuta");
-            //player.shootPos();
-        }
     }
+
+}
 

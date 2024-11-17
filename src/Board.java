@@ -11,9 +11,6 @@ Skepsarraynyckel.
     12: miss
     13: cant be enemy ship
 
-
-
-
 */
 
 public class Board {
@@ -31,10 +28,6 @@ public class Board {
             }
         }
         this.fleet = new ArrayList<>();
-        createShips();
-        placeAllShips();
-        printMap();
-
     }
 
 
@@ -83,32 +76,6 @@ public class Board {
     }
 
 
-
-//    public void placeShip(Ship ship) {
-//        int size = ship.getSize();
-//        boolean placed = false;
-//
-//        while (!placed) {
-//            int startRow = random.nextInt(10);
-//            int startCol = random.nextInt(10);
-//            boolean isVertical = random.nextBoolean();
-//
-//            // Kolla om skeppet får plats
-//            if (canPlaceShip(startRow, startCol, size, isVertical)) {
-//                if (isVertical) {
-//                    for (int i = 0; i < size; i++) {
-//                        map[startRow + i][startCol] = size; // Vertikal = adderar rader
-//                    }
-//                } else {
-//                    for (int i = 0; i < size; i++) {
-//                        map[startRow][startCol + i] = size;  // Horisontell = adderar kolumner
-//                    }
-//                }
-//                placed = true;
-//            }
-//        }
-//    }
-
     // Kolla om skeppet inte placeras för nära andra skepp
     private boolean canPlaceShip(int startRow, int startCol, int size, boolean isVertical) {
         if (isVertical) {
@@ -153,7 +120,7 @@ public class Board {
     }
 
     public int checkNumberOfShipsLeft(){
-        System.out.println("Antal skepp kvar i listan: " + checkNumberOfShipsLeft());
+        System.out.println("Antal skepp kvar i listan: " + fleet.size());
         return fleet.size();
     }
 
@@ -182,22 +149,24 @@ public class Board {
         for(Ship s : fleet) {
             for(int[] pos : s.getPositions()) {
                 if(pos[0] == row && pos[1] == col) {
-                    s.addHit();
-                    map[row][col] = 1;
-                    System.out.println("Träff! " + s.getName() + " på position " + row + col + "(Ship.hit)");
+                    s.setHits(s.getHits() + 1);
+                    sinkShip(s);
+                    map[row][col] = 11;
+                    System.out.println("Träff! " + s.getName() + " på position " + row + ","+ col + "(Board.hit)");
                     
                     return s;
                 }
             }
         }
-        map[row][col] = 9;
+        map[row][col] = 12;
+        System.out.println("Miss!");
         return null;
     }
 
    public void sinkShip(Ship ship) {
         if(ship.getHits() == ship.getSize()) {
             fleet.remove(ship);
-            System.out.println(ship.getName() +  " sjönk och blev borttaget från flottan!");
+            System.out.println(ship.getName() +  " sjönk och blev borttaget från flottan! (Board.sinkShip)");
         }
    }
 
@@ -234,27 +203,6 @@ public class Board {
             System.out.println();
         }
     }
-//    public void printMap() {
-//        System.out.println("test printMap");
-//        System.out.print("  ");
-//        for (int col = 0; col < map[0].length; col++) {
-//            System.out.print(col + " ");
-//        }
-//        System.out.println();
-//
-//        for (int row = 0; row < map.length; row++) {
-//            System.out.print((char) ('A' + row) + " ");
-//            for (int col = 0; col < map[row].length; col++) {
-//                if (map[row][col] == 0) {
-//                    System.out.print("~ ");
-//                } else {
-//                    System.out.print(map[row][col] + " ");
-//                }
-//            }
-//            System.out.println();
-//        }
-//    }
-
 
     @Override
     public String toString() {
