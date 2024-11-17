@@ -1,3 +1,4 @@
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,13 +46,14 @@ public class GameController {
     }
 
     public void annasLoop (){
-        // Variabler från/till translate
-        String fromEnemy = "h shot 7c";
-        String toEnemy = "m shot 6g";
+        // Variabler i loopen
+        String fromEnemy = "";
+        String toEnemy = "";
         String toTextWindow;
+        int xToGuess;
+        int yToGuess;
 
-
-
+        Application.launch(BattleshipApp.class);
 
         System.out.println("nu kör vi!");
 
@@ -62,28 +64,29 @@ public class GameController {
         data.add("String from translation");
 */
 
-
-
-            //place ship
+            //place ship - Niklas
             //update gameFX
             if (player.isClient() == true) {
-                // get coordinates to guess
-                //translate coordinates to string
-                // update textwindow
-                //send string to server to send to client
-                //server/client communicate
+                //take a guess and update:   ----- Jocelyn
+                        getPlayer().setLastX(3);
+                         getPlayer().setLastY(3);
+                // send result of shot (playerState) and guess for translation ---- ny metod
+                toEnemy=Translate.translateToSend(player);
+                //send string toEnemy to server to send to client - Lynsey
+                toTextWindow="You shot at " + (toEnemy.substring(7,9)) + "..." + "/n";
+                // update textWindow------
             }
             while (gameOn){
-                //wait for communication from opponent
-                toTextWindow=Translate.translateReceived(player,fromEnemy);
-                // send response to translation
-                        //Send to string and update textwindow
-                        //get result of shot and update map & save to return
-                        //update ships alive
-                        //update game status
-                            //if false end game else
-                //take a guess
-                // send result of shot and guess for translation
+                //wait for communication from opponent  - Lynsey
+                toTextWindow=Translate.translateReceived(player,fromEnemy); //updates enemyMap, GameOn, enemyShipsDown,
+                // update textwindow                                        //  enemyLastX, enemyLastY
+                //update map/score
+                // behövs nog metod för kolla motståndarens gissningen och uppdaterar player.setPlayerState
+                //take a guess and update:
+                        getPlayer().setLastX(3);
+                        getPlayer().setLastY(3);
+                // send result of shot (playerState) and guess for translation
+                toTextWindow=Translate.translateToSend(player); //updates
                 // update textwindow
                 // send string to server/client to sent to opponent
         }

@@ -21,12 +21,14 @@ public class Translate {
         String toTextWindow = "";
         String enemyShotAt = "";
 
-                System.out.println(recived);
+             //   System.out.println(recived);
 
         if (recived.charAt(0) != 'g') {
             cordAtoAccess = Integer.parseInt(recived.substring(7, 8));
             cordBtoAccess = (recived.charAt(8) - 97);   //a=97
             enemyShotAt = "The enemy shot at " + (recived.substring(7,9)) + "/n";
+            player.setEnemyLastX(cordAtoAccess);
+            player.setEnemyLastY(cordBtoAccess);
         }
 
         switch (recived.charAt(0)) {
@@ -34,21 +36,24 @@ public class Translate {
                 //enemyState = 0;
                 break;
             case 'h':
-                player.getEnemyBoard().getMap()[cordAtoAccess][cordBtoAccess] = 11;
+                player.getEnemyBoard().getMap()[player.getLastX()][player.getLastY()] = 11;
                 toTextWindow = "... it was a hit. /n" + enemyShotAt ;
+                player.setEnemyState(11);
                 break;
             case 'm':
-                player.getEnemyBoard().getMap()[cordAtoAccess][cordBtoAccess] = 12;
+                player.getEnemyBoard().getMap()[player.getLastX()][player.getLastY()]= 12;
                 toTextWindow = "... it was a miss. /n";
+                player.setEnemyState(12);
                 break;
             case 'g':
-                player.getEnemyBoard().getMap()[cordAtoAccess][cordBtoAccess] = 11;
+                player.getEnemyBoard().getMap()[player.getLastX()][player.getLastY()] = 11;
                 player.setGameOn(false);
                 toTextWindow = "... it was a hit, and you sank the final ship!!!";
                 break;
             case 's':
-                player.getEnemyBoard().getMap()[cordAtoAccess][cordBtoAccess] = 11;
+                player.getEnemyBoard().getMap()[player.getLastX()][player.getLastY()] = 11;
                 player.setEnemyShipsDown((player.getEnemyShipsDown())+1);
+                player.setEnemyState(55);
                 toTextWindow = "... it was a hit, and you sank a ship. /n";
                 break;
         }
@@ -76,15 +81,8 @@ public class Translate {
 
     public static String translateToSend(Player player) {
 
-
-        Boolean gameOverTrue = false;
-/*        Boolean shipDown = false;
-        Boolean firstShot = false;
-        Boolean hit = false;
-        Boolean miss = false;*/
-        int cordNum = 9; // borde kunna ta in direkt.
-        int cordLetter =9;
-       // int[] ourGuess;
+        int cordNum = player.getLastX(); // borde kunna ta in direkt.
+        int cordLetter = player.getLastY();
         String shot = " shot ";
         String send = "";
         int playerState = 11;
@@ -93,7 +91,7 @@ public class Translate {
             send = "game over";
         } else {
             switch (playerState) {
-                case 0:
+                case 77:
                     send = "i";
                     break;
                 case 11:
@@ -102,7 +100,7 @@ public class Translate {
                 case 12:
                     send = "m";
                     break;
-                case 88:
+                case 55:
                     send = "s";
                     break;
             }
