@@ -45,12 +45,27 @@ public class GameController {
     }
 
     public void annasLoop (){
+        // Variabler från/till translate
+        String fromEnemy = "h shot 7c";
+        String toEnemy = "m shot 6g";
+        String toTextWindow;
+        int sendX;
+        int sendY;
+        int gotX;
+        int gotY;
+        int stateOfPlayerBoard;
+        int stateOfEnemyBoard;
+
         System.out.println("nu kör vi!");
 
-        ListView<String> listView = new ListView<>();
+/*
+        ListView<String> listView = new ListView<>();                       //oklart var detta ska ligga.
         ObservableList<String> data = FXCollections.observableArrayList();
         listView.setItems(data);
         data.add("String from translation");
+*/
+
+
 
             //place ship
             //update gameFX
@@ -63,6 +78,7 @@ public class GameController {
             }
             while (gameOn){
                 //wait for communication from opponent
+                toTextWindow=Translate.translateReceived(player,fromEnemy);
                 // send response to translation
                         //Send to string and update textwindow
                         //get result of shot and update map & save to return

@@ -6,64 +6,62 @@ public class Translate {
     11: hit
     12: miss
     13: cant be enemy ship*/
-
-
-    public static void main(String[] args) {
-        //translateReceived();
-        translateToSend();
-    }
-
-    public static void translateReceived(String recived) {
-
+/*
         String s1 = "i shot 5b"; // init
         String s2 = "h shot 7c"; // hit + kordinat
         String s3 = "m shot 6g"; // miss + kordinat
         String s4 = "game over"; // game over
         String s5 = "s shot 5b"; // insänkt + kordinat
+*/
+
+    public static String translateReceived(Player player, String recived) {
         //String recived = s4;
-        Boolean recivedGameStatus = true;
-        int enemyShipsDown = 0;
-        int enemyState = 33;
         int cordAtoAccess = 0;
         int cordBtoAccess = 0;
         String toTextWindow = "";
+        String enemyShotAt = "";
 
-        System.out.println(recived);
+                System.out.println(recived);
+
+        if (recived.charAt(0) != 'g') {
+            cordAtoAccess = Integer.parseInt(recived.substring(7, 8));
+            cordBtoAccess = (recived.charAt(8) - 97);   //a=97
+            enemyShotAt = "The enemy shot at " + (recived.substring(7,9)) + "/n";
+        }
 
         switch (recived.charAt(0)) {
             case 'i':
-                enemyState = 0;
-                break;                      //måste man breaka?
+                //enemyState = 0;
+                break;
             case 'h':
-                enemyState = 11;
-                toTextWindow = "... it was a hit. /n";
+                player.getEnemyBoard().getMap()[cordAtoAccess][cordBtoAccess] = 11;
+                toTextWindow = "... it was a hit. /n" + enemyShotAt ;
                 break;
             case 'm':
-                enemyState = 12;
+                player.getEnemyBoard().getMap()[cordAtoAccess][cordBtoAccess] = 12;
                 toTextWindow = "... it was a miss. /n";
                 break;
             case 'g':
-                enemyState = 11;
-                recivedGameStatus = false;
+                player.getEnemyBoard().getMap()[cordAtoAccess][cordBtoAccess] = 11;
+                player.setGameOn(false);
                 toTextWindow = "... it was a hit, and you sank the final ship!!!";
                 break;
             case 's':
-                enemyState = 11;
-                enemyShipsDown = 1;
+                player.getEnemyBoard().getMap()[cordAtoAccess][cordBtoAccess] = 11;
+                player.setEnemyShipsDown((player.getEnemyShipsDown())+1);
                 toTextWindow = "... it was a hit, and you sank a ship. /n";
                 break;
         }
 
-        if (recived.charAt(0) != 'g') {
-            cordAtoAccess = Integer.parseInt(recived.substring(7, 8));
-            cordBtoAccess = (recived.charAt(8) - 97);     //a=97
-        }
+        toTextWindow = toTextWindow + enemyShotAt;
 
 /*        System.out.println("cordAtoAccess: " + cordAtoAccess);
         System.out.println("cordBtoAccess: " + cordBtoAccess);
         System.out.println("enemyState: " + enemyState);
         System.out.println("enemyShipsDown: " + enemyShipsDown);
         System.out.println("recivedGameStatus: " + recivedGameStatus);*/
+
+        return toTextWindow;
     }
 
     public static void receivedToString() {
@@ -76,7 +74,8 @@ public class Translate {
 
     }
 
-    public static void translateToSend() {
+    public static String translateToSend(Player player) {
+
 
         Boolean gameOverTrue = false;
 /*        Boolean shipDown = false;
@@ -90,13 +89,13 @@ public class Translate {
         String send = "";
         int playerState = 11;
 
-        if (gameOverTrue) {
+        if (player.getPlayerBoard().getFleet().size()==0) {
             send = "game over";
         } else {
             switch (playerState) {
                 case 0:
                     send = "i";
-                    break; //måste man breaka?
+                    break;
                 case 11:
                     send = "h";
                     break;
@@ -115,5 +114,6 @@ public class Translate {
             //System.out.println(send);
         }
 
+        return send;
     }
 }

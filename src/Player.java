@@ -11,6 +11,7 @@ public class Player {
     private boolean gameOn;
     private Board playerBoard;
     private Board enemyBoard;
+    private int enemyShipsDown=0;
 
     //Om det inte är en client så är det en server
     public Player(String name, boolean isClient) {
@@ -58,6 +59,25 @@ public class Player {
         return enemyBoard;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isGameOn() {
+        return gameOn;
+    }
+
+    public void setGameOn(boolean gameOn) {
+        this.gameOn = gameOn;
+    }
+
+    public int getEnemyShipsDown() {
+        return enemyShipsDown;
+    }
+
+    public void setEnemyShipsDown(int enemyShipsDown) {
+        this.enemyShipsDown = enemyShipsDown;
+    }
 
     public void takeTurns() {
         System.out.println(isClient ? "Clients " : "Servers " + " turn.");
