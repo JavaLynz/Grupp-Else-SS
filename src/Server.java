@@ -14,6 +14,7 @@ public class Server {
     private int port = PlayerOneInputWindow.port;
     private String message;
     private boolean gameOver;
+    protected static String ipAddress;
 
     public Server(int port) {
         this.port = port;
@@ -33,12 +34,11 @@ public class Server {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server starting... waiting for connection...");
             InetAddress ip = InetAddress.getLocalHost();
-            serverSocket.setSoTimeout(3);
+            serverSocket.setSoTimeout(30000);
             System.out.println("Server opened at " + ip.getHostAddress() + "nominated port: " + port + "Port: " + serverSocket.getLocalPort());
-
+            ConfirmServer.display();
             Socket socket = serverSocket.accept();
             System.out.println("Connection established.");
-            handleClientCommunication(socket);
 
         }catch (IOException e) {
             System.out.println("Connection failed.");

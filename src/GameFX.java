@@ -16,9 +16,6 @@ import java.util.List;
 
 public class GameFX{
 
-    private BattleshipApp battleshipApp = new BattleshipApp();
-
-
     public static void display() throws Exception {
     int speedInt;
     Player player = new Player("e", true);

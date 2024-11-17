@@ -13,14 +13,14 @@ public class PlayerOneInputWindow {
     protected static String playerOneName;
     protected static boolean isServer = true;
     protected static boolean isClient = false;
-    protected static  int port;
-    private GameFX game = new GameFX();
+    protected static int port;
 
-    public static String display() {
+    public static void display() {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Player One Name");
         window.setMinWidth(400);
+        window.setMinHeight(500);
         Label label = new Label();
         label.setText("Please enter your name: ");
         label.setAlignment(Pos.CENTER);
@@ -53,14 +53,13 @@ public class PlayerOneInputWindow {
 
 
 
-        VBox layout = new VBox(10);
+        VBox layout = new VBox(20);
         layout.getChildren().addAll(label, name, portInputLabel , portInput ,done);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
-        return name.getText();
 
 
 
@@ -89,6 +88,10 @@ public class PlayerOneInputWindow {
 
     public static void setIsClient(boolean isClient) {
         PlayerOneInputWindow.isClient = isClient;
+    }
+
+    public static int getPort() {
+        return port;
     }
 
 

@@ -8,45 +8,73 @@ import java.net.Socket;
 
 public class Network {
 
-    private String ipAddress;
+    private static String ipAddress;
     private InetAddress ip;
     private int port;
     private ServerSocket serverSocket;
     private Socket socket;
     private BufferedReader reader;
     private PrintWriter out;
-    private String shotFired = "";
+    private String host;
+    private String receiveShotFired;
 
-
-    public Network(String ipAddress, int port) {
-        this.ipAddress = ipAddress;
-        this.port = PlayerOneInputWindow.port;
+    public Network(int port) {
+        this.port = port;
     }
 
     public void startServer() throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server starting... waiting for connection...");
             InetAddress ip = InetAddress.getLocalHost();
+            ipAddress = ip.getHostAddress();
             System.out.println("Server opened at " + ip.getHostAddress() + "Port: " + port);
+            ConfirmServer.display();
 
-            while (true) {
-                socket = serverSocket.accept();
-                System.out.println("Connection established.");
+            socket = serverSocket.accept();
+            System.out.println("Connection established.");
+            if (socket.isConnected()) {
+                try {
+                    GameFX.display();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
-
+            }
         }catch (IOException e) {
             System.out.println("Connection failed.");
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+
         System.out.println("Server connection terminated.");
     }
 
 
+    public void startClientConnection () throws Exception {
+
+        System.out.println("Client started, trying to connect to server...");
+        host = PlayerTwoInputWindow.getIpAddress();
+        int cPort = PlayerTwoInputWindow.getPort();
+        System.out.println("IP address: " + (host != null ? host : "Not available"));
+        System.out.println(" IP address: " + host);
+        System.out.println("port: " + cPort);
+
+        try (Socket socket = new Socket(host, cPort)){
+
+            System.out.println("Connected to server!");
+
+        }catch (IOException e){
+            System.out.println("Server not found!");
+        }
+        GameFX.display();
+    }
 
 public void handleCommunication(Socket socket) throws IOException {
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream())); PrintWriter writer = new PrintWriter(socket.getOutputStream(), true)) {
 
-        while ((shotFired = reader.readLine()) != null) {
-            System.out.println("Opponent shot at: " + shotFired);
+
+        while ((receiveShotFired = reader.readLine()) != null) {
+            System.out.println("Opponent shot at: " + receiveShotFired);
             // run translate method
             }
 
@@ -54,6 +82,79 @@ public void handleCommunication(Socket socket) throws IOException {
         System.out.println("An error occurred: " + e.getMessage());
     }
 
+    }
+
+
+    public static String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
+    public InetAddress getIp() {
+        return ip;
+    }
+
+    public void setIp(InetAddress ip) {
+        this.ip = ip;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public ServerSocket getServerSocket() {
+        return serverSocket;
+    }
+
+    public void setServerSocket(ServerSocket serverSocket) {
+        this.serverSocket = serverSocket;
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
+    public BufferedReader getReader() {
+        return reader;
+    }
+
+    public void setReader(BufferedReader reader) {
+        this.reader = reader;
+    }
+
+    public PrintWriter getOut() {
+        return out;
+    }
+
+    public void setOut(PrintWriter out) {
+        this.out = out;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public String getReceiveShotFired() {
+        return receiveShotFired;
+    }
+
+    public void setReceiveShotFired(String receiveShotFired) {
+        this.receiveShotFired = receiveShotFired;
     }
 }
 
