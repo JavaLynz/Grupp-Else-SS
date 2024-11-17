@@ -34,7 +34,6 @@ public class Server {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server starting... waiting for connection...");
             InetAddress ip = InetAddress.getLocalHost();
-            ipAddress = ip.getHostAddress();
             serverSocket.setSoTimeout(30000);
             System.out.println("Server opened at " + ip.getHostAddress() + "nominated port: " + port + "Port: " + serverSocket.getLocalPort());
             ConfirmServer.display();

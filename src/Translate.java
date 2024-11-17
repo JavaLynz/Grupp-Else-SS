@@ -13,24 +13,24 @@ public class Translate {
         translateToSend();
     }
 
-    public static void translateReceived() {
+    public static void translateReceived(String recived) {
 
         String s1 = "i shot 5b"; // init
         String s2 = "h shot 7c"; // hit + kordinat
         String s3 = "m shot 6g"; // miss + kordinat
         String s4 = "game over"; // game over
         String s5 = "s shot 5b"; // insänkt + kordinat
-        String received = s4;
-        boolean receivedGameStatus = true;
+        //String recived = s4;
+        Boolean recivedGameStatus = true;
         int enemyShipsDown = 0;
         int enemyState = 33;
-        int cordAToAssess = 0;
-        int cordBToAssess = 0;
+        int cordAtoAccess = 0;
+        int cordBtoAccess = 0;
         String toTextWindow = "";
 
-        System.out.println(received);
+        System.out.println(recived);
 
-        switch (received.charAt(0)) {
+        switch (recived.charAt(0)) {
             case 'i':
                 enemyState = 0;
                 break;                      //måste man breaka?
@@ -44,7 +44,7 @@ public class Translate {
                 break;
             case 'g':
                 enemyState = 11;
-                receivedGameStatus = false;
+                recivedGameStatus = false;
                 toTextWindow = "... it was a hit, and you sank the final ship!!!";
                 break;
             case 's':
@@ -54,16 +54,16 @@ public class Translate {
                 break;
         }
 
-        if (received.charAt(0) != 'g') {
-             Integer.parseInt(received.substring(7, 8));
-            cordBToAssess = (received.charAt(8) - 97);     //a=97
+        if (recived.charAt(0) != 'g') {
+            cordAtoAccess = Integer.parseInt(recived.substring(7, 8));
+            cordBtoAccess = (recived.charAt(8) - 97);     //a=97
         }
 
-/*        System.out.println(": " + );
-        System.out.println("cordBToAssess: " + cordBToAssess);
+/*        System.out.println("cordAtoAccess: " + cordAtoAccess);
+        System.out.println("cordBtoAccess: " + cordBtoAccess);
         System.out.println("enemyState: " + enemyState);
         System.out.println("enemyShipsDown: " + enemyShipsDown);
-        System.out.println("receivedGameStatus: " + receivedGameStatus);*/
+        System.out.println("recivedGameStatus: " + recivedGameStatus);*/
     }
 
     public static void receivedToString() {
@@ -79,7 +79,7 @@ public class Translate {
     public static void translateToSend() {
 
         Boolean gameOverTrue = false;
-/*      Boolean shipDown = false;
+/*        Boolean shipDown = false;
         Boolean firstShot = false;
         Boolean hit = false;
         Boolean miss = false;*/

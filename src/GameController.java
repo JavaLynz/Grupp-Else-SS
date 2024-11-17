@@ -12,7 +12,11 @@ public class GameController {
     protected static boolean gameOn = true;
     private Network network;
 
-
+    public GameController() {
+        this.server = server;
+        this.client = client;                       ///Borde inte behöva den här
+        player = new Player("q", false);
+    }
 
     public void setUpGame(boolean isServer) throws Exception {
         if (isServer) {
@@ -31,7 +35,37 @@ public class GameController {
         }
     }
 
+    public void annasLoop (){
+        System.out.println("nu kör vi!");
 
+        ListView<String> listView = new ListView<>();
+        ObservableList<String> data = FXCollections.observableArrayList();
+        listView.setItems(data);
+        data.add("String from translation");
+
+            //place ship
+            //update gameFX
+            if (player.isClient() == true) {
+                // get coordinates to guess
+                //translate coordinates to string
+                // update textwindow
+                //send string to server to send to client
+                //server/client communicate
+            }
+            while (gameOn){
+                //wait for communication from opponent
+                // send response to translation
+                        //Send to string and update textwindow
+                        //get result of shot and update map & save to return
+                        //update ships alive
+                        //update game status
+                            //if false end game else
+                //take a guess
+                // send result of shot and guess for translation
+                // update textwindow
+                // send string to server/client to sent to opponent
+        }
+    }
 
     public void gameLoop(boolean isClient) {
         gameOn = true;
@@ -84,19 +118,12 @@ public class GameController {
 
 
     }
-    public Board getPlayerBoard() {
-        return playerBoard;
+
+    public Player getPlayer() {
+        return player;
     }
 
-    public void setPlayerBoard(Board playerBoard) {
-        this.playerBoard = playerBoard;
-    }
-
-    public Board getEnemyBoard() {
-        return enemyBoard;
-    }
-
-    public void setEnemyBoard(Board enemyBoard) {
-        this.enemyBoard = enemyBoard;
+    public void setPlayer(Player player) {
+        player = player;
     }
 }
