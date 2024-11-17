@@ -12,12 +12,14 @@ public class PlayerTwoInputWindow {
 
     private static String playerTwoName;
     private static String ipAddress;
+    private static int port;
 
     public static void display() {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Player Two Name");
         window.setMinWidth(400);
+        window.setMinHeight(500);
 
         Label nameLabel = new Label();
         nameLabel.setText("Please enter your name: ");
@@ -33,23 +35,26 @@ public class PlayerTwoInputWindow {
 
         TextField ipAddressInput = new TextField("");
 
+        Label portLabel = new Label();
+        portLabel.setText("Please enter the server Port: ");
+        portLabel.setAlignment(Pos.CENTER);
+        portLabel.setFont(new Font("Arial",30));
+
+        TextField portInput = new TextField("");
+
         Button done = new Button("Done");
         done.setDefaultButton(true);
         done.setOnAction(e -> {
             System.out.println("Player Two Name: " + name.getText());
-            String playerTwoName = name.getText();
-            String ipAddress = ipAddressInput.getText();
+            playerTwoName = name.getText();
+            ipAddress = ipAddressInput.getText();
+            port = Integer.parseInt(portInput.getText());
             window.close();
-            try {
-                GameFX.display();
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
         });
 
 
         VBox layout = new VBox(20);
-        layout.getChildren().addAll(nameLabel, name, ipAddressLabel, ipAddressInput, done);
+        layout.getChildren().addAll(nameLabel, name, ipAddressLabel, ipAddressInput, portLabel, portInput, done);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
@@ -72,6 +77,11 @@ public class PlayerTwoInputWindow {
 
     public static String getIpAddress() {
         return ipAddress;
+    }
+
+    public static int getPort() {
+        return port;
+
     }
 }
 

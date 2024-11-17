@@ -40,7 +40,6 @@ public class Server {
             ConfirmServer.display();
             Socket socket = serverSocket.accept();
             System.out.println("Connection established.");
-            handleClientCommunication(socket);
 
         }catch (IOException e) {
             System.out.println("Connection failed.");

@@ -13,7 +13,7 @@ public class PlayerOneInputWindow {
     protected static String playerOneName;
     protected static boolean isServer = true;
     protected static boolean isClient = false;
-    protected static  int port;
+    protected static int port;
 
     public static void display() {
         Stage window = new Stage();
@@ -88,6 +88,10 @@ public class PlayerOneInputWindow {
 
     public static void setIsClient(boolean isClient) {
         PlayerOneInputWindow.isClient = isClient;
+    }
+
+    public static int getPort() {
+        return port;
     }
 
 

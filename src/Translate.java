@@ -21,7 +21,7 @@ public class Translate {
         String s4 = "game over"; // game over
         String s5 = "s shot 5b"; // insänkt + kordinat
         String received = s4;
-        Boolean receivedGameStatus = true;
+        boolean receivedGameStatus = true;
         int enemyShipsDown = 0;
         int enemyState = 33;
         int cordAToAssess = 0;

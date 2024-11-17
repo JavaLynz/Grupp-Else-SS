@@ -12,8 +12,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class BattleshipApp extends Application {
 
     private static Stage window;
@@ -41,7 +39,7 @@ public class BattleshipApp extends Application {
 
             try {
                 controller.setUpGame(true);
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
 
@@ -57,7 +55,7 @@ public class BattleshipApp extends Application {
             PlayerTwoInputWindow.display();
             try {
                 controller.setUpGame(false);
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
 

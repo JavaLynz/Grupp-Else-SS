@@ -6,25 +6,24 @@ public class GameController {
 
 
 
-    protected static Board playerBoard = new Board();
-    protected static Board enemyBoard = new Board();
-    private Server server;
-    private Client client;
+    protected static Board playerBoard;
+    protected static Board enemyBoard;
     private Player player;
     protected static boolean gameOn = true;
+    private Network network;
 
 
 
-    public void setUpGame(boolean isServer) throws IOException {
+    public void setUpGame(boolean isServer) throws Exception {
         if (isServer) {
-            server = new Server();
-            server.startServer();
+            network = new Network(PlayerOneInputWindow.getPort());
+            network.startServer();
             player = new Player(PlayerTwoInputWindow.getPlayerTwoName(),false);
             System.out.println("Starting game...");
 
         } else {
-            client = new Client();
-            client.startClientConnection();
+            network = new Network(PlayerOneInputWindow.getPort());
+            network.startClientConnection();
             player = new Player(PlayerOneInputWindow.getPlayerOneName(),true);
             System.out.println("Starting game...");
 

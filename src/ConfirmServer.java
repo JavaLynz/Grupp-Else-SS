@@ -16,9 +16,10 @@ public class ConfirmServer {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Connection Opened At: ");
         window.setMinWidth(400);
+        window.setMinHeight(500);
 
         Label label = new Label("IP Address: ");
-        TextArea IPAddress = new TextArea(Server.ipAddress);
+        TextArea IPAddress = new TextArea(Network.getIpAddress());
         Label label2 = new Label("Port: ");
         TextArea port = new TextArea(portText);
         Label label3 = new Label("Please send this information to the client.");
@@ -32,7 +33,7 @@ public class ConfirmServer {
         root.setAlignment(Pos.CENTER);
 
 
-        Scene scene = new Scene(root, 400, 300);
+        Scene scene = new Scene(root, 400, 500);
         window.setScene(scene);
         window.showAndWait();
     }
