@@ -28,10 +28,6 @@ public class Board {
             }
         }
         this.fleet = new ArrayList<>();
-//        createShips();
-        //placeAllShips();
-//        printMap();
-
     }
 
 
@@ -155,14 +151,14 @@ public class Board {
                 if(pos[0] == row && pos[1] == col) {
                     s.setHits(s.getHits() + 1);
                     sinkShip(s);
-                    map[row][col] = 1;
+                    map[row][col] = 11;
                     System.out.println("Träff! " + s.getName() + " på position " + row + ","+ col + "(Board.hit)");
                     
                     return s;
                 }
             }
         }
-        map[row][col] = 9;
+        map[row][col] = 12;
         System.out.println("Miss!");
         return null;
     }
