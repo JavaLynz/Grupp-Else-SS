@@ -118,21 +118,14 @@ public class Ship {
         this.isVertical = isVertical;
     }
 
+
+    // Metoder
+
     public void setStartPosition(int startRow, int startCol){
         this.startRow = startRow;
         this.startCol = startCol;
     }
 
-
-    public int[] getRandomPosition() {
-        System.out.println("Size: " + size);
-        return new int[]{random.nextInt(10-size), random.nextInt(10-size)};
-
-    }
-
-
-
-    // Metoder
 
     public void setPosition() {
         if(isVertical) {
@@ -146,6 +139,11 @@ public class Ship {
             }
         }
     }
+
+//        public int[] getRandomPosition() {
+//        System.out.println("Size: " + size);
+//        return new int[]{random.nextInt(10-size), random.nextInt(10-size)};
+//    }
 
 public void printPositions() {
     System.out.println(name);
