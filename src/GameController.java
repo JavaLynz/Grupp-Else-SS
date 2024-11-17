@@ -10,8 +10,8 @@ public class GameController {
 
 
 
-    protected static Board playerBoard = new Board();
-    protected static Board enemyBoard = new Board();
+    //protected static Board playerBoard = new Board();
+    //protected static Board enemyBoard = new Board();
     private Server server;
     private Client client;
     private Player player;
@@ -126,21 +126,6 @@ public class GameController {
         }
 
 
-    }
-    public Board getPlayerBoard() {
-        return playerBoard;
-    }
-
-    public void setPlayerBoard(Board playerBoard) {
-        this.playerBoard = playerBoard;
-    }
-
-    public Board getEnemyBoard() {
-        return enemyBoard;
-    }
-
-    public void setEnemyBoard(Board enemyBoard) {
-        this.enemyBoard = enemyBoard;
     }
 
     public Player getPlayer() {
