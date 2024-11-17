@@ -49,12 +49,9 @@ public class GameController {
         String fromEnemy = "h shot 7c";
         String toEnemy = "m shot 6g";
         String toTextWindow;
-        int sendX;
-        int sendY;
-        int gotX;
-        int gotY;
-        int stateOfPlayerBoard;
-        int stateOfEnemyBoard;
+
+
+
 
         System.out.println("nu kör vi!");
 
