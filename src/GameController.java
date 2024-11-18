@@ -20,7 +20,7 @@ public class GameController {
     }
 
 
-    public void annasLoop (){
+    public void annasLoop () throws Exception {
         // Variabler i loopen
         String fromEnemy = "";
         String toEnemy = "";
@@ -38,6 +38,15 @@ public class GameController {
         listView.setItems(data);
         data.add("String from translation");
 */
+        MyRunnable myRunnable = new MyRunnable(); // kallas det
+        Thread thread1 = new Thread(myRunnable);
+        thread1.start();
+        MyThread myThread = new MyThread();
+        myThread.start();
+        Thread thread2 = new Thread(myRunnable);
+        thread2.start();
+
+        Platform.runLater(GameFX.pBoard());
 
 
 
@@ -89,11 +98,18 @@ public class GameController {
     }
 
 
+
+
     public static void endGameClose(){
         boolean result = QuitConfirmBox.display();
         if (result){
             Platform.exit();
         }
+
+
+    }
+
+    public  void updateBoard(){
 
 
     }
