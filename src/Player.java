@@ -91,7 +91,7 @@ public class Player {
             checkGameStatus();
         }
     }
-
+//Test
 
 
         //Gissar slumpmässig position
