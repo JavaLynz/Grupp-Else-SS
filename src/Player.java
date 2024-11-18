@@ -9,10 +9,10 @@ public class Player {
     private Board playerBoard;
     private Board enemyBoard;
     private int enemyShipsDown=0;
-    private int lastX=77;
-    private int lastY=77;
-    private int enemyLastX=77;
-    private int enemyLastY=77;
+    private int lastX=1;
+    private int lastY=1;
+    private int enemyLastX=5;
+    private int enemyLastY=5;
     private int playerState=77;
     private int enemyState=77;
     private int speedDelay=3;
@@ -222,14 +222,14 @@ public class Player {
         System.out.println("Välj en kolumn");
         int targetCol = sc.nextInt();
 
-        Ship hitShip = playerBoard.hit(targetRow, targetCol);
+        Ship hitShip = enemyBoard.hit(targetRow, targetCol);
 
 //        if (hitShip != null) {
 ////            System.out.println("Träff! " + hitShip.getName() + "(Player.shootPos)");
 //        } else {
 //            System.out.println("Miss!");
 //        }
-
+        enemyBoard.printBoard();
         playerBoard.printMap();
     }
 

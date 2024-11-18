@@ -98,7 +98,26 @@ public class GameController {
     }
 
 
+    public void assessGuess(Player player) {
+        Ship hitShip = player.getEnemyBoard().hit(player.getEnemyLastX(),player.getEnemyLastY());
 
+        if(hitShip == null) {
+            System.out.println("Miss! Position: " + player.getEnemyLastX() + "," + player.getEnemyLastY() + "(Player.assessGuess)");
+               player.getEnemyBoard().updateCell(getPlayer().getEnemyLastX(), getPlayer().getEnemyLastY(), 12);
+               player.setPlayerState(12);
+
+        }
+        else {
+            System.out.println("Träff!" + hitShip.getName() + "(Player.assessGuess)");
+            enemyBoard.updateCell(getPlayer().getEnemyLastX(), getPlayer().getEnemyLastY(), 11);
+            player.setPlayerState(11);
+
+            if(!hitShip.isAlive()) {
+                System.out.println("Sänkte skepp " + hitShip.getName() + "(Player.assessGuess)");
+                player.setPlayerState(55);
+            }
+        }
+    }
 
     public static void endGameClose(){
         boolean result = QuitConfirmBox.display();

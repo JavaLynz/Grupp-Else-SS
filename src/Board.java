@@ -170,6 +170,13 @@ public class Board {
         }
    }
 
+   public void updateCell(int x, int y, int value) {
+        map[x][y] = value;
+   }
+
+   public int getCell(int x, int y) {
+        return map[x][y];
+   }
 
     public void printBoard() {
         for (int i = 0; i < 10; i++) {
