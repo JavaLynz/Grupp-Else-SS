@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -20,36 +21,10 @@ public class GameFX{
 
 
     public static void display() throws Exception {
-    int speedInt;
     Player player = new Player("e", true);
     String text = "Show latest moves";
     int pShipsAlive = 2;
     int eShipsAlive = 4;
-    int[][] annasPlayerBoardArray = new int[][]{
-            {0,0,0,0,0,0,0,0,0,0},
-            {0,1,1,1,0,0,0,0,0,0},
-            {0,0,3,0,0,0,0,0,0,0},
-            {0,0,0,1,1,1,0,0,0,0},
-            {0,0,0,0,3,0,0,0,0,0},
-            {0,0,0,0,0,2,2,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0}
-    };
-
-    int[][] annasEnemyBoardArray = new int[][]{
-            {0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0},
-            {0,0,3,0,0,0,0,0,0,0},
-            {0,0,0,3,0,0,0,0,0,0},
-            {0,0,0,0,2,0,0,0,0,0},
-            {0,0,0,0,0,2,0,0,0,0},
-            {0,3,3,0,0,0,2,0,0,0},
-            {0,0,2,2,0,0,0,3,0,0},
-            {0,0,0,0,0,0,0,0,3,0},
-            {0,0,0,0,0,0,0,0,0,2}
-    };
 
 
         AnchorPane allOfItPane = new AnchorPane();
@@ -267,15 +242,34 @@ public class GameFX{
         enemyBoard.setPrefHeight(205);
 
 
-        Button speed = new Button("Change delay speed");
+        //Button speed = new Button("Change delay speed");
         Button giveUp = new Button("Give up the game and quit");
         Button startGame = new Button("Start game and go to war");
 
-        speed.setStyle("-fx-font: 10 arial; -fx-base: #b6e7c9;");
+        ComboBox speed = new ComboBox();
+        speed.getItems().add("Delay rounds 0 second");
+        speed.getItems().add("Delay rounds 1 second");
+        speed.getItems().add("Delay rounds 2 second");
+        speed.getItems().add("Delay rounds 3 second");
+        speed.getItems().add("Delay rounds 4 second");
+        speed.getItems().add("Delay rounds 5 second");
+
+        speed.setValue("Delay rounds 3 second");
+
+        String choice = (String) speed.getValue();
+        int setSpeed = Integer.parseInt(choice.substring(13, 14));
+
+
+        speed.setStyle("-fx-font: 10 arial; -fx-base: #b6e7c9;");       ///???????????
         startGame.setStyle("-fx-font: 10 arial; -fx-base: #b6e7c9;");
         giveUp.setStyle("-fx-font: 10 arial; -fx-base: RED;");
+        GameController controller = new GameController();               ///???????????
         giveUp.setOnAction((e)-> System.exit(0));
-        //startGame.setOnAction((e)-> annasLoop());
+        startGame.setOnAction((e)-> controller.annasLoop());
+
+
+
+
 
         TextArea textArea = new TextArea(text);
         textArea.setMaxWidth(225);

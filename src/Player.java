@@ -18,6 +18,7 @@ public class Player {
     private int enemyLastY=77;
     private int playerState=77;
     private int enemyState=77;
+    private int speedDelay=3;
 
 
     //Om det inte är en client så är det en server
@@ -132,6 +133,14 @@ public class Player {
 
     public void setEnemyState(int enemyState) {
         this.enemyState = enemyState;
+    }
+
+    public int getSpeedDelay() {
+        return speedDelay;
+    }
+
+    public void setSpeedDelay(int speedDelay) {
+        this.speedDelay = speedDelay;
     }
 
     public void takeTurns() {

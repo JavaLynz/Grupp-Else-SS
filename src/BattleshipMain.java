@@ -5,8 +5,10 @@ import javafx.application.Application;
 public class BattleshipMain {
     public static void main(String[] args) {
 
-        GameController controller = new GameController();
-        controller.annasLoop();
+
+        Application.launch(BattleshipApp.class);
+        //GameController controller = new GameController();
+        //controller.annasLoop();
 
        // Player player = new Player(true);
 

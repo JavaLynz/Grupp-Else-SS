@@ -14,8 +14,8 @@ public class Translate {
         String s5 = "s shot 5b"; // insänkt + kordinat
 */
 
-    public static String translateReceived(Player player, String recived) {
-        //String recived = s4;
+    public static String translateReceived(Player player, String recived2) {
+        String recived = "m shot 6g";       //////////Ändra när input funkar
         int cordAtoAccess = 0;
         int cordBtoAccess = 0;
         String toTextWindow = "";
@@ -69,15 +69,6 @@ public class Translate {
         return toTextWindow;
     }
 
-    public static void receivedToString() {
-
-
-    }
-
-    public static void SendToString() {
-
-
-    }
 
     public static String translateToSend(Player player) {
 
