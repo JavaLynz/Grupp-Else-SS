@@ -1,21 +1,16 @@
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.ListView;
 
 import java.io.IOException;
-import java.util.List;
 
 public class GameController {
 
 
 
-    //protected static Board playerBoard = new Board();
-    //protected static Board enemyBoard = new Board();
-    private Server server;
-    private Client client;
+    protected static Board playerBoard;
+    protected static Board enemyBoard;
     private Player player;
     protected static boolean gameOn = true;
+    private Network network;
 
     public GameController() {
         this.server = server;
@@ -23,24 +18,20 @@ public class GameController {
         player = new Player("q", false);
     }
 
-    public void setUpGame(boolean isServer) throws IOException {
+    public void setUpGame(boolean isServer) throws Exception {
         if (isServer) {
-            server = new Server();
-            server.startServer();
-            player = new Player(PlayerTwoInputWindow.getPlayerTwoName(),true);
+            network = new Network(PlayerOneInputWindow.getPort());
+            network.startServer();
+            player = new Player(PlayerTwoInputWindow.getPlayerTwoName(),false);
             System.out.println("Starting game...");
-            //Board playerBoard = new Board();
-            Board enemyBoard = new Board();
-            //playerBoard.placeShip();
 
         } else {
-            client = new Client();
-            client.startClientConnection();
+            network = new Network(PlayerOneInputWindow.getPort());
+            network.startClientConnection();
+            player = new Player(PlayerOneInputWindow.getPlayerOneName(),true);
             System.out.println("Starting game...");
-            player = new Player(PlayerOneInputWindow.getPlayerOneName(),false);
-            //Board playerBoard = new Board();
-            //Board enemyBoard = new Board();
-            //playerBoard.placeShip();
+
+
         }
     }
 
