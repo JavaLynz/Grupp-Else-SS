@@ -254,7 +254,7 @@ public class GameFX{
         speed.setValue("Delay rounds 3 second");
 
         String choice = (String) speed.getValue();
-        int setSpeed = Integer.parseInt(choice.substring(13, 14));
+        player.setSpeedDelay(Integer.parseInt(choice.substring(13, 14)));
 
 
         speed.setStyle("-fx-font: 10 arial; -fx-base: #b6e7c9;");       ///???????????
