@@ -19,24 +19,8 @@ public class GameController {
         player = new Player("q", false);
     }
 
-    public void setUpGame(boolean isServer) throws Exception {
-        if (isServer) {
-            network = new Network(PlayerOneInputWindow.getPort());
-            network.startServer();
-            player = new Player(PlayerTwoInputWindow.getPlayerTwoName(),false);
-            System.out.println("Starting game...");
 
-        } else {
-            network = new Network(PlayerOneInputWindow.getPort());
-            network.startClientConnection();
-            player = new Player(PlayerOneInputWindow.getPlayerOneName(),true);
-            System.out.println("Starting game...");
-
-
-        }
-    }
-
-    public void annasLoop (){
+    public void annasLoop () throws Exception {
         // Variabler i loopen
         String fromEnemy = "";
         String toEnemy = "";
@@ -54,8 +38,20 @@ public class GameController {
         listView.setItems(data);
         data.add("String from translation");
 */
+        MyRunnable myRunnable = new MyRunnable(); // kallas det
+        Thread thread1 = new Thread(myRunnable);
+        thread1.start();
+        MyThread myThread = new MyThread();
+        myThread.start();
+        Thread thread2 = new Thread(myRunnable);
+        thread2.start();
+
+        Platform.runLater(GameFX.pBoard());
+
+
 
             //place ship - Niklas
+            // -------- tråd för att placera skep???
             playerBoard.createShips();
             playerBoard.placeAllShips();
             //update gameFX
@@ -85,8 +81,10 @@ public class GameController {
                 getPlayer().setLastX(row);
                 getPlayer().setLastY(col);
                 // send result of shot (playerState) and guess for translation
-                toTextWindow=Translate.translateToSend(player); //updates
+                toEnemy=Translate.translateToSend(player); //updates
+                toTextWindow="You shot at " + (toEnemy.substring(7,9)) + "..." + "/n";
                 // update textwindow
+                //update gameFX
                 try {
                     Thread.sleep(player.getSpeedDelay()*1000);
                 } catch (InterruptedException e){
@@ -95,7 +93,11 @@ public class GameController {
 
                 // send string to server/client to sent to opponent
         }
+
+
     }
+
+
 
 
     public static void endGameClose(){
@@ -103,6 +105,11 @@ public class GameController {
         if (result){
             Platform.exit();
         }
+
+
+    }
+
+    public  void updateBoard(){
 
 
     }

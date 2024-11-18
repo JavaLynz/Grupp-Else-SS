@@ -38,16 +38,11 @@ public class PlayerOneInputWindow {
         Button done = new Button("Done");
         done.setDefaultButton(true);
         done.setOnAction(e -> {
-            System.out.println("Player One Name: " + name.getText());
+            //System.out.println("Player One Name: " + name.getText());
             playerOneName = name.getText();
             port = Integer.parseInt(portInput.getText());
-            System.out.println("Port: " + port);
+            //System.out.println("Port: " + port);
             window.close();
-            try {
-                GameFX.display();
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
         });
 
 

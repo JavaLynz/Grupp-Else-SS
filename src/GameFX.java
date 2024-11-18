@@ -1,4 +1,3 @@
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -11,7 +10,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -254,7 +253,7 @@ public class GameFX{
         speed.setValue("Delay rounds 3 second");
 
         String choice = (String) speed.getValue();
-        int setSpeed = Integer.parseInt(choice.substring(13, 14));
+        player.setSpeedDelay(Integer.parseInt(choice.substring(13, 14)));
 
 
         speed.setStyle("-fx-font: 10 arial; -fx-base: #b6e7c9;");       ///???????????
@@ -262,7 +261,13 @@ public class GameFX{
         giveUp.setStyle("-fx-font: 10 arial; -fx-base: RED;");
         GameController controller = new GameController();               ///???????????
         giveUp.setOnAction((e)-> System.exit(0));
-        startGame.setOnAction((e)-> controller.annasLoop());
+        startGame.setOnAction((e)-> {
+            try {
+                controller.annasLoop();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
 
 
@@ -336,5 +341,11 @@ public class GameFX{
         BattleshipApp.getStage().setTitle("Battleship The Game");
         BattleshipApp.getStage().show();
 
+    }
+
+
+    public static Runnable pBoard() throws Exception {
+
+        return null;
     }
 }
