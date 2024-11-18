@@ -1,6 +1,8 @@
 import javafx.application.Platform;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Random;
 
 public class GameController {
 
@@ -13,8 +15,7 @@ public class GameController {
     private Network network;
 
     public GameController() {
-        this.server = server;
-        this.client = client;                       ///Borde inte behöva den här
+                       ///Borde inte behöva den här
         player = new Player("q", false);
     }
 
@@ -36,79 +37,66 @@ public class GameController {
     }
 
     public void annasLoop (){
+        // Variabler i loopen
+        String fromEnemy = "";
+        String toEnemy = "";
+        String toTextWindow;
+        int xToGuess;
+        int yToGuess;
+
+
+
         System.out.println("nu kör vi!");
 
-        ListView<String> listView = new ListView<>();
+/*
+        ListView<String> listView = new ListView<>();                       //oklart var detta ska ligga.
         ObservableList<String> data = FXCollections.observableArrayList();
         listView.setItems(data);
         data.add("String from translation");
+*/
 
-            //place ship
+            //place ship - Niklas
+            playerBoard.createShips();
+            playerBoard.placeAllShips();
             //update gameFX
             if (player.isClient() == true) {
-                // get coordinates to guess
-                //translate coordinates to string
-                // update textwindow
-                //send string to server to send to client
-                //server/client communicate
+                //take a guess and update:   ----- Jocelyn
+                Random random = new Random();
+                int row = random.nextInt(10);
+                int col = random.nextInt(10);       //// Placeholder till Jocelyn skrivit en metod.
+                getPlayer().setLastX(row);
+                getPlayer().setLastY(col);
+                // send result of shot (playerState) and guess for translation ---- ny metod
+                toEnemy=Translate.translateToSend(player);
+                //send string toEnemy to server to send to client - Lynsey
+                toTextWindow="You shot at " + (toEnemy.substring(7,9)) + "..." + "/n";
+                // update textWindow------
             }
             while (gameOn){
-                //wait for communication from opponent
-                // send response to translation
-                        //Send to string and update textwindow
-                        //get result of shot and update map & save to return
-                        //update ships alive
-                        //update game status
-                            //if false end game else
-                //take a guess
-                // send result of shot and guess for translation
+                //wait for communication from opponent  - Lynsey
+                toTextWindow=Translate.translateReceived(player,fromEnemy); //updates enemyMap, GameOn, enemyShipsDown,
+                // update textwindow                                        //  enemyLastX, enemyLastY
+                //update map/score
+                // behövs nog metod för kolla motståndarens gissningen och uppdaterar player.setPlayerState
+                //take a guess and update:
+                Random random = new Random();
+                int row = random.nextInt(10);       //// Placeholder till Jocelyn skrivit en metod.
+                int col = random.nextInt(10);
+                getPlayer().setLastX(row);
+                getPlayer().setLastY(col);
+                // send result of shot (playerState) and guess for translation
+                toTextWindow=Translate.translateToSend(player); //updates
                 // update textwindow
+                try {
+                    Thread.sleep(player.getSpeedDelay()*1000);
+                } catch (InterruptedException e){
+                    throw new RuntimeException(e);
+                }
+
                 // send string to server/client to sent to opponent
         }
     }
 
-    public void gameLoop(boolean isClient) {
-        gameOn = true;
-        System.out.println("Game loop started");
-        while (gameOn) {
-
-            if (isClient = true) {
-                Player.guessRandom();
-            } else {
-                //wait for first strike from opponent
-                //translate string to guess
-                //AssessGuess;
-                // take next guess / strike
-                //if(
-            }
-
-            //update array
-            //update map
-
-        }
-
-
-//        if(isClientTurn) {
-//            guessRandom(clientPlayer);  // first turn
-//            guessLogic(clientPlayer);
-//            receiveTranslateGuess(serverPlayer);
-//            assessGuess(serverPlayer);
-//            updateEnemyBoard(clientPlayer)      // thread 1?
-//            updatePlayerBoard(serverPlayer)     // thread 2?
-//            confirmGuess(serverPlayer);
-//            switchPlayerTurn();
-//        }else {
-//            guessRandom(serverPlayer);  // first turn
-//            guessLogic(serverPlayer);
-//            receiveGuess(clientPlayer);
-//            translateGuess(clientPlayer);
-//            assessGuess(clientPlayer);
-//            updateEnemyBoard(serverPlayer)      // thread 1?
-//            updatePlayerBoard(clientPlayer)     // thread 2?
-//            confirmGuess(clientPlayer);
-//            switchPlayerTurn();
-//       }
-    }
 
     public static void endGameClose(){
         boolean result = QuitConfirmBox.display();
