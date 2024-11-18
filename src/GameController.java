@@ -56,6 +56,8 @@ public class GameController {
 */
 
             //place ship - Niklas
+            playerBoard.createShips();
+            playerBoard.placeAllShips();
             //update gameFX
             if (player.isClient() == true) {
                 //take a guess and update:   ----- Jocelyn
