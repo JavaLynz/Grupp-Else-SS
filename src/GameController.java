@@ -15,8 +15,7 @@ public class GameController {
     private Network network;
 
     public GameController() {
-        this.server = server;
-        this.client = client;                       ///Borde inte behöva den här
+                       ///Borde inte behöva den här
         player = new Player("q", false);
     }
 
