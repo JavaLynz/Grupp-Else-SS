@@ -17,12 +17,27 @@ public class Network {
     private PrintWriter out;
     private String host;
     private String receiveShotFired;
+    private boolean isServer;
 
-    public Network(int port) {
-        this.port = port;
+    public Network(boolean isServer) {
+        this.isServer = isServer;
     }
 
-    public void startServer() throws IOException {
+    public void setupGame(boolean isServer) throws Exception {
+        if (isServer) {
+
+            startServer(PlayerOneInputWindow.getPort());
+            //player = new Player(PlayerTwoInputWindow.getPlayerTwoName(),false);
+
+        } else {
+
+            startClientConnection();
+            //player = new Player(PlayerOneInputWindow.getPlayerOneName(),true);
+        }
+    }
+
+
+    public void startServer(int port) throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server starting... waiting for connection...");
             InetAddress ip = InetAddress.getLocalHost();
@@ -34,6 +49,7 @@ public class Network {
             System.out.println("Connection established.");
             if (socket.isConnected()) {
                 try {
+                    System.out.println("display GameFX screen");
                     GameFX.display();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
@@ -42,11 +58,7 @@ public class Network {
         }catch (IOException e) {
             System.out.println("Connection failed.");
             e.printStackTrace();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
-
-        System.out.println("Server connection terminated.");
     }
 
 
@@ -66,6 +78,7 @@ public class Network {
         }catch (IOException e){
             System.out.println("Server not found!");
         }
+        System.out.println("display GameFX screen");
         GameFX.display();
     }
 

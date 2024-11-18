@@ -12,19 +12,20 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class BattleshipApp extends Application {
 
     private static Stage window;
-    private static final GameController controller = new GameController();
-
-    public static Stage getStage() {
+    public static  Stage getStage() {
         return window;
     }
+    private Network network;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Scene scene, scene1;
+        Scene scene;
         window = primaryStage;
         window.setTitle("Welcome to Grupp Else's Battleship");
 
@@ -36,14 +37,15 @@ public class BattleshipApp extends Application {
             button.setStyle("-fx-background-color: #fff");
             //get player's name and port;
             PlayerOneInputWindow.display();
+            network = new Network(true);
+
+
 
             try {
-                controller.setUpGame(true);
+                network.setupGame(true);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
-
-
         });
 
         Button button1 = new Button("Join a game");
@@ -53,8 +55,10 @@ public class BattleshipApp extends Application {
         button1.setOnAction(e -> {
             button1.setStyle("-fx-background-color: #fff");
             PlayerTwoInputWindow.display();
+            network = new Network(false);
+
             try {
-                controller.setUpGame(false);
+                network.setupGame(false);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -104,5 +108,8 @@ public class BattleshipApp extends Application {
         window.setScene(scene);
         window.show();
 
+
     }
+
+
 }
