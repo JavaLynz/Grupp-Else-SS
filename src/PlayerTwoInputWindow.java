@@ -10,47 +10,51 @@ import javafx.stage.Stage;
 
 public class PlayerTwoInputWindow {
 
-    protected static String playerTwoName;
-    protected static boolean isClient = true;
-    protected static boolean isServer = false;
-    protected static String ipAddress;
+    private static String playerTwoName;
+    private static String ipAddress;
+    private static int port;
 
     public static void display() {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Player Two Name");
         window.setMinWidth(400);
-        Label label = new Label();
-        label.setText("Please enter your name: ");
-        label.setAlignment(Pos.TOP_CENTER);
-        label.setFont(new Font("Arial",30));
+        window.setMinHeight(500);
+
+        Label nameLabel = new Label();
+        nameLabel.setText("Please enter your name: ");
+        nameLabel.setAlignment(Pos.TOP_CENTER);
+        nameLabel.setFont(new Font("Arial",30));
 
         TextField name = new TextField("Player Two");
 
         Label ipAddressLabel = new Label();
-        label.setText("Please enter the server IP address: ");
-        label.setAlignment(Pos.CENTER);
-        label.setFont(new Font("Arial",30));
+        ipAddressLabel.setText("Please enter the server IP address: ");
+        ipAddressLabel.setAlignment(Pos.CENTER);
+        ipAddressLabel.setFont(new Font("Arial",30));
 
         TextField ipAddressInput = new TextField("");
+
+        Label portLabel = new Label();
+        portLabel.setText("Please enter the server Port: ");
+        portLabel.setAlignment(Pos.CENTER);
+        portLabel.setFont(new Font("Arial",30));
+
+        TextField portInput = new TextField("");
 
         Button done = new Button("Done");
         done.setDefaultButton(true);
         done.setOnAction(e -> {
             System.out.println("Player Two Name: " + name.getText());
-            String playerTwoName = name.getText();
-            String ipAddress = ipAddressInput.getText();
+            playerTwoName = name.getText();
+            ipAddress = ipAddressInput.getText();
+            port = Integer.parseInt(portInput.getText());
             window.close();
-            try {
-                GameFX.display();
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
         });
 
 
         VBox layout = new VBox(20);
-        layout.getChildren().addAll(label, name, ipAddressLabel, ipAddressInput, done);
+        layout.getChildren().addAll(nameLabel, name, ipAddressLabel, ipAddressInput, portLabel, portInput, done);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
@@ -70,20 +74,13 @@ public class PlayerTwoInputWindow {
         PlayerTwoInputWindow.playerTwoName = playerTwoName;
     }
 
-    public static boolean isServer() {
-        return isServer;
+
+    public static String getIpAddress() {
+        return ipAddress;
     }
 
-    public static void setIsServer(boolean isServer) {
-        PlayerTwoInputWindow.isServer = isServer;
-    }
-
-    public static boolean isClient() {
-        return isClient;
-    }
-
-    public static void setIsClient(boolean isClient) {
-        PlayerTwoInputWindow.isClient = isClient;
+    public static int getPort() {
+        return port;
 
     }
 }
