@@ -122,7 +122,7 @@ public class GameController {
 
         if(hitShip == null) {
             System.out.println("Miss! Position: " + player.getEnemyLastX() + "," + player.getEnemyLastY() + "(Player.assessGuess)");
-               player.getEnemyBoard().updateCell(getPlayer().getEnemyLastX(), getPlayer().getEnemyLastY(), 12);
+               enemyBoard.updateCell(getPlayer().getEnemyLastX(), getPlayer().getEnemyLastY(), 12);
                player.setPlayerState(12);
 
         }
