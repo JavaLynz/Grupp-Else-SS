@@ -16,16 +16,10 @@ import java.util.List;
 
 public class GameFX{
 
-    private GameController controller;
-
     public static void display() throws Exception {
 
-        GameController gc = new GameController();
         Player player = new Player();
         String text = "Show latest moves";
-        int pShipsAlive = 2;
-        int eShipsAlive = 4;
-
 
 
         AnchorPane allOfItPane = new AnchorPane();
@@ -48,8 +42,8 @@ public class GameFX{
 
         AnchorPane yourScore = new AnchorPane();
         List<Circle> playerScoreList = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            if (i<pShipsAlive) {
+        for (int i = 0; i < 10; i++) {
+            if (i<player.getEnemyShipsDown()) {
             Circle circle = new Circle();
             circle.setFill(Color.GREEN);
             circle.setRadius(8);
@@ -67,8 +61,8 @@ public class GameFX{
 
         AnchorPane enemyScore = new AnchorPane();
         List<Circle> enemyScoreList = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            if (i<eShipsAlive) {
+        for (int i = 0; i < 10; i++) {
+            if (i<player.getPlayerShipsDown()) {
                 Circle circle = new Circle();
                 circle.setFill(Color.DARKRED);
                 circle.setRadius(8);
@@ -287,14 +281,14 @@ public class GameFX{
         label1.setLayoutY(10);
 
         label2.setLayoutX(40);
-        label2.setLayoutY(67);
-        yourScore.setLayoutX(140);
-        yourScore.setLayoutY(75);
+        label2.setLayoutY(52);
+        yourScore.setLayoutX(50);
+        yourScore.setLayoutY(80);
 
         label3.setLayoutX(305);
-        label3.setLayoutY(67);
-        enemyScore.setLayoutX(420);
-        enemyScore.setLayoutY(75);
+        label3.setLayoutY(52);
+        enemyScore.setLayoutX(315);
+        enemyScore.setLayoutY(80);
 
         label4.setLayoutX(95);
         label4.setLayoutY(110);
@@ -348,9 +342,4 @@ public class GameFX{
 
     }
 
-
-    public static Runnable pBoard() throws Exception {
-
-        return null;
-    }
 }

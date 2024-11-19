@@ -7,8 +7,7 @@ public class BattleshipMain {
 
 
         Application.launch(BattleshipApp.class);
-        GameController controller = new GameController();
-//        controller.annasLoop();
+
     }
 }
 

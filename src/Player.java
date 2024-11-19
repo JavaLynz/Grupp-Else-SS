@@ -9,6 +9,7 @@ public class Player {
     private Board playerBoard;
     private Board enemyBoard;
     private int enemyShipsDown=0;
+    private int playerShipsDown=0;
     private int lastX=1;
     private int lastY=1;
     private int enemyLastX=5;
@@ -138,6 +139,14 @@ public class Player {
 
     public void setSpeedDelay(int speedDelay) {
         this.speedDelay = speedDelay;
+    }
+
+    public int getPlayerShipsDown() {
+        return playerShipsDown;
+    }
+
+    public void setPlayerShipsDown(int playerShipsDown) {
+        this.playerShipsDown = playerShipsDown;
     }
 
     public void takeTurns() {
