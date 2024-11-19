@@ -13,14 +13,14 @@ public class GameController {
     private Player player;
     protected static boolean gameOn = true;
     private Translate translate;
-    private Network network;
+    private static Network network;
 
     public GameController() {
-        player = new Player(false);
+
     }
 
 
-    public void annasLoop () throws Exception {
+    public void gameLoop () throws IOException {
         // Variabler i loopen
         String fromEnemy = "";
         String toEnemy = "";
@@ -28,7 +28,7 @@ public class GameController {
         int xToGuess;
         int yToGuess;
 
-
+        Player player = new Player();
 
         System.out.println("nu kör vi!");
 
@@ -38,42 +38,56 @@ public class GameController {
         listView.setItems(data);
         data.add("String from translation");
 */
-        MyRunnable myRunnable = new MyRunnable(); // kallas det
+         /* MyRunnable myRunnable = new MyRunnable(); // kallas det
         Thread thread1 = new Thread(myRunnable);
         thread1.start();
         MyThread myThread = new MyThread();
         myThread.start();
         Thread thread2 = new Thread(myRunnable);
-        thread2.start();
+        thread2.start(->{ player.getPlayerBoard().createShips();
+            player.getPlayerBoard().placeAllShips();  });
 
-        Platform.runLater(GameFX.pBoard());
+        Platform.runLater(GameFX.pBoard()); */
 
+        Runnable createAndPlaceShips = new Runnable() {
+            @Override
+            public void run() {
+                player.getPlayerBoard().createShips();
+                        player.getPlayerBoard().placeAllShips();
+            }
+        };
+        Thread thread1 = new Thread(createAndPlaceShips);
+        thread1.start();
 
 
             //place ship - Niklas
-            // -------- tråd för att placera skep???
-            playerBoard.createShips();
-            playerBoard.placeAllShips();
+        // -------- tråd för att placera skep???
+
+
             //update gameFX
             if (player.isClient() == true) {
+
                 network = BattleshipApp.getNetwork();
-                network.handleOutgoingCommunication(network.getSocket(), network.getTranslate());
 
                 //take a guess and update:   ----- Jocelyn
                 Random random = new Random();
                 int row = random.nextInt(10);
                 int col = random.nextInt(10);       //// Placeholder till Jocelyn skrivit en metod.
-                getPlayer().setLastX(row);
-                getPlayer().setLastY(col);
-                // send result of shot (playerState) and guess for translation ---- ny metod
+                player.setLastX(row);
+                player.setLastY(col);
+                System.out.println(toEnemy);
                 toEnemy=Translate.translateToSend(player);
-                //send string toEnemy to server to send to client - Lynsey
+                network.handleOutgoingCommunication(network.getSocket(), toEnemy);
                 toTextWindow="You shot at " + (toEnemy.substring(7,9)) + "..." + "/n";
+                System.out.println(toTextWindow);
                 // update textWindow------
             }
             while (gameOn){
-                //wait for communication from opponent  - Lynsey
+
+                fromEnemy = network.handleIncomingCommunication(network.getSocket());
+
                 toTextWindow=Translate.translateReceived(player,fromEnemy); //updates enemyMap, GameOn, enemyShipsDown,
+                System.out.println(toTextWindow);
                 // update textwindow                                        //  enemyLastX, enemyLastY
                 //update map/score
                 // behövs nog metod för kolla motståndarens gissningen och uppdaterar player.setPlayerState
@@ -81,11 +95,13 @@ public class GameController {
                 Random random = new Random();
                 int row = random.nextInt(10);       //// Placeholder till Jocelyn skrivit en metod.
                 int col = random.nextInt(10);
-                getPlayer().setLastX(row);
-                getPlayer().setLastY(col);
+                player.setLastX(row);
+                player.setLastY(col);
                 // send result of shot (playerState) and guess for translation
                 toEnemy=Translate.translateToSend(player); //updates
-                toTextWindow="You shot at " + (toEnemy.substring(7,9)) + "..." + "/n";
+                System.out.println(toEnemy);
+                toTextWindow="You shot at " + (toEnemy.substring(7,9)) + "..." + "\n";
+                System.out.println(toTextWindow);
                 // update textwindow
                 //update gameFX
                 try {

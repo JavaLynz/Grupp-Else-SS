@@ -16,12 +16,12 @@ import java.util.List;
 
 public class GameFX{
 
-    private GameController gc;
+    private GameController controller;
 
     public static void display() throws Exception {
 
         GameController gc = new GameController();
-        Player player = gc.getPlayer();
+        Player player = new Player();
         String text = "Show latest moves";
         int pShipsAlive = 2;
         int eShipsAlive = 4;
@@ -268,7 +268,7 @@ public class GameFX{
         giveUp.setOnAction((e)-> System.exit(0));
         startGame.setOnAction((e)-> {
             try {
-                gc.annasLoop();
+               controller.gameLoop();
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }

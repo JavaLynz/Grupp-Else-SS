@@ -16,10 +16,9 @@ public class Network {
     private BufferedReader reader;
     private PrintWriter out;
     private String host;
-    private static String receiveShotFired;
+    private static String fromEnemy;
     private boolean isServer;
     private String shotToFire;
-    private Translate translate;
     private String sendToEnemy;
 
     public Network(boolean isServer) {
@@ -86,27 +85,28 @@ public class Network {
         GameFX.display();
     }
 
-    public void handleIncomingCommunication(Socket socket, Translate translate) throws IOException {
+    public String handleIncomingCommunication(Socket socket) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-            this.translate = translate;
 
-            while ((receiveShotFired = reader.readLine()) != null) {
-                System.out.println("Opponent shot at: " + receiveShotFired);
+            while ((fromEnemy= reader.readLine()) != null) {
+                System.out.println("Enemy sent: " + fromEnemy);
             }
 
         } catch (IOException e) {
             System.out.println("An error occurred: " + e.getMessage());
         }
+        return fromEnemy;
 
     }
 
-    public void handleOutgoingCommunication(Socket socket, Translate translate) throws IOException {
+    public void handleOutgoingCommunication(Socket socket, String sendToEnemy) throws IOException {
         try (PrintWriter writer = new PrintWriter(socket.getOutputStream(), true)) {
 
             while (!socket.isClosed()) {
                 try {
-                    sendToEnemy = translate.getSend();
+
+
                     writer.println(sendToEnemy);
                     System.out.println(sendToEnemy);
                 } catch (Exception e) {
@@ -135,13 +135,7 @@ public class Network {
         this.shotToFire = shotToFire;
     }
 
-    public Translate getTranslate() {
-        return translate;
-    }
 
-    public void setTranslate(Translate translate) {
-        this.translate = translate;
-    }
 
     public String getSendToEnemy() {
         return sendToEnemy;
@@ -215,11 +209,4 @@ public class Network {
         this.host = host;
     }
 
-    public static String getReceiveShotFired() {
-        return receiveShotFired;
-    }
-
-    public void setReceiveShotFired(String receiveShotFired) {
-        this.receiveShotFired = receiveShotFired;
-    }
-}
+   }
