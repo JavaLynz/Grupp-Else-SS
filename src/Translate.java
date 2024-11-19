@@ -14,24 +14,37 @@ public class Translate {
         String s5 = "s shot 5b"; // insänkt + kordinat
 */
 
-    public static String translateReceived(Player player, String recived2) {
-        String recived = "m shot 6g";       //////////Ändra när input funkar
-        int cordAtoAccess = 0;
-        int cordBtoAccess = 0;
+    private static String received;
+    private int cordAtoAssess;
+    private int cordBtoAssess;
+    private String toTextWindow;
+    private String enemyShotAt;
+    private int cordNum;
+    int cordLetter;
+    String shot;
+    String send;
+    int playerState;
+
+
+
+    public static String translateReceived(Player player, String received) {
+        received = Network.getReceiveShotFired();     //////////Ändra när input funkar
+        int cordAtoAssess = 0;
+        int cordBtoAssess = 0;
         String toTextWindow = "";
         String enemyShotAt = "";
 
-             //   System.out.println(recived);
+             //   System.out.println(received);
 
-        if (recived.charAt(0) != 'g') {
-            cordAtoAccess = Integer.parseInt(recived.substring(7, 8));
-            cordBtoAccess = (recived.charAt(8) - 97);   //a=97
-            enemyShotAt = "The enemy shot at " + (recived.substring(7,9)) + "/n";
-            player.setEnemyLastX(cordAtoAccess);
-            player.setEnemyLastY(cordBtoAccess);
+        if (received.charAt(0) != 'g') {
+            cordAtoAssess = Integer.parseInt(received.substring(7, 8));
+            cordBtoAssess = (received.charAt(8) - 97);   //a=97
+            enemyShotAt = "The enemy shot at " + (received.substring(7,9)) + "/n";
+            player.setEnemyLastX(cordAtoAssess);
+            player.setEnemyLastY(cordBtoAssess);
         }
 
-        switch (recived.charAt(0)) {
+        switch (received.charAt(0)) {
             case 'i':
                 //enemyState = 0;
                 break;
@@ -60,8 +73,8 @@ public class Translate {
 
         toTextWindow = toTextWindow + enemyShotAt;
 
-/*        System.out.println("cordAtoAccess: " + cordAtoAccess);
-        System.out.println("cordBtoAccess: " + cordBtoAccess);
+/*        System.out.println("cordAtoAssess: " + cordAtoAssess);
+        System.out.println("cordBtoAssess: " + cordBtoAssess);
         System.out.println("enemyState: " + enemyState);
         System.out.println("enemyShipsDown: " + enemyShipsDown);
         System.out.println("recivedGameStatus: " + recivedGameStatus);*/
@@ -104,5 +117,85 @@ public class Translate {
         }
 
         return send;
+    }
+
+    public String getReceived() {
+        return received;
+    }
+
+    public void setReceived(String received) {
+        this.received = received;
+    }
+
+    public int getCordAtoAssess() {
+        return cordAtoAssess;
+    }
+
+    public void setCordAtoAssess(int cordAtoAssess) {
+        this.cordAtoAssess = cordAtoAssess;
+    }
+
+    public int getCordBtoAssess() {
+        return cordBtoAssess;
+    }
+
+    public void setCordBtoAssess(int cordBtoAssess) {
+        this.cordBtoAssess = cordBtoAssess;
+    }
+
+    public String getToTextWindow() {
+        return toTextWindow;
+    }
+
+    public void setToTextWindow(String toTextWindow) {
+        this.toTextWindow = toTextWindow;
+    }
+
+    public String getEnemyShotAt() {
+        return enemyShotAt;
+    }
+
+    public void setEnemyShotAt(String enemyShotAt) {
+        this.enemyShotAt = enemyShotAt;
+    }
+
+    public int getCordNum() {
+        return cordNum;
+    }
+
+    public void setCordNum(int cordNum) {
+        this.cordNum = cordNum;
+    }
+
+    public int getCordLetter() {
+        return cordLetter;
+    }
+
+    public void setCordLetter(int cordLetter) {
+        this.cordLetter = cordLetter;
+    }
+
+    public String getShot() {
+        return shot;
+    }
+
+    public void setShot(String shot) {
+        this.shot = shot;
+    }
+
+    public String getSend() {
+        return send;
+    }
+
+    public void setSend(String send) {
+        this.send = send;
+    }
+
+    public int getPlayerState() {
+        return playerState;
+    }
+
+    public void setPlayerState(int playerState) {
+        this.playerState = playerState;
     }
 }

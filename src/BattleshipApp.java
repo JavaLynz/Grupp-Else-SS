@@ -20,7 +20,23 @@ public class BattleshipApp extends Application {
     public static  Stage getStage() {
         return window;
     }
-    private Network network;
+    private static Network network;
+
+    public static Network getNetwork() {
+        return network;
+    }
+
+    public void setNetwork(Network network) {
+        this.network = network;
+    }
+
+    public static Stage getWindow() {
+        return window;
+    }
+
+    public static void setWindow(Stage window) {
+        BattleshipApp.window = window;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {

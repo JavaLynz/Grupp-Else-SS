@@ -12,11 +12,11 @@ public class GameController {
     protected static Board enemyBoard;
     private Player player;
     protected static boolean gameOn = true;
+    private Translate translate;
     private Network network;
 
     public GameController() {
-                       ///Borde inte behöva den här
-        player = new Player("q", false);
+        player = new Player(false);
     }
 
 
@@ -56,6 +56,9 @@ public class GameController {
             playerBoard.placeAllShips();
             //update gameFX
             if (player.isClient() == true) {
+                network = BattleshipApp.getNetwork();
+                network.handleOutgoingCommunication(network.getSocket(), network.getTranslate());
+
                 //take a guess and update:   ----- Jocelyn
                 Random random = new Random();
                 int row = random.nextInt(10);

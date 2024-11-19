@@ -16,12 +16,16 @@ public class Network {
     private BufferedReader reader;
     private PrintWriter out;
     private String host;
-    private String receiveShotFired;
+    private static String receiveShotFired;
     private boolean isServer;
+    private String shotToFire;
+    private Translate translate;
+    private String sendToEnemy;
 
     public Network(boolean isServer) {
         this.isServer = isServer;
     }
+
 
     public void setupGame(boolean isServer) throws Exception {
         if (isServer) {
@@ -55,14 +59,14 @@ public class Network {
                     throw new RuntimeException(e);
                 }
             }
-        }catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Connection failed.");
             e.printStackTrace();
         }
     }
 
 
-    public void startClientConnection () throws Exception {
+    public void startClientConnection() throws Exception {
 
         System.out.println("Client started, trying to connect to server...");
         host = PlayerTwoInputWindow.getIpAddress();
@@ -71,39 +75,88 @@ public class Network {
         System.out.println(" IP address: " + host);
         System.out.println("port: " + cPort);
 
-        try (Socket socket = new Socket(host, cPort)){
+        try (Socket socket = new Socket(host, cPort)) {
 
             System.out.println("Connected to server!");
 
-        }catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Server not found!");
         }
         System.out.println("display GameFX screen");
         GameFX.display();
     }
 
-public void handleCommunication(Socket socket) throws IOException {
-    try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream())); PrintWriter writer = new PrintWriter(socket.getOutputStream(), true)) {
+    public void handleIncomingCommunication(Socket socket, Translate translate) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
+            this.translate = translate;
 
-        while ((receiveShotFired = reader.readLine()) != null) {
-            System.out.println("Opponent shot at: " + receiveShotFired);
-            // run translate method
+            while ((receiveShotFired = reader.readLine()) != null) {
+                System.out.println("Opponent shot at: " + receiveShotFired);
             }
 
-    } catch (IOException e) {
-        System.out.println("An error occurred: " + e.getMessage());
-    }
+        } catch (IOException e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
 
     }
 
+    public void handleOutgoingCommunication(Socket socket, Translate translate) throws IOException {
+        try (PrintWriter writer = new PrintWriter(socket.getOutputStream(), true)) {
+
+            while (!socket.isClosed()) {
+                try {
+                    sendToEnemy = translate.getSend();
+                    writer.println(sendToEnemy);
+                    System.out.println(sendToEnemy);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+    }
+
+
+    // getters and setters
+    public boolean isServer() {
+        return isServer;
+    }
+
+    public void setServer(boolean server) {
+        isServer = server;
+    }
+
+    public String getShotToFire() {
+        return shotToFire;
+    }
+
+    public void setShotToFire(String shotToFire) {
+        this.shotToFire = shotToFire;
+    }
+
+    public Translate getTranslate() {
+        return translate;
+    }
+
+    public void setTranslate(Translate translate) {
+        this.translate = translate;
+    }
+
+    public String getSendToEnemy() {
+        return sendToEnemy;
+    }
+
+    public void setSendToEnemy(String sendToEnemy) {
+        this.sendToEnemy = sendToEnemy;
+    }
 
     public static String getIpAddress() {
         return ipAddress;
     }
 
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
+    public static void setIpAddress(String ipAddress) {
+        Network.ipAddress = ipAddress;
     }
 
     public InetAddress getIp() {
@@ -162,7 +215,7 @@ public void handleCommunication(Socket socket) throws IOException {
         this.host = host;
     }
 
-    public String getReceiveShotFired() {
+    public static String getReceiveShotFired() {
         return receiveShotFired;
     }
 
@@ -170,4 +223,3 @@ public void handleCommunication(Socket socket) throws IOException {
         this.receiveShotFired = receiveShotFired;
     }
 }
-
