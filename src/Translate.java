@@ -39,7 +39,7 @@ public class Translate {
         if (received.charAt(0) != 'g') {
             cordAtoAssess = Integer.parseInt(received.substring(7, 8));
             cordBtoAssess = (received.charAt(8) - 97);   //a=97
-            enemyShotAt = "The enemy shot at " + (received.substring(7,9)) + "/n";
+            enemyShotAt = "The enemy shot at " + (received.substring(7,9)) + "\n";
             player.setEnemyLastX(cordAtoAssess);
             player.setEnemyLastY(cordBtoAssess);
         }
@@ -49,25 +49,29 @@ public class Translate {
                 //enemyState = 0;
                 break;
             case 'h':
-                player.getEnemyBoard().getMap()[player.getLastX()][player.getLastY()] = 11;
-                toTextWindow = "... it was a hit. /n" + enemyShotAt ;
+                player.getEnemyBoard().updateCell(cordAtoAssess, cordBtoAssess,11);
+                //player.getEnemyBoard().getMap()[player.getLastX()][player.getLastY()] = 11;
+                toTextWindow = "... it was a hit. \n" + enemyShotAt ;
                 player.setEnemyState(11);
                 break;
             case 'm':
-                player.getEnemyBoard().getMap()[player.getLastX()][player.getLastY()]= 12;
-                toTextWindow = "... it was a miss. /n";
+                player.getEnemyBoard().updateCell(cordAtoAssess, cordBtoAssess,12);
+                //player.getEnemyBoard().getMap()[player.getLastX()][player.getLastY()]= 12;
+                toTextWindow = "... it was a miss. \n";
                 player.setEnemyState(12);
                 break;
             case 'g':
-                player.getEnemyBoard().getMap()[player.getLastX()][player.getLastY()] = 11;
+                player.getEnemyBoard().updateCell(cordAtoAssess, cordBtoAssess,11);
+                //player.getEnemyBoard().getMap()[player.getLastX()][player.getLastY()] = 11;
                 player.setGameOn(false);
                 toTextWindow = "... it was a hit, and you sank the final ship!!!";
                 break;
             case 's':
-                player.getEnemyBoard().getMap()[player.getLastX()][player.getLastY()] = 11;
-                player.setEnemyShipsDown((player.getEnemyShipsDown())+1);
+                player.getEnemyBoard().updateCell(cordAtoAssess, cordBtoAssess,11);
+                //player.getEnemyBoard().getMap()[player.getLastX()][player.getLastY()] = 11;
+                //player.setEnemyShipsDown((player.getEnemyShipsDown())+1);
                 player.setEnemyState(55);
-                toTextWindow = "... it was a hit, and you sank a ship. /n";
+                toTextWindow = "... it was a hit, and you sank a ship. \n";
                 break;
         }
 
@@ -119,83 +123,4 @@ public class Translate {
         return send;
     }
 
-    public String getReceived() {
-        return received;
-    }
-
-    public void setReceived(String received) {
-        this.received = received;
-    }
-
-    public int getCordAtoAssess() {
-        return cordAtoAssess;
-    }
-
-    public void setCordAtoAssess(int cordAtoAssess) {
-        this.cordAtoAssess = cordAtoAssess;
-    }
-
-    public int getCordBtoAssess() {
-        return cordBtoAssess;
-    }
-
-    public void setCordBtoAssess(int cordBtoAssess) {
-        this.cordBtoAssess = cordBtoAssess;
-    }
-
-    public String getToTextWindow() {
-        return toTextWindow;
-    }
-
-    public void setToTextWindow(String toTextWindow) {
-        this.toTextWindow = toTextWindow;
-    }
-
-    public String getEnemyShotAt() {
-        return enemyShotAt;
-    }
-
-    public void setEnemyShotAt(String enemyShotAt) {
-        this.enemyShotAt = enemyShotAt;
-    }
-
-    public int getCordNum() {
-        return cordNum;
-    }
-
-    public void setCordNum(int cordNum) {
-        this.cordNum = cordNum;
-    }
-
-    public int getCordLetter() {
-        return cordLetter;
-    }
-
-    public void setCordLetter(int cordLetter) {
-        this.cordLetter = cordLetter;
-    }
-
-    public String getShot() {
-        return shot;
-    }
-
-    public void setShot(String shot) {
-        this.shot = shot;
-    }
-
-    public String getSend() {
-        return send;
-    }
-
-    public void setSend(String send) {
-        this.send = send;
-    }
-
-    public int getPlayerState() {
-        return playerState;
-    }
-
-    public void setPlayerState(int playerState) {
-        this.playerState = playerState;
-    }
 }
