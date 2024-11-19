@@ -20,7 +20,7 @@ public class Player {
 
 
     //Om det inte är en client så är det en server
-    public Player() {
+    public Player(String name, boolean isClient) {
         this.name = name;
         this.isClient = isClient;
         this.isServer = !isClient;

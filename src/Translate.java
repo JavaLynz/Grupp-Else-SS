@@ -24,7 +24,7 @@ public class Translate {
 
 
 
-    public static String translateReceived(Player player, String received) {
+    public String translateReceived(Player player, String received) {
         int cordAtoAssess = 0;
         int cordBtoAssess = 0;
         String toTextWindow = "";
@@ -83,7 +83,7 @@ public class Translate {
     }
 
 
-    public static String translateToSend(Player player) {
+    public String translateToSend(Player player) {
 
         int cordNum = player.getLastX(); // borde kunna ta in direkt.
         int cordLetter = player.getLastY();

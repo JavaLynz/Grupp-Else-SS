@@ -10,9 +10,9 @@ public class GameController {
 
     protected static Board playerBoard;
     protected static Board enemyBoard;
-    private Player player;
+    private static Player player;
     protected static boolean gameOn = true;
-    private Translate translate;
+    private static Translate translate;
     private static Network network;
 
     public GameController() {
@@ -20,15 +20,13 @@ public class GameController {
     }
 
 
-    public void gameLoop () throws IOException {
+    public static void main (String[]args) throws IOException {
         // Variabler i loopen
         String fromEnemy = "";
         String toEnemy = "";
         String toTextWindow;
         int xToGuess;
         int yToGuess;
-
-        Player player = new Player();
 
         System.out.println("nu kör vi!");
 
@@ -76,8 +74,13 @@ public class GameController {
                 player.setLastX(row);
                 player.setLastY(col);
                 System.out.println(toEnemy);
-                toEnemy=Translate.translateToSend(player);
+                toEnemy=translate.translateToSend(player);
                 network.handleOutgoingCommunication(network.getSocket(), toEnemy);
+                getPlayer().setLastX(row);
+                getPlayer().setLastY(col);
+                // send result of shot (playerState) and guess for translation ---- ny metod
+                toEnemy=translate.translateToSend(player);
+                network.handleOutgoingCommunication(network.getSocket(),toEnemy);
                 toTextWindow="You shot at " + (toEnemy.substring(7,9)) + "..." + "/n";
                 System.out.println(toTextWindow);
                 // update textWindow------
@@ -86,8 +89,12 @@ public class GameController {
 
                 fromEnemy = network.handleIncomingCommunication(network.getSocket());
 
-                toTextWindow=Translate.translateReceived(player,fromEnemy); //updates enemyMap, GameOn, enemyShipsDown,
+                toTextWindow=translate.translateReceived(player,fromEnemy); //updates enemyMap, GameOn, enemyShipsDown,
                 System.out.println(toTextWindow);
+                //wait for communication from opponent  - Lynsey
+                network.handleIncomingCommunication(network.getSocket());
+                fromEnemy=network.getSendToEnemy();
+                toTextWindow=translate.translateReceived(player,fromEnemy); //updates enemyMap, GameOn, enemyShipsDown,
                 // update textwindow                                        //  enemyLastX, enemyLastY
                 //update map/score
                 // behövs nog metod för kolla motståndarens gissningen och uppdaterar player.setPlayerState
@@ -98,10 +105,13 @@ public class GameController {
                 player.setLastX(row);
                 player.setLastY(col);
                 // send result of shot (playerState) and guess for translation
-                toEnemy=Translate.translateToSend(player); //updates
+                toEnemy=translate.translateToSend(player); //updates
                 System.out.println(toEnemy);
                 toTextWindow="You shot at " + (toEnemy.substring(7,9)) + "..." + "\n";
                 System.out.println(toTextWindow);
+                toEnemy= translate.translateToSend(player);
+                //updates
+                toTextWindow="You shot at " + (toEnemy.substring(7,9)) + "..." + "/n";
                 // update textwindow
                 //update gameFX
                 try {
@@ -153,7 +163,7 @@ public class GameController {
 
     }
 
-    public Player getPlayer() {
+    public static Player getPlayer() {
         return player;
     }
 

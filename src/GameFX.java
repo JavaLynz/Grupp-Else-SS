@@ -18,7 +18,7 @@ public class GameFX{
 
     public static void display() throws Exception {
 
-        Player player = new Player();
+        Player player = Network.getPlayer();
         String text = "Show latest moves";
 
 
@@ -262,7 +262,7 @@ public class GameFX{
         giveUp.setOnAction((e)-> System.exit(0));
         startGame.setOnAction((e)-> {
             try {
-               controller.gameLoop();
+              // controller.gameLoop();
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }

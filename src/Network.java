@@ -21,6 +21,16 @@ public class Network {
     private String shotToFire;
     private String sendToEnemy;
 
+    public static Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        Network.player = player;
+    }
+
+    static Player player;
+
     public Network(boolean isServer) {
         this.isServer = isServer;
     }
@@ -30,12 +40,12 @@ public class Network {
         if (isServer) {
 
             startServer(PlayerOneInputWindow.getPort());
-            //player = new Player(PlayerTwoInputWindow.getPlayerTwoName(),false);
+            player = new Player(PlayerOneInputWindow.getPlayerOneName(),false);
 
         } else {
 
             startClientConnection();
-            //player = new Player(PlayerOneInputWindow.getPlayerOneName(),true);
+            player = new Player(PlayerTwoInputWindow.getPlayerTwoName(),true);
         }
     }
 
@@ -107,6 +117,7 @@ public class Network {
                 try {
 
 
+                    this.sendToEnemy = sendToEnemy;
                     writer.println(sendToEnemy);
                     System.out.println(sendToEnemy);
                 } catch (Exception e) {
