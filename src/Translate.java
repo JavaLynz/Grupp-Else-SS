@@ -14,16 +14,6 @@ public class Translate {
         String s5 = "s shot 5b"; // insänkt + kordinat
 */
 
-    private static String received;
-    private String toTextWindow;
-    private String enemyShotAt;
-    private int cordNum;
-    String shot;
-    String send;
-    int playerState;
-
-
-
     public static String translateReceived(Player player, String received) {
         int cordAtoAssess = 0;
         int cordBtoAssess = 0;
