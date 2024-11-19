@@ -14,13 +14,13 @@ public class Player {
     private int enemyShipsDown = 0;
     private int lastX = 77;
     private int lastY = 77;
-    //private int enemyLastX = 77;
-    //private int enemyLastY = 77;
-    //private int playerState = 77;
-    //private int enemyState = 77;
+    private int enemyLastX = 77;
+    private int enemyLastY = 77;
+    private int playerState = 77;
+    private int enemyState = 77;
     private int speedDelay = 3;
     private Random random;
-    private Set<String> guessedPositions; //Lagrar gissningarna i ett sett så att gissningarna inte kan bli dubletter.
+    private Set<String> guessedPositions; //Lagrar gissningarna i ett Set så att gissningarna inte kan bli dubbletter.
 
     //Konstruktor
     //Om det inte är en client så är det en server
@@ -91,26 +91,7 @@ public class Player {
             checkGameStatus();
         }
     }
-//Test
 
-
-        //Gissar slumpmässig position
-    public int[] makeRandomGuess() {
-        int row;
-        int col;
-        String guess;
-
-        do {
-            row = random.nextInt(10); //Slumpar rad 0-9
-            col = random.nextInt(10); //Slumpar column 0-9
-            guess = row + ", " + col;
-        } while (guessedPositions.contains(guess)); //Kontrollerar om gissningen redan gjorts
-        guessedPositions.add(guess); //Lägger till den i Set
-        lastX = row;
-        lastY = col;
-        System.out.println(name + " gissade på: Rad " + row + ", " + col);
-        return new int[] {row, col};
-        }
 
 
         public void checkGameStatus() {
