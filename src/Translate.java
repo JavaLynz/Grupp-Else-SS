@@ -15,12 +15,9 @@ public class Translate {
 */
 
     private static String received;
-    private int cordAtoAssess;
-    private int cordBtoAssess;
     private String toTextWindow;
     private String enemyShotAt;
     private int cordNum;
-    int cordLetter;
     String shot;
     String send;
     int playerState;
@@ -28,7 +25,6 @@ public class Translate {
 
 
     public static String translateReceived(Player player, String received) {
-        received = Network.getReceiveShotFired();     //////////Ändra när input funkar
         int cordAtoAssess = 0;
         int cordBtoAssess = 0;
         String toTextWindow = "";
@@ -93,7 +89,7 @@ public class Translate {
         int cordLetter = player.getLastY();
         String shot = " shot ";
         String send = "";
-        int playerState = 11;
+        int playerState = player.getPlayerState();
 
         if (player.getPlayerBoard().getFleet().size()==0) {
             send = "game over";
