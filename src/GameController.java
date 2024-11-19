@@ -133,6 +133,7 @@ public class GameController {
 
             if(!hitShip.isAlive()) {
                 System.out.println("Sänkte skepp " + hitShip.getName() + "(Player.assessGuess)");
+                player.setEnemyShipsDown(player.getEnemyShipsDown()+1);
                 player.setPlayerState(55);
             }
         }
