@@ -6,29 +6,9 @@ public class Translate {
     11: hit
     12: miss
     13: cant be enemy ship*/
-/*
-        String s1 = "i shot 5b"; // init
-        String s2 = "h shot 7c"; // hit + kordinat
-        String s3 = "m shot 6g"; // miss + kordinat
-        String s4 = "game over"; // game over
-        String s5 = "s shot 5b"; // insänkt + kordinat
-*/
 
-    private static String received;
-    private String toTextWindow;
-    private String enemyShotAt;
-    private int cordNum;
-    String shot;
-    static String send;
-    int playerState;
-
-    public static String getSend() {
-        return send;
-    }
 
     public static String translateReceived(Player player, String received) {       ////Anna
-
-    public String translateReceived(Player player, String received) {
         int cordAtoAssess = 0;
         int cordBtoAssess = 0;
         String toTextWindow = "";
@@ -95,7 +75,7 @@ public class Translate {
         String send = "";
         int playerState = player.getPlayerState();
 
-        if (player.getPlayerBoard().getFleet().size()==0) {
+        if (player.getPlayerBoard().getFleet().size()==99) {
             send = "game over";
         } else {
             switch (playerState) {
