@@ -13,10 +13,12 @@ public class GameController {
     private Player player;
     protected static boolean gameOn = true;
     private Network network;
+    private Guesses guesses; //Needed??
 
     public GameController() {
                        ///Borde inte behöva den här
         player = new Player("q", false);
+        guesses = new Guesses();
     }
 
     public void setUpGame(boolean isServer) throws Exception {
@@ -60,12 +62,12 @@ public class GameController {
             playerBoard.placeAllShips();
             //update gameFX
             if (player.isClient() == true) {
-                //take a guess and update:   ----- Jocelyn
-                Random random = new Random();
-                int row = random.nextInt(10);
-                int col = random.nextInt(10);       //// Placeholder till Jocelyn skrivit en metod.
-                getPlayer().setLastX(row);
-                getPlayer().setLastY(col);
+                int [] guess = guesses.makeAGuess(player.getName());
+                //Random random = new Random(); Ta bort??
+                //int row = random.nextInt(10); //Bort??
+                //int col = random.nextInt(10);   //Bort?     //// Placeholder till Jocelyn skrivit en metod.
+                getPlayer().setLastX(guess [0]);
+                getPlayer().setLastY(guess[1]);
                 // send result of shot (playerState) and guess for translation ---- ny metod
                 toEnemy=Translate.translateToSend(player);
                 //send string toEnemy to server to send to client - Lynsey
@@ -79,14 +81,21 @@ public class GameController {
                 //update map/score
                 // behövs nog metod för kolla motståndarens gissningen och uppdaterar player.setPlayerState
                 //take a guess and update:
-                Random random = new Random();
-                int row = random.nextInt(10);       //// Placeholder till Jocelyn skrivit en metod.
-                int col = random.nextInt(10);
-                getPlayer().setLastX(row);
-                getPlayer().setLastY(col);
+                int [] guess = guesses.makeAGuess(player.getName());
+                //Random random = new Random();
+                //int row = random.nextInt(10);       //// Placeholder till Jocelyn skrivit en metod.
+                //int col = random.nextInt(10);
+                getPlayer().setLastX(guess[0]);
+                getPlayer().setLastY(guess[1]);
                 // send result of shot (playerState) and guess for translation
                 toTextWindow=Translate.translateToSend(player); //updates
                 // update textwindow
+
+                if (!gameOn) {
+                    System.out.println("Game over");
+                    break;
+                }
+
                 try {
                     Thread.sleep(player.getSpeedDelay()*1000);
                 } catch (InterruptedException e){
@@ -102,6 +111,8 @@ public class GameController {
         boolean result = QuitConfirmBox.display();
         if (result){
             Platform.exit();
+
+
         }
 
 
