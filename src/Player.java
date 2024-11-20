@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Set;
 
 public class Player {
 
@@ -8,15 +9,15 @@ public class Player {
     private boolean gameOn;
     private Board playerBoard;
     private Board enemyBoard;
-    private int enemyShipsDown=0;
+    private int enemyShipsDown = 0;
+    private int lastX = 77;
+    private int lastY = 77;
+    private int enemyLastX = 77;
+    private int enemyLastY = 77;
+    private int playerState = 77;
+    private int enemyState = 77;
+    private int speedDelay = 3;
     private int playerShipsDown=0;
-    private int lastX=1;
-    private int lastY=1;
-    private int enemyLastX=5;
-    private int enemyLastY=5;
-    private int playerState=77;
-    private int enemyState=77;
-    private int speedDelay=3;
     private String toTextWindow="";
 
 
@@ -29,6 +30,7 @@ public class Player {
         this.enemyBoard = new Board();
         this.gameOn = gameOn;
     }
+
 
 
     public String getName() {
@@ -155,7 +157,6 @@ public class Player {
     public void guessLogic() {
 
     }
-
 
     @Override
     public String toString() {
