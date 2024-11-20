@@ -130,7 +130,7 @@ public class NetworkCommunications {
                 currentSocket = socket;
 
             try(PrintWriter writer = new PrintWriter(currentSocket.getOutputStream(),true)){
-                String toEnemy = Translate.getSend();
+                toEnemy = Translate.translateToSend(player);
                 writer.println(toEnemy);
                 System.out.println("sent to enemy: "+ toEnemy);
             } catch (Exception e) {
@@ -146,7 +146,7 @@ public class NetworkCommunications {
            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))){
 
                while((fromEnemy=reader.readLine()) != null){
-                   toEnemy = Translate.getSend();
+                   toEnemy = Translate.translateToSend(player);
                    handleOutgoingCommunication(writer,toEnemy);
 
                    fromEnemy = reader.readLine();
