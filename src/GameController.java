@@ -6,9 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-
 import java.io.IOException;
-import java.util.List;
 import java.util.Random;
 
 public class GameController {
@@ -28,7 +26,7 @@ public class GameController {
     }
 
 
-
+    //Lynsey
     public void setupGame(boolean isServer) throws Exception {
         if (isServer) {
 
@@ -43,7 +41,7 @@ public class GameController {
             startGame();
         }
     }
-
+    //Lynsey
     private void startGame() throws Exception {
         gameFX.display(player, this);
     }
@@ -102,20 +100,20 @@ public class GameController {
                 int col = random.nextInt(10);       //// Placeholder till Jocelyn skrivit en metod.
                 player.setLastX(row);
                 player.setLastY(col);
-                System.out.println(toEnemy);
                 toEnemy=Translate.translateToSend(player);
-                network.handleCommunications(network.getSocket());//sendToEnemy??
+                System.out.println(toEnemy);
+                network.handleOutgoingCommunication(network.getWriter(),toEnemy);//Lynsey
                 player.setLastX(row);
                 player.setLastY(col);
                 // send result of shot (playerState) and guess for translation ---- ny metod
                 toEnemy=Translate.translateToSend(player);
-                network.handleCommunications(network.getSocket()); //send toEnemy??
+                network.handleOutgoingCommunication(network.getWriter(),toEnemy); //Lynsey
                 toTextWindow="You shot at " + (toEnemy.substring(7,9)) + "..." + "\n";
                 System.out.println(toTextWindow);
             }
             while (gameOn){
 
-                fromEnemy = network.handleIncomingCommunication(network.getReader(), fromEnemy);
+                fromEnemy = network.handleCommunications(network.getSocket());
                 toTextWindow=Translate.translateReceived(player,fromEnemy); //updates enemyMap, GameOn, enemyShipsDown,
                 System.out.println(toTextWindow);
                 thread3.start();

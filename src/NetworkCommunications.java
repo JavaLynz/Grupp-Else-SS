@@ -6,6 +6,9 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+
+//Lynsey
+
 public class NetworkCommunications {
     private static String ipAddress;
     private InetAddress ip;
@@ -56,9 +59,6 @@ public class NetworkCommunications {
                     System.out.println("display GameFX screen");
                     GameFX gameFX = new GameFX(BattleshipApp.getStage());
                     GameController controller = new GameController(gameFX, this);
-                    //Thread incomingThread = new Thread(new IncomingReader());
-                    //incomingThread.start();
-
 
                     handleCommunications(socket);
 
@@ -91,8 +91,6 @@ public class NetworkCommunications {
             this.socket = socket;
             socket.setKeepAlive(true);
 
-//Thread outgoingThread = new Thread(new OutgoingWriter());
-            //outgoingThread.start();
             System.out.println("display GameFX screen");
             GameFX gameFX = new GameFX(BattleshipApp.getStage());
             GameController controller = new GameController(gameFX, this);
@@ -111,7 +109,7 @@ public class NetworkCommunications {
             synchronized (NetworkCommunications.class) {
                 currentSocket = socket;
                 System.out.println(socket);
-            String fromEnemy;
+                String fromEnemy="";
             try(BufferedReader reader = new BufferedReader(new InputStreamReader(currentSocket.getInputStream()))){
                 while((fromEnemy=reader.readLine()) != null){
                     System.out.println("Enemy sent: " + fromEnemy);
@@ -152,7 +150,7 @@ public class NetworkCommunications {
                    fromEnemy = reader.readLine();
                    if (fromEnemy == null) break;
 
-                   handleIncomingCommunication(reader, fromEnemy);
+                   handleIncomingCommunication(reader);
                }
 
         }
@@ -173,7 +171,7 @@ public class NetworkCommunications {
                     fromEnemy = reader.readLine();
                     if (fromEnemy == null) break;
 
-                    handleIncomingCommunication(reader, fromEnemy);
+                    handleIncomingCommunication(reader);
                 }
 
             } catch (IOException e) {
@@ -190,7 +188,7 @@ public class NetworkCommunications {
 }}
 
 
-    public String handleIncomingCommunication(BufferedReader reader, String fromEnemy) throws IOException {
+    public String handleIncomingCommunication(BufferedReader reader) throws IOException {
 
 
         while ((fromEnemy= reader.readLine()) != null) {

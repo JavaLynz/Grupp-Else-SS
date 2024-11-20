@@ -8,6 +8,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+
+//Lynsey
 public class PlayerTwoInputWindow {
 
     private static String playerTwoName;

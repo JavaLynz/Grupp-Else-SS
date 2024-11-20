@@ -6,7 +6,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-
+//Lynsey
 public class ClientEstablishedAlert {
     public static void display(){
 
