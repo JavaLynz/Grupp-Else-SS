@@ -112,7 +112,6 @@ public class GameController {
                 System.out.println(toTextWindow);
             }
             while (gameOn){
-
                 fromEnemy = network.handleIncomingCommunication(network.getReader());
                 toTextWindow=Translate.translateReceived(player,fromEnemy); //updates enemyMap, GameOn, enemyShipsDown,
                 System.out.println(toTextWindow);
