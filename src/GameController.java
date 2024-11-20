@@ -1,4 +1,11 @@
 import javafx.application.Platform;
+import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,11 +15,7 @@ public class GameController {
 
 
 
-    protected static Board playerBoard;
-    protected static Board enemyBoard;
-    private static Player player;
     protected static boolean gameOn = true;
-    private Translate translate = new Translate();
     private NetworkCommunications network;
     private GameFX gameFX;
 
@@ -43,6 +46,8 @@ public class GameController {
     }
 
     public void gameLoop () throws IOException {
+        ////GameLoop gemensamt av gruppen
+    public void gameLoop (Player player, AnchorPane pMap, AnchorPane pScore, AnchorPane eMap, AnchorPane eScore) throws IOException {
         // Variabler i loopen
         String fromEnemy = "";
         String toEnemy = "";
@@ -50,43 +55,44 @@ public class GameController {
         int xToGuess;
         int yToGuess;
 
+
         System.out.println("nu kör vi!");
-
-/*
-        ListView<String> listView = new ListView<>();                       //oklart var detta ska ligga.
-        ObservableList<String> data = FXCollections.observableArrayList();
-        listView.setItems(data);
-        data.add("String from translation");
-*/
-         /* MyRunnable myRunnable = new MyRunnable(); // kallas det
-        Thread thread1 = new Thread(myRunnable);
-        thread1.start();
-        MyThread myThread = new MyThread();
-        myThread.start();
-        Thread thread2 = new Thread(myRunnable);
-        thread2.start(->{ player.getPlayerBoard().createShips();
-            player.getPlayerBoard().placeAllShips();  });
-
-        Platform.runLater(GameFX.pBoard()); */
 
         Runnable createAndPlaceShips = new Runnable() {
             @Override
             public void run() {
                 player.getPlayerBoard().createShips();
-                        player.getPlayerBoard().placeAllShips();
+                player.getPlayerBoard().placeAllShips();
+                updatePlayerMap(pMap,player.getPlayerBoard());
+
+            }
+        };
+        Runnable updatePlayerBoard = new Runnable() {
+            @Override
+            public void run() {
+                updatePlayerMap(pMap,player.getPlayerBoard());
+                updatePlayerScore(pScore,player.getEnemyShipsDown());
+            }
+        };
+
+        Runnable updateEnemyBoard = new Runnable() {
+            @Override
+            public void run() {
+                updateEnemyMap(eMap,player.getEnemyBoard());
+                updateEnemyScore(eScore, player.getPlayerShipsDown());
+
             }
         };
         Thread thread1 = new Thread(createAndPlaceShips);
         thread1.start();
+        Thread thread2 = new Thread(updateEnemyBoard);
+        thread2.start();
+        Thread thread3 = new Thread(updatePlayerBoard);
+        thread3.start();
 
 
-            //place ship - Niklas
-        // -------- tråd för att placera skep???
-
-
-            //update gameFX
             if (player.isClient() == true) {
-
+                //network = BattleshipApp.getNetwork();
                 //take a guess and update:   ----- Jocelyn
                 Random random = new Random();
                 int row = random.nextInt(10);
@@ -103,42 +109,29 @@ public class GameController {
                 network.handleCommunications(network.getSocket()); //send toEnemy??
                 toTextWindow="You shot at " + (toEnemy.substring(7,9)) + "..." + "/n";
                 System.out.println(toTextWindow);
-                // update textWindow------
             }
             while (gameOn){
 
-                fromEnemy = network.handleCommunications(network.getSocket());
-                translate.translateReceived(player,fromEnemy);
-                toTextWindow=translate.translateReceived(player,fromEnemy); //updates enemyMap, GameOn, enemyShipsDown,
+                fromEnemy = network.handleIncomingCommunication(network.getSocket());
+                toTextWindow=Translate.translateReceived(player,fromEnemy); //updates enemyMap, GameOn, enemyShipsDown,
                 System.out.println(toTextWindow);
-                //wait for communication from opponent  - Lynsey
-                fromEnemy=network.getToEnemy();
-                toTextWindow=translate.translateReceived(player,fromEnemy); //updates enemyMap, GameOn, enemyShipsDown,
-                // update textwindow                                        //  enemyLastX, enemyLastY
-                //update map/score
-                // behövs nog metod för kolla motståndarens gissningen och uppdaterar player.setPlayerState
-                //take a guess and update:
+                thread3.start();
                 Random random = new Random();
                 int row = random.nextInt(10);       //// Placeholder till Jocelyn skrivit en metod.
                 int col = random.nextInt(10);
                 player.setLastX(row);
                 player.setLastY(col);
-                // send result of shot (playerState) and guess for translation
-                toEnemy=translate.translateToSend(player); //updates
+                assessGuess(player);
+                toEnemy=Translate.translateToSend(player);
+                thread2.start();
                 System.out.println(toEnemy);
                 toTextWindow="You shot at " + (toEnemy.substring(7,9)) + "..." + "\n";
                 System.out.println(toTextWindow);
-                toEnemy= translate.translateToSend(player);
-                //updates
-                toTextWindow="You shot at " + (toEnemy.substring(7,9)) + "..." + "/n";
-                // update textwindow
-                //update gameFX
                 try {
                     Thread.sleep(player.getSpeedDelay()*1000);
                 } catch (InterruptedException e){
                     throw new RuntimeException(e);
                 }
-
                 // send string to server/client to sent to opponent
         }
 
@@ -151,13 +144,13 @@ public class GameController {
 
         if(hitShip == null) {
             System.out.println("Miss! Position: " + player.getEnemyLastX() + "," + player.getEnemyLastY() + "(Player.assessGuess)");
-               player.getEnemyBoard().updateCell(getPlayer().getEnemyLastX(), getPlayer().getEnemyLastY(), 12);
+               player.getEnemyBoard().updateCell(player.getEnemyLastX(), player.getEnemyLastY(), 12);
                player.setPlayerState(12);
 
         }
         else {
             System.out.println("Träff!" + hitShip.getName() + "(Player.assessGuess)");
-            enemyBoard.updateCell(getPlayer().getEnemyLastX(), getPlayer().getEnemyLastY(), 11);
+            player.getEnemyBoard().updateCell(player.getEnemyLastX(), player.getEnemyLastY(), 11);
             player.setPlayerState(11);
 
             if(!hitShip.isAlive()) {
@@ -174,13 +167,70 @@ public class GameController {
             Platform.exit();
         }
 
-
     }
 
-    public  void updateBoard(){
 
-
+    public void updateEnemyMap(AnchorPane anchorPane, Board enemyBoard){       /////Anna
+        Image hit = new Image("explode.png");
+        int k = 0;
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                Node r = anchorPane.getChildren().get(k);
+                k++;
+                if (enemyBoard.getMap()[i][j]==11){
+                    if (r  instanceof Rectangle) {
+                        Rectangle currentRectangle = (Rectangle) r;
+                        Platform.runLater(()->currentRectangle.setFill(new ImagePattern(hit)));
+                    }
+                } else if (enemyBoard.getMap()[i][j]==12) {
+                    Rectangle currentRectangle = (Rectangle) r;
+                    Platform.runLater(()->currentRectangle.setFill(Color.LIGHTGRAY));
+                }
+            }
+        }
     }
+
+
+    public void updateEnemyScore(AnchorPane anchorPane, int eScore){       /////Anna
+        for (int i = 0; i < eScore; i++) {
+            Node r = anchorPane.getChildren().get(i);
+            if (r  instanceof Circle) {
+                Circle currentCircle = (Circle) r;
+                Platform.runLater(()->currentCircle.setFill(Color.DARKRED));
+            }
+        }
+    } public void updatePlayerMap(AnchorPane anchorPane, Board pBoard){       /////Anna
+        Image hit = new Image("explode.png");
+        int k = 0;
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                Node r = anchorPane.getChildren().get(k);
+                k++;
+                if (pBoard.getMap()[i][j]==11){
+                    if (r  instanceof Rectangle) {
+                        Rectangle currentRectangle = (Rectangle) r;
+                        Platform.runLater(()->currentRectangle.setFill(new ImagePattern(hit)));
+                    }
+                } else if (pBoard.getMap()[i][j]==12) {
+                    Rectangle currentRectangle = (Rectangle) r;
+                    Platform.runLater(()->currentRectangle.setFill(Color.LIGHTGRAY));
+                } else if (pBoard.getMap()[i][j]<=0) {
+                }else if (pBoard.getMap()[i][j]<=5) {
+                    Rectangle currentRectangle = (Rectangle) r;
+                    Platform.runLater(()->currentRectangle.setFill(Color.DARKSLATEGREY));
+                }
+            }
+        }
+    }
+
+    public void updatePlayerScore(AnchorPane anchorPane, int pScore){       /////Anna
+        for (int i = 0; i < pScore; i++) {
+            Node r = anchorPane.getChildren().get(i);
+            if (r instanceof Circle) {
+                Circle currentCircle = (Circle) r;
+                Platform.runLater(()->currentCircle.setFill(Color.GREEN));
+            }
+        }
 
     public static Player getPlayer() {
         return player;

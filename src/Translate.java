@@ -26,6 +26,7 @@ public class Translate {
         return send;
     }
 
+    public static String translateReceived(Player player, String received) {       ////Anna
 
     public String translateReceived(Player player, String received) {
         int cordAtoAssess = 0;
@@ -86,7 +87,7 @@ public class Translate {
     }
 
 
-    public String translateToSend(Player player) {
+    public static String translateToSend(Player player) {       /////Anna
 
         int cordNum = player.getLastX(); // borde kunna ta in direkt.
         int cordLetter = player.getLastY();
