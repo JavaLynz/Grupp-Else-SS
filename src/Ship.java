@@ -2,15 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-//Spelarens flotta består av
-// ett hangarfartyg (5x1 ruta)
-// två slagskepp (4x1 ruta)
-// tre kryssare (3x1 ruta)
-// fyra ubåtar (2x1 ruta)
-
-//Y = A-J
-//X = 0-9
-
+// Klass av Niklas
 public class Ship {
 
     Random random = new Random();
@@ -23,8 +15,6 @@ public class Ship {
     private int hits;
     private int startRow;
     private int startCol;
-
-
 
 
     // Konstruktor
