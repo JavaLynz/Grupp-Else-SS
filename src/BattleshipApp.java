@@ -12,31 +12,15 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 
 public class BattleshipApp extends Application {
 
     private static Stage window;
-    public static  Stage getStage() {
-        return window;
-    }
-    private static Network network;
 
-    public static Network getNetwork() {
-        return network;
-    }
+    private NetworkCommunications network;
 
-    public void setNetwork(Network network) {
-        this.network = network;
-    }
 
-    public static Stage getWindow() {
-        return window;
-    }
 
-    public static void setWindow(Stage window) {
-        BattleshipApp.window = window;
-    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -53,12 +37,15 @@ public class BattleshipApp extends Application {
             button.setStyle("-fx-background-color: #fff");
             //get player's name and port;
             PlayerOneInputWindow.display();
-            network = new Network(true);
+            network = new NetworkCommunications(true);
+            GameFX gameFX = new GameFX(window);
+            GameController controller = new GameController(gameFX, network);
+
 
 
 
             try {
-                network.setupGame(true);
+                controller.setupGame(true);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -71,10 +58,12 @@ public class BattleshipApp extends Application {
         button1.setOnAction(e -> {
             button1.setStyle("-fx-background-color: #fff");
             PlayerTwoInputWindow.display();
-            network = new Network(false);
+            network = new NetworkCommunications(false);
+            GameFX gameFX = new GameFX(window);
+            GameController controller = new GameController(gameFX, network);
 
             try {
-                network.setupGame(false);
+                controller.setupGame(false);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -121,11 +110,26 @@ public class BattleshipApp extends Application {
             GameController.endGameClose();
 
         });
+
         window.setScene(scene);
         window.show();
 
 
+
+
+
+
+    }
+    public static Stage getStage() {
+        return window;
     }
 
+    public NetworkCommunications getNetworkCommunications() {
+        return network;
+    }
 
+    public void setNetworkCommunications(NetworkCommunications network) {
+        this.network = network;
+
+    }
 }

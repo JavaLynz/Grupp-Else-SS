@@ -10,15 +10,31 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameFX{
 
-    public static void display() throws Exception {
+    private static Player player;
+    private Stage window;
 
-        Player player = Network.getPlayer();
+    public GameFX(Stage window){
+        this.window = window;
+        if (this.window == null) {
+            throw new IllegalArgumentException("Stage cannot be null");
+        }
+
+    }
+
+    public void display(Player player, GameController controller) throws Exception {
+        if (window == null) {
+            throw new IllegalStateException("Stage is not initialized");
+        }
+
+        GameFX.player = player;
         String text = "Show latest moves";
 
 
@@ -241,6 +257,7 @@ public class GameFX{
         Button giveUp = new Button("Give up the game and quit");
         Button startGame = new Button("Start game and go to war");
 
+
         ComboBox speed = new ComboBox();
         speed.getItems().add("Delay rounds 0 second");
         speed.getItems().add("Delay rounds 1 second");
@@ -258,11 +275,11 @@ public class GameFX{
         speed.setStyle("-fx-font: 10 arial; -fx-base: #b6e7c9;");       ///???????????
         startGame.setStyle("-fx-font: 10 arial; -fx-base: #b6e7c9;");
         giveUp.setStyle("-fx-font: 10 arial; -fx-base: RED;");
-        GameController controller = new GameController();               ///???????????
-        giveUp.setOnAction((e)-> System.exit(0));
+        //GameController controller = new GameController();               ///???????????
+        giveUp.setOnAction((e)-> controller.endGameClose());
         startGame.setOnAction((e)-> {
             try {
-              // controller.gameLoop();
+                controller.gameLoop();
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -331,14 +348,14 @@ public class GameFX{
 
         Scene scene = new Scene(allOfItPane);
 
-        BattleshipApp.getStage().setOnCloseRequest(e -> {
+        window.setOnCloseRequest(e -> {
             e.consume();
             GameController.endGameClose();
         });
-        BattleshipApp.getStage().sizeToScene();
-        BattleshipApp.getStage().setScene(scene);
-        BattleshipApp.getStage().setTitle("Battleship The Game");
-        BattleshipApp.getStage().show();
+        window.sizeToScene();
+        window.setScene(scene);
+        window.setTitle("Battleship The Game");
+        window.show();
 
     }
 

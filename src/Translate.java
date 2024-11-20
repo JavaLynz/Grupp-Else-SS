@@ -19,9 +19,12 @@ public class Translate {
     private String enemyShotAt;
     private int cordNum;
     String shot;
-    String send;
+    static String send;
     int playerState;
 
+    public static String getSend() {
+        return send;
+    }
 
 
     public String translateReceived(Player player, String received) {

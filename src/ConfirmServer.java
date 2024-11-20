@@ -19,10 +19,10 @@ public class ConfirmServer {
         window.setMinHeight(500);
 
         Label label = new Label("IP Address: ");
-        TextArea IPAddress = new TextArea(Network.getIpAddress());
+        TextArea IPAddress = new TextArea(NetworkCommunications.getIpAddress());
         Label label2 = new Label("Port: ");
         TextArea port = new TextArea(portText);
-        Label label3 = new Label("Please send this information to the client.");
+        Label label3 = new Label("Please send this information to the client, before closing this window.");
 
         Button closeButton = new Button("Close");
         closeButton.setOnAction(e -> window.close());

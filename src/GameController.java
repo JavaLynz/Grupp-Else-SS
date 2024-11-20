@@ -12,15 +12,37 @@ public class GameController {
     protected static Board enemyBoard;
     private static Player player;
     protected static boolean gameOn = true;
-    private static Translate translate;
-    private static Network network;
+    private Translate translate = new Translate();
+    private NetworkCommunications network;
+    private GameFX gameFX;
 
-    public GameController() {
+    public GameController(GameFX gameFX, NetworkCommunications network) {
+        this.gameFX = gameFX;
+        this.network = network;
+        gameOn = true;
 
     }
 
+    public void setupGame(boolean isServer) throws Exception {
+        if (isServer) {
 
-    public static void main (String[]args) throws IOException {
+            network.startServer(PlayerOneInputWindow.getPort());
+            player = new Player(PlayerOneInputWindow.getPlayerOneName(),false);
+            startGame();
+
+        } else {
+
+            network.startClientConnection();
+            player = new Player(PlayerTwoInputWindow.getPlayerTwoName(),true);
+            startGame();
+        }
+    }
+
+    private void startGame() throws Exception {
+        gameFX.display(player, this);
+    }
+
+    public void gameLoop () throws IOException {
         // Variabler i loopen
         String fromEnemy = "";
         String toEnemy = "";
@@ -65,8 +87,6 @@ public class GameController {
             //update gameFX
             if (player.isClient() == true) {
 
-                network = BattleshipApp.getNetwork();
-
                 //take a guess and update:   ----- Jocelyn
                 Random random = new Random();
                 int row = random.nextInt(10);
@@ -75,25 +95,24 @@ public class GameController {
                 player.setLastY(col);
                 System.out.println(toEnemy);
                 toEnemy=translate.translateToSend(player);
-                network.handleOutgoingCommunication(network.getSocket(), toEnemy);
+                network.handleCommunications(network.getSocket());//sendToEnemy??
                 getPlayer().setLastX(row);
                 getPlayer().setLastY(col);
                 // send result of shot (playerState) and guess for translation ---- ny metod
                 toEnemy=translate.translateToSend(player);
-                network.handleOutgoingCommunication(network.getSocket(),toEnemy);
+                network.handleCommunications(network.getSocket()); //send toEnemy??
                 toTextWindow="You shot at " + (toEnemy.substring(7,9)) + "..." + "/n";
                 System.out.println(toTextWindow);
                 // update textWindow------
             }
             while (gameOn){
 
-                fromEnemy = network.handleIncomingCommunication(network.getSocket());
-
+                fromEnemy = network.handleCommunications(network.getSocket());
+                translate.translateReceived(player,fromEnemy);
                 toTextWindow=translate.translateReceived(player,fromEnemy); //updates enemyMap, GameOn, enemyShipsDown,
                 System.out.println(toTextWindow);
                 //wait for communication from opponent  - Lynsey
-                network.handleIncomingCommunication(network.getSocket());
-                fromEnemy=network.getSendToEnemy();
+                fromEnemy=network.getToEnemy();
                 toTextWindow=translate.translateReceived(player,fromEnemy); //updates enemyMap, GameOn, enemyShipsDown,
                 // update textwindow                                        //  enemyLastX, enemyLastY
                 //update map/score
@@ -170,4 +189,6 @@ public class GameController {
     public void setPlayer(Player player) {
         player = player;
     }
-}
+
+    }
+

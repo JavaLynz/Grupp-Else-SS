@@ -22,7 +22,7 @@ public class ClientEstablishedAlert {
         closeButton.setOnAction(e -> {
             window.close();
             try {
-                GameFX.display();
+               // GameFX.display(Network.player);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
