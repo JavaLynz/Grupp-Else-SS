@@ -18,6 +18,7 @@ public class GameController {
     protected static boolean gameOn = true;
     private NetworkCommunications network;
     private GameFX gameFX;
+    private Player player;
 
     public GameController(GameFX gameFX, NetworkCommunications network) {
         this.gameFX = gameFX;
@@ -45,7 +46,7 @@ public class GameController {
         gameFX.display(player, this);
     }
 
-    public void gameLoop () throws IOException {
+
         ////GameLoop gemensamt av gruppen
     public void gameLoop (Player player, AnchorPane pMap, AnchorPane pScore, AnchorPane eMap, AnchorPane eScore) throws IOException {
         // Variabler i loopen
@@ -100,19 +101,19 @@ public class GameController {
                 player.setLastX(row);
                 player.setLastY(col);
                 System.out.println(toEnemy);
-                toEnemy=translate.translateToSend(player);
+                toEnemy=Translate.translateToSend(player);
                 network.handleCommunications(network.getSocket());//sendToEnemy??
-                getPlayer().setLastX(row);
-                getPlayer().setLastY(col);
+                player.setLastX(row);
+                player.setLastY(col);
                 // send result of shot (playerState) and guess for translation ---- ny metod
-                toEnemy=translate.translateToSend(player);
+                toEnemy=Translate.translateToSend(player);
                 network.handleCommunications(network.getSocket()); //send toEnemy??
                 toTextWindow="You shot at " + (toEnemy.substring(7,9)) + "..." + "/n";
                 System.out.println(toTextWindow);
             }
             while (gameOn){
 
-                fromEnemy = network.handleIncomingCommunication(network.getSocket());
+                fromEnemy = network.handleIncomingCommunication(network.getReader());
                 toTextWindow=Translate.translateReceived(player,fromEnemy); //updates enemyMap, GameOn, enemyShipsDown,
                 System.out.println(toTextWindow);
                 thread3.start();
@@ -231,14 +232,17 @@ public class GameController {
                 Platform.runLater(()->currentCircle.setFill(Color.GREEN));
             }
         }
+        }
 
-    public static Player getPlayer() {
+    public  Player getPlayer() {
         return player;
     }
 
     public void setPlayer(Player player) {
         player = player;
     }
-
     }
+
+
+
 
