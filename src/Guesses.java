@@ -78,10 +78,38 @@ public class Guesses {
         return row >= 0 && row < 10 && col >= 0 && col <10;
     }
 
-    //Metod för att återtställa gissningar vid nytt spel
+    //Metod för att återställa gissningar vid nytt spel
     public void resetGuessesPositions() {
         guessedPositions.clear();
         guessCloseby.clear();
     }
+
+    //Getters & Setters
+
+    public Random getRandom() {
+        return random;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
+    }
+
+    public Set<String> getGuessedPositions() {
+        return guessedPositions;
+    }
+
+    public void setGuessedPositions(Set<String> guessedPositions) {
+        this.guessedPositions = guessedPositions;
+    }
+
+    public Queue<int[]> getGuessCloseby() {
+        return guessCloseby;
+    }
+
+    public void setGuessCloseby(Queue<int[]> guessCloseby) {
+        this.guessCloseby = guessCloseby;
+    }
+
+
 
 }
