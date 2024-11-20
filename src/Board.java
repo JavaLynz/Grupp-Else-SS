@@ -3,16 +3,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-/*
-Skepsarraynyckel.
-    0:  Vatten
-    1-10: individuella båtar
-    11: hit
-    12: miss
-    13: cant be enemy ship
-
-*/
-
+// Klass av Niklas
 public class Board {
 
     private int[][] map;
