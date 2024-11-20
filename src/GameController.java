@@ -80,36 +80,29 @@ public class GameController {
                 network.handleOutgoingCommunication(network.getSocket(), toEnemy);
                 toTextWindow="You shot at " + (toEnemy.substring(7,9)) + "..." + "/n";
                 System.out.println(toTextWindow);
-                // update textWindow------
             }
             while (gameOn){
 
                 fromEnemy = network.handleIncomingCommunication(network.getSocket());
-
                 toTextWindow=Translate.translateReceived(player,fromEnemy); //updates enemyMap, GameOn, enemyShipsDown,
                 System.out.println(toTextWindow);
-                // update textwindow                                        //  enemyLastX, enemyLastY
-                //update map/score
-                // behövs nog metod för kolla motståndarens gissningen och uppdaterar player.setPlayerState
-                //take a guess and update:
+                thread3.start();
                 Random random = new Random();
                 int row = random.nextInt(10);       //// Placeholder till Jocelyn skrivit en metod.
                 int col = random.nextInt(10);
                 player.setLastX(row);
                 player.setLastY(col);
-                // send result of shot (playerState) and guess for translation
-                toEnemy=Translate.translateToSend(player); //updates
+                assessGuess(player);
+                toEnemy=Translate.translateToSend(player);
+                thread2.start();
                 System.out.println(toEnemy);
                 toTextWindow="You shot at " + (toEnemy.substring(7,9)) + "..." + "\n";
                 System.out.println(toTextWindow);
-                // update textwindow
-                //update gameFX
                 try {
                     Thread.sleep(player.getSpeedDelay()*1000);
                 } catch (InterruptedException e){
                     throw new RuntimeException(e);
                 }
-
                 // send string to server/client to sent to opponent
         }
 
@@ -144,7 +137,6 @@ public class GameController {
         if (result){
             Platform.exit();
         }
-
 
     }
 

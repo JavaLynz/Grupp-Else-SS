@@ -211,6 +211,7 @@ public class GameFX{
             }
         });
 
+
 /*
         ListView<String> listView = new ListView<>();                       //oklart var detta ska ligga.
         ObservableList<String> data = FXCollections.observableArrayList();
