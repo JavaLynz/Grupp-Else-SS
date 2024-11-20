@@ -116,7 +116,7 @@ public class GameController {
 
     }
 
-
+    // Niklas
     public void assessGuess(Player player) {
         Ship hitShip = player.getEnemyBoard().hit(player.getEnemyLastX(),player.getEnemyLastY());
 
@@ -135,6 +135,9 @@ public class GameController {
                 System.out.println("Sänkte skepp " + hitShip.getName() + "(Player.assessGuess)");
                 player.setEnemyShipsDown(player.getEnemyShipsDown()+1);
                 player.setPlayerState(55);
+                if(player.getPlayerBoard().checkNumberOfShipsLeft() == 0) {
+                    player.setPlayerState(99);
+                }
             }
         }
     }
