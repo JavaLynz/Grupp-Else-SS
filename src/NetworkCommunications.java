@@ -32,8 +32,11 @@ public class NetworkCommunications {
 
 
 
+
+
     public void startServer(int port) throws IOException {
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
+        try  {
+            ServerSocket serverSocket = new ServerSocket(port);
             System.out.println("Server starting... waiting for connection...");
             InetAddress ip = InetAddress.getLocalHost();
             ipAddress = ip.getHostAddress();
@@ -43,6 +46,7 @@ public class NetworkCommunications {
             Socket socket = serverSocket.accept();
             System.out.println("Connection established.");
             this.socket = socket;
+            socket.setKeepAlive(true);
 
 
 
@@ -52,6 +56,10 @@ public class NetworkCommunications {
                     System.out.println("display GameFX screen");
                     GameFX gameFX = new GameFX(BattleshipApp.getStage());
                     GameController controller = new GameController(gameFX, this);
+                    //Thread incomingThread = new Thread(new IncomingReader());
+                    //incomingThread.start();
+
+
                     handleCommunications(socket);
 
                 } catch (Exception e) {
@@ -77,14 +85,18 @@ public class NetworkCommunications {
         System.out.println(" IP address: " + host);
         System.out.println("port: " + cPort);
 
-        try (Socket socket = new Socket(host, cPort)) {
-
+        try  {
+            Socket socket = new Socket(host,cPort);
             System.out.println("Connected to server!");
             this.socket = socket;
+            socket.setKeepAlive(true);
 
+//Thread outgoingThread = new Thread(new OutgoingWriter());
+            //outgoingThread.start();
             System.out.println("display GameFX screen");
             GameFX gameFX = new GameFX(BattleshipApp.getStage());
             GameController controller = new GameController(gameFX, this);
+
             handleCommunications(socket);
 
         } catch (IOException e) {
@@ -93,6 +105,39 @@ public class NetworkCommunications {
 
 
     }
+
+    public class IncomingReader implements Runnable{
+        public void run(){
+            synchronized (NetworkCommunications.class) {
+                currentSocket = socket;
+                System.out.println(socket);
+            String fromEnemy;
+            try(BufferedReader reader = new BufferedReader(new InputStreamReader(currentSocket.getInputStream()))){
+                while((fromEnemy=reader.readLine()) != null){
+                    System.out.println("Enemy sent: " + fromEnemy);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }}
+
+
+    public class OutgoingWriter implements Runnable{
+
+        public void run(){
+            synchronized (NetworkCommunications.class) {
+                currentSocket = socket;
+
+            try(PrintWriter writer = new PrintWriter(currentSocket.getOutputStream(),true)){
+                String toEnemy = Translate.getSend();
+                writer.println(toEnemy);
+                System.out.println("sent to enemy: "+ toEnemy);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }}
 
 
     public void handleComms(Socket socket) throws IOException {
