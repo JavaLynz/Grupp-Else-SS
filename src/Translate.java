@@ -6,15 +6,9 @@ public class Translate {
     11: hit
     12: miss
     13: cant be enemy ship*/
-/*
-        String s1 = "i shot 5b"; // init
-        String s2 = "h shot 7c"; // hit + kordinat
-        String s3 = "m shot 6g"; // miss + kordinat
-        String s4 = "game over"; // game over
-        String s5 = "s shot 5b"; // insänkt + kordinat
-*/
 
-    public static String translateReceived(Player player, String received) {
+
+    public static String translateReceived(Player player, String received) {       ////Anna
         int cordAtoAssess = 0;
         int cordBtoAssess = 0;
         String toTextWindow = "";
@@ -73,7 +67,7 @@ public class Translate {
     }
 
 
-    public static String translateToSend(Player player) {
+    public static String translateToSend(Player player) {       /////Anna
 
         int cordNum = player.getLastX(); // borde kunna ta in direkt.
         int cordLetter = player.getLastY();

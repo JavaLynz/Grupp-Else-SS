@@ -16,7 +16,7 @@ import java.util.List;
 
 public class GameFX{
 
-    public static void display() throws Exception {
+    public static void display() throws Exception {             ////Anna
 
         Player player = new Player();
         String text = "Show latest moves";
@@ -43,38 +43,23 @@ public class GameFX{
         AnchorPane yourScore = new AnchorPane();
         List<Circle> playerScoreList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            if (i<player.getEnemyShipsDown()) {
             Circle circle = new Circle();
-            circle.setFill(Color.GREEN);
             circle.setRadius(8);
-            circle.setLayoutX((i*20));
+            circle.setLayoutX((i * 20));
             playerScoreList.add(circle);
-            } else {
-                Circle circle = new Circle();
-                circle.setFill(Color.BEIGE);
-                circle.setRadius(8);
-                circle.setLayoutX((i * 20));
-                playerScoreList.add(circle);
-            }
+            circle.setFill(Color.BEIGE);
         }
         yourScore.getChildren().addAll(playerScoreList);
+
 
         AnchorPane enemyScore = new AnchorPane();
         List<Circle> enemyScoreList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            if (i<player.getPlayerShipsDown()) {
-                Circle circle = new Circle();
-                circle.setFill(Color.DARKRED);
-                circle.setRadius(8);
-                circle.setLayoutX((i * 20));
-                enemyScoreList.add(circle);
-            } else {
-                Circle circle = new Circle();
-                circle.setFill(Color.BEIGE);
-                circle.setRadius(8);
-                circle.setLayoutX((i * 20));
-                enemyScoreList.add(circle);
-            }
+            Circle circle = new Circle();
+            circle.setRadius(8);
+            circle.setLayoutX((i * 20));
+            enemyScoreList.add(circle);
+            circle.setFill(Color.BEIGE);
         }
         enemyScore.getChildren().addAll(enemyScoreList);
 
@@ -163,68 +148,27 @@ public class GameFX{
         List<Rectangle> playerBoardList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                if (player.getPlayerBoard().getMap()[i][j]==0){                //Water
-                    Rectangle rectangle = new Rectangle();
-                    rectangle.setFill(new ImagePattern(water));
-                    rectangle.setWidth(15);
-                    rectangle.setHeight(15);
-                    rectangle.setLayoutX((j*20)+5);
-                    rectangle.setLayoutY((i*20)+5);
-                    playerBoardList.add(rectangle);
-                } else if (player.getPlayerBoard().getMap()[i][j]==12) {         //miss
-                    Rectangle rectangle = new Rectangle();
-                    rectangle.setFill(Color.LIGHTGRAY);
-                    rectangle.setWidth(15);
-                    rectangle.setHeight(15);
-                    rectangle.setLayoutX((j*20)+5);
-                    rectangle.setLayoutY((i*20)+5);
-                    playerBoardList.add(rectangle);
-                } else if (player.getPlayerBoard().getMap()[i][j]==11) {         //hit
-                    Rectangle rectangle = new Rectangle();
-                    rectangle.setFill(new ImagePattern(hit));
-                    rectangle.setWidth(15);
-                    rectangle.setHeight(15);
-                    rectangle.setLayoutX((j*20)+5);
-                    rectangle.setLayoutY((i*20)+5);
-                    playerBoardList.add(rectangle);
-                } else {                                               //Boat
-                    Rectangle rectangle = new Rectangle();
-                    rectangle.setFill(Color.DARKSLATEGREY);
-                    rectangle.setWidth(15);
-                    rectangle.setHeight(15);
-                    rectangle.setLayoutX((j*20)+5);
-                    rectangle.setLayoutY((i*20)+5);
-                    playerBoardList.add(rectangle);}
+                Rectangle rectangle = new Rectangle();                  //Water
+                rectangle.setFill(new ImagePattern(water));
+                rectangle.setWidth(15);
+                rectangle.setHeight(15);
+                rectangle.setLayoutX((j*20)+5);
+                rectangle.setLayoutY((i*20)+5);
+                playerBoardList.add(rectangle);
             }
+
         }
 
         List<Rectangle> enemyBoardList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                if (player.getEnemyBoard().getMap()[i][j]==12){                 //miss
-                    Rectangle rectangle = new Rectangle();
-                    rectangle.setFill(Color.LIGHTGRAY);
-                    rectangle.setWidth(15);
-                    rectangle.setHeight(15);
-                    rectangle.setLayoutX((j*20)+5);
-                    rectangle.setLayoutY((i*20)+5);
-                    enemyBoardList.add(rectangle);
-                } else if (player.getEnemyBoard().getMap()[i][j]==11) {         //hit
-                    Rectangle rectangle = new Rectangle();
-                    rectangle.setFill(new ImagePattern(hit));
-                    rectangle.setWidth(15);
-                    rectangle.setHeight(15);
-                    rectangle.setLayoutX((j*20)+5);
-                    rectangle.setLayoutY((i*20)+5);
-                    enemyBoardList.add(rectangle);
-                } else {                                               //Water
-                    Rectangle rectangle = new Rectangle();
-                    rectangle.setFill(new ImagePattern(water));
-                    rectangle.setWidth(15);
-                    rectangle.setHeight(15);
-                    rectangle.setLayoutX((j*20)+5);
-                    rectangle.setLayoutY((i*20)+5);
-                    enemyBoardList.add(rectangle);}
+                Rectangle rectangle = new Rectangle();                  //Water
+                rectangle.setFill(new ImagePattern(water));
+                rectangle.setWidth(15);
+                rectangle.setHeight(15);
+                rectangle.setLayoutX((j*20)+5);
+                rectangle.setLayoutY((i*20)+5);
+                enemyBoardList.add(rectangle);
             }
         }
 
@@ -262,14 +206,17 @@ public class GameFX{
         giveUp.setOnAction((e)-> System.exit(0));
         startGame.setOnAction((e)-> {
             try {
-               controller.gameLoop();
+                controller.gameLoop(player, playerBoard,yourScore,enemyBoard,enemyScore);
             } catch (Exception ex) {
-                throw new RuntimeException(ex);
             }
         });
 
-
-
+/*
+        ListView<String> listView = new ListView<>();                       //oklart var detta ska ligga.
+        ObservableList<String> data = FXCollections.observableArrayList();
+        listView.setItems(data);
+        data.add("String from translation");
+*/
 
 
         TextArea textArea = new TextArea(text);

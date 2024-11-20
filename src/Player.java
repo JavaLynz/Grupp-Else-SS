@@ -17,6 +17,7 @@ public class Player {
     private int playerState=77;
     private int enemyState=77;
     private int speedDelay=3;
+    private String toTextWindow="";
 
 
     //Om det inte är en client så är det en server
